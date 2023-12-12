@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 160, 63%, 92%;
+    --foreground: 160, 63%, 10%;
+
+    --card: 160, 63%, 92%;
+    --card-foreground: 160, 63%, 10%;
+
+    --popover: 160, 63%, 88%;
+    --popover-foreground: 160, 63%, 10%;
+
+    --primary: 160, 63%, 82%;
+    --primary-foreground: 160, 63%, 15%;
+
+    --secondary: 62, 85%, 92%;
+    --secondary-foreground: 160, 63%, 14%;
+
+    --muted: 160, 63%, 94%;
+    --muted-foreground: 240, 3.8%, 45%;
+
+    --accent: 160, 63%, 77%;
+    --accent-foreground: 160, 63%, 20%;
+
+    --destructive: 349, 100%, 44%;
+    --destructive-foreground: 0, 0%, 93%;
+
+    --border: 160, 63%, 89%;
+    --input: 160, 63%, 89%;
+    --ring: 160, 63%, 77%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 204, 47%, 22%;
+    --foreground: 0, 0%, 85%;
+
+    --card: 204, 47%, 22%;
+    --card-foreground: 0, 0%, 85%;
+
+    --popover: 204, 47%, 22%;
+    --popover-foreground: 0, 0%, 85%;
+
+    --primary: 204, 47%, 25%;
+    --primary-foreground: 204, 47%, 92%;
+
+    --secondary: 253, 28%, 14%;
+    --secondary-foreground: 0, 0%, 85%;
+
+    --muted: 204, 47%, 12%;
+    --muted-foreground: 240, 5%, 65%;
+
+    --accent: 204, 47%, 30%;
+    --accent-foreground: 0, 0%, 98%;
+
+    --destructive: 349, 100%, 41%;
+    --destructive-foreground: 0, 0%, 85%;
+
+    --border: 204, 47%, 35%;
+    --input: 204, 47%, 45%;
+    --ring: 204, 47%, 30%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+body {
+  scrollbar-width: thin; /* "auto" or "thin" */
+  scrollbar-color: rgba(0,0,0,0.15) rgba(0,0,0,0.0); /* scroll thumb and track */
+}
+.scrollbar {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  background: rgba(0,0,0,0.15);
+  margin: 0;
+}
+*::-webkit-scrollbar-button:vertical:decrement {
+  background: rgba(0,0,0,0.0);
+  height: 8px;
+}
+*::-webkit-scrollbar-button:vertical:increment {
+  background: rgba(0,0,0,0.0);
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  min-height: 32px;
+  background: #999999;
+  border-radius: 2px;
+  background-clip: content-box;
+}
