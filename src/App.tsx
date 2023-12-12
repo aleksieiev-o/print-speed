@@ -1,8 +1,11 @@
-import React, {FC, ReactElement} from 'react';
+import React, {FC, PropsWithChildren, ReactElement} from 'react';
+import AppWrapper from '@/components/AppWrapper';
 
-const App: FC = (): ReactElement => {
+const App: FC<PropsWithChildren> = ({children}): ReactElement => {
   return (
-    <div>App</div>
+    <AppWrapper>
+      {children}
+    </AppWrapper>
   );
 };
 
