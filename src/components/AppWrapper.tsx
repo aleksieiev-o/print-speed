@@ -11,7 +11,7 @@ const AppWrapper: FC<PropsWithChildren> = ({children}): ReactElement => {
 
         <section className={'w-full h-full overflow-hidden relative'}>
           {
-            false ?? <VictoryConfetti/> /* TODO add check victory status */
+            false && <VictoryConfetti/> /* TODO add check victory status */
           }
 
           <AppScrollContentWrapper>
