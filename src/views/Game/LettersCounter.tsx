@@ -14,17 +14,17 @@ const LettersCounter: FC<Props> = (props): ReactElement => {
         Letters and signs left:
       </span>
 
-      <span>
+      <strong>
         {remainingLettersQuantity}
-      </span>
+      </strong>
 
       <span>
         from
       </span>
 
-      <span>
+      <strong>
         {allLettersQuantity}
-      </span>
+      </strong>
     </div>
   );
 };

@@ -13,9 +13,9 @@ const VictoryCounter: FC<Props> = (props): ReactElement => {
         Victory:
       </span>
 
-      <span>
+      <strong>
         {victoryQuantity}
-      </span>
+      </strong>
     </div>
   );
 };
