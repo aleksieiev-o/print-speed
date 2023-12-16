@@ -1,4 +1,4 @@
-import React, {FC, PropsWithChildren, ReactElement} from 'react';
+import {FC, PropsWithChildren, ReactElement} from 'react';
 
 const AppScrollContentWrapper: FC<PropsWithChildren> = ({children}): ReactElement => {
   return (

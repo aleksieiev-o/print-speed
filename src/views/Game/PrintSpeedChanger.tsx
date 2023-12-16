@@ -1,5 +1,5 @@
-import React, {FC, ReactElement, useMemo, useState} from 'react';
-import {EPrintSpeedLevelsList} from '@/views/Game/types/PrintSpeedLevelsList.enum';
+import {FC, ReactElement, useMemo} from 'react';
+import {EPrintSpeedLevelsList} from '@/store/GameStore/types';
 import {
   Select,
   SelectContent,
@@ -9,10 +9,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {observer} from 'mobx-react-lite';
+import {useGameStore} from '@/store/hooks';
+import {action} from 'mobx';
 
 type TPrintSpeedLevelsList = Array<{ lpm: EPrintSpeedLevelsList, title: string }>;
 
-const PrintSpeedChanger: FC = (): ReactElement => {
+const PrintSpeedChanger: FC = observer((): ReactElement => {
+  const gameStore = useGameStore();
+
   const printSpeedLevelsList: TPrintSpeedLevelsList = useMemo(() => ([
     { lpm: EPrintSpeedLevelsList.VERY_SLOW, title: 'Very slow' },
     { lpm: EPrintSpeedLevelsList.SLOW, title: 'Slow' },
@@ -22,26 +27,34 @@ const PrintSpeedChanger: FC = (): ReactElement => {
     { lpm: EPrintSpeedLevelsList.LIGHTNING, title: 'Lightning' },
   ]), []);
 
-  const defaultLPM: EPrintSpeedLevelsList = useMemo(() => {
-    return printSpeedLevelsList.find((item) => item.lpm === EPrintSpeedLevelsList.AVERAGE).lpm;
+  const defaultSpeedLevelLPM: EPrintSpeedLevelsList = useMemo(() => {
+    const speedLevel = printSpeedLevelsList.find((item) => item.lpm === EPrintSpeedLevelsList.AVERAGE)!;
+    return speedLevel.lpm;
   }, [printSpeedLevelsList]);
 
-  const [LPM, setLPM] = useState<EPrintSpeedLevelsList>(defaultLPM);
+  const currentSpeedLevelTitle = useMemo(() => {
+    const speedLevel = printSpeedLevelsList.find((item) => item.lpm === gameStore.printSpeedLevel)!;
+    return speedLevel.title;
+  }, [gameStore.printSpeedLevel, printSpeedLevelsList]);
+
+  const changeLPM = (lpm: EPrintSpeedLevelsList): void => {
+    gameStore.gameStoreService.changePrintSpeedLevel(lpm);
+  };
 
   return (
     <div>
       <p className={'mb-2'}>
-        Current print speed: <strong>{LPM}</strong> letters per minute
+        Current print speed: <strong>{gameStore.printSpeedLevel}</strong> letters per minute ({currentSpeedLevelTitle})
       </p>
 
       <Select
-        onValueChange={(value) => setLPM(value as EPrintSpeedLevelsList)}
-        defaultValue={EPrintSpeedLevelsList.AVERAGE.toString()}>
+        onValueChange={action('changePrintSpeedLevel', (value) => changeLPM(value as EPrintSpeedLevelsList))}
+        defaultValue={EPrintSpeedLevelsList.AVERAGE}>
         <SelectTrigger>
           <SelectValue placeholder={'Print speed'}/>
         </SelectTrigger>
 
-        <SelectContent defaultValue={defaultLPM}>
+        <SelectContent defaultValue={defaultSpeedLevelLPM}>
           <SelectGroup>
             <SelectLabel>
               Print speed
@@ -59,6 +72,6 @@ const PrintSpeedChanger: FC = (): ReactElement => {
       </Select>
     </div>
   );
-};
+});
 
 export default PrintSpeedChanger;

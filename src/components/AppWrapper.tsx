@@ -1,4 +1,4 @@
-import React, {FC, PropsWithChildren, ReactElement} from 'react';
+import {FC, PropsWithChildren, ReactElement} from 'react';
 import AppHeader from '@/components/AppHeader';
 import AppScrollContentWrapper from '@/components/AppScrollContentWrapper';
 import VictoryConfetti from '@/components/VictoryConfetti';

@@ -1,10 +1,10 @@
-import React, {FC, ReactElement, useMemo} from 'react';
+import {FC, ReactElement} from 'react';
 import {CardDescription} from '@/components/ui/card';
+import {observer} from 'mobx-react-lite';
+import {useGameStore} from '@/store/hooks';
 
-const Timer: FC = (): ReactElement => {
-  const calculatePrintTime = () => (500 / 50) * 60; // TODO add text.length instead of 500; add lpm to store and to funk instead of 50
-
-  const timer = useMemo(() => calculatePrintTime(), []);
+const Timer: FC = observer((): ReactElement => {
+  const gameStore = useGameStore();
 
   return (
     <CardDescription className={'flex gap-2 text-md text-foreground'}>
@@ -13,10 +13,10 @@ const Timer: FC = (): ReactElement => {
       </span>
 
       <span>
-        {timer} sec.
+        {gameStore.timer} sec.
       </span>
     </CardDescription>
   );
-};
+});
 
 export default Timer;

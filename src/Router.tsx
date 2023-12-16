@@ -1,4 +1,3 @@
-import React from 'react';
 import {createBrowserRouter, Navigate} from 'react-router-dom';
 import Start from '@/views/Start';
 import Game from '@/views/Game';

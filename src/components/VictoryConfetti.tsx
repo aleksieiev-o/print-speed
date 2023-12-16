@@ -1,4 +1,4 @@
-import React, {FC, ReactElement} from 'react';
+import {FC, ReactElement} from 'react';
 import Confetti from 'react-confetti';
 import {useWindowSize} from 'react-use';
 

@@ -1,4 +1,4 @@
-import React, {FC, ReactElement} from 'react';
+import {FC, ReactElement} from 'react';
 import AppWrapper from '@/components/AppWrapper';
 import {Card, CardContent, CardFooter, CardHeader, CardTitle} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
