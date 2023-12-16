@@ -16,11 +16,18 @@ export enum EPrintSpeedLevelsList {
   LIGHTNING = '550',
 }
 
+export interface IText {
+  language: string;
+  author: string;
+  body: string;
+}
+
 export interface IGameStore {
   rootStore: RootStore;
   gameStoreService: GameStoreService;
   timer: number;
-  text: string;
+  text: IText;
+  textsList: Array<IText>;
   remainedLettersCounter: number;
   victoryCounter: number;
   printSpeedLevel: string;

@@ -1,7 +1,7 @@
-import {EGameActiveStatus, EPrintSpeedLevelsList, IGameStore} from '@/store/GameStore/types';
+import {EGameActiveStatus, EPrintSpeedLevelsList, IGameStore, IText} from '@/store/GameStore/types';
 import {RootStore} from '@/store';
 import {GameStoreService} from '@/store/GameStore/service';
-import {makeAutoObservable} from 'mobx';
+import {makeAutoObservable, runInAction} from 'mobx';
 
 export class GameStore implements IGameStore {
   rootStore: RootStore;
@@ -11,7 +11,8 @@ export class GameStore implements IGameStore {
   gameActiveStatus: EGameActiveStatus;
   printSpeedLevel: string;
   remainedLettersCounter: number;
-  text: string;
+  text: IText;
+  textsList: Array<IText>;
   timer: number;
   victoryCounter: number;
 
@@ -22,13 +23,63 @@ export class GameStore implements IGameStore {
     this.gameActiveStatus = EGameActiveStatus.STOPPED;
     this.printSpeedLevel = EPrintSpeedLevelsList.AVERAGE;
     this.remainedLettersCounter = 0;
-    this.text = '';
+    this.text = {language: '', author: '', body: ''};
+    this.textsList = [];
     this.timer = 0;
     this.victoryCounter = 0;
 
-    this.gameStoreService.changeText('The goal of the game is to type letters and symbols, except spaces, as quickly as possible before the time runs out');
-    this.gameStoreService.setTimer();
+    this.fetchTextsList()
+      .then(() => {
+        this.changeText();
+        this.setTimer();
+      });
 
     makeAutoObservable(this, {}, {autoBind: true});
+  }
+  
+  async fetchTextsList(): Promise<void> {
+    const data = await this.gameStoreService.fetchTextsList();
+
+    runInAction(() => {
+      this.textsList = data;
+    });
+  }
+
+  changeGameActiveStatus(status: EGameActiveStatus): void {
+    this.gameActiveStatus = status;
+  }
+
+  changePrintSpeedLevel(printSpeedLevel: EPrintSpeedLevelsList): void {
+    this.changeGameActiveStatus(EGameActiveStatus.STOPPED);
+    this.printSpeedLevel = printSpeedLevel;
+    this.setTimer();
+  }
+
+  changeText(): void {
+    this.changeGameActiveStatus(EGameActiveStatus.STOPPED);
+    this.text = this.getRandomText();
+    this.setTimer();
+  }
+
+  setTimer(): void {
+    const time = this.text.body.length / parseInt(this.printSpeedLevel, 10) * 60;
+    this.timer = Math.round(time);
+  }
+
+  private getRandomText(): IText {
+    const randomNumber = Math.round(Math.random() * (this.textsList.length - 1));
+    return this.textsList.find((item, idx) => idx === randomNumber);
+  }
+
+  private changeRemainedLettersCounter(): void {
+    this.remainedLettersCounter -= 1;
+  }
+
+  private changeVictoryCount(): void {
+    this.victoryCounter += 1;
+  }
+
+  private resetVictoryCount(): void {
+    this.victoryCounter = 0;
   }
 }

@@ -16,10 +16,6 @@ import {action} from 'mobx';
 const Game: FC = observer((): ReactElement => {
   const gameStore = useGameStore();
 
-  const setAnotherText = (): void => {
-    gameStore.gameStoreService.changeText('111 The goal of the game is to type letters and symbols');
-  };
-
   return (
     <AppWrapper>
       <div className={'w-full h-full grid grid-cols-1 justify-items-center content-center py-4 md:py-8'}>
@@ -35,14 +31,18 @@ const Game: FC = observer((): ReactElement => {
           <CardContent className={'h-full grid grid-cols-1 gap-4 justify-center mb-4 overflow-y-hidden'}>
             <div className={'overflow-y-auto'}>
               <p className={'text-2xl'}>
-                {gameStore.text}
+                {gameStore.text.body}
+              </p>
+
+              <p className={'text-md italic'}>
+                By {gameStore.text.author}
               </p>
             </div>
 
             <Separator/>
 
             <div className={'w-full flex flex-col md:flex-row gap-4 items-start md:items-center justify-between'}>
-              <LettersCounter remainingLettersQuantity={10} allLettersQuantity={gameStore.text.length}/>
+              <LettersCounter remainingLettersQuantity={10} allLettersQuantity={gameStore.text.body.length}/>
 
               {
                 gameStore.victoryCounter > 0 && <VictoryCounter victoryQuantity={gameStore.victoryCounter}/>
@@ -53,7 +53,7 @@ const Game: FC = observer((): ReactElement => {
           <CardFooter className={'grid grid-cols-1 md:grid-cols-3 gap-4 items-end'}>
             <PrintSpeedChanger/>
 
-            <Button onClick={action('changeText', () => setAnotherText())} variant={'default'} title={'Set another text'}>
+            <Button onClick={action('changeText', () => gameStore.changeText())} variant={'default'} title={'Set another text'}>
               <RefreshCw className={'w-4 h-4 mr-2'}/>
               Set another text
             </Button>
