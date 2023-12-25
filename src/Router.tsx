@@ -1,18 +1,18 @@
 import {createBrowserRouter, Navigate} from 'react-router-dom';
-import Start from '@/views/Start';
+import Home from '@/views/Home';
 import Game from '@/views/Game';
 
 export enum EnumRouter {
-  START = '/',
+  HOME = '/',
   GAME = '/game',
   // SIGN_IN = '/sign-in', // TODO add authorization page
   // SIGN_UP = '/sign-up', // TODO add authorization page
 }
 
 export const router = createBrowserRouter([
-  { path: EnumRouter.START, element: <Start/> },
+  { path: EnumRouter.HOME, element: <Home/> },
   { path: EnumRouter.GAME, element: <Game/> },
   // { path: EnumRouter.SIGN_IN, element: <Authorization/> },
   // { path: EnumRouter.SIGN_UP, element: <Authorization/> },
-  { path: '*', element: <Navigate to={EnumRouter.START} replace={true}/> },
+  { path: '*', element: <Navigate to={EnumRouter.HOME} replace={true}/> },
 ]);

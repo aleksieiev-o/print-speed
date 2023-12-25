@@ -4,9 +4,8 @@ import {Card, CardContent, CardFooter, CardHeader, CardTitle} from '@/components
 import {Button} from '@/components/ui/button';
 import {useNavigate} from 'react-router-dom';
 import {EnumRouter} from '@/Router';
-import {Play} from 'lucide-react';
 
-const Start: FC = (): ReactElement => {
+const Home: FC = (): ReactElement => {
   const navigate = useNavigate();
 
   return (
@@ -26,10 +25,8 @@ const Start: FC = (): ReactElement => {
           </CardContent>
 
           <CardFooter className={'justify-center'}>
-            <Button onClick={() => navigate(EnumRouter.GAME)} variant={'default'} title={'Start the game'}>
-              <Play className={'w-4 h-4 mr-2'}/>
-
-              Start the game
+            <Button onClick={() => navigate(EnumRouter.GAME)} variant={'default'} title={'Go to the game'}>
+              Go to the game
             </Button>
           </CardFooter>
         </Card>
@@ -38,4 +35,4 @@ const Start: FC = (): ReactElement => {
   );
 };
 
-export default Start;
+export default Home;
