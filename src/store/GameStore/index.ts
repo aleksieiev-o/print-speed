@@ -68,7 +68,14 @@ export class GameStore implements IGameStore {
 
   private getRandomText(): IText {
     const randomNumber = Math.round(Math.random() * (this.textsList.length - 1));
-    return this.textsList.find((item, idx) => idx === randomNumber);
+    const findText = () => this.textsList.find((item, idx) => idx === randomNumber);
+    let foundedText = findText();
+
+    if (this.text.body === foundedText.body) {
+      foundedText = findText();
+    }
+
+    return foundedText;
   }
 
   private changeRemainedLettersCounter(): void {

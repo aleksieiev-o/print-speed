@@ -5,6 +5,7 @@ export enum EGameActiveStatus {
   STOPPED = 'stopped',
   ACTIVE = 'active',
   PAUSED = 'paused',
+  RESUMED = 'resumed',
 }
 
 export enum EPrintSpeedLevelsList {

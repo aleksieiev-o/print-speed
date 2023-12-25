@@ -14,23 +14,31 @@ const ChangeGameStatusButton: FC = observer((): ReactElement => {
       [EGameActiveStatus.STOPPED]: {
         title: 'Run the game',
         icon: <Play className={'w-4 h-4 mr-2'}/>,
-        handle: action('changeGameActiveStatus', () => gameStore.changeGameActiveStatus(EGameActiveStatus.ACTIVE)),
+        newStatus: EGameActiveStatus.ACTIVE,
       },
       [EGameActiveStatus.ACTIVE]: {
         title: 'Pause the game',
         icon: <Pause className={'w-4 h-4 mr-2'}/>,
-        handle: action('changeGameActiveStatus', () => gameStore.changeGameActiveStatus(EGameActiveStatus.PAUSED)),
+        newStatus: EGameActiveStatus.PAUSED,
       },
       [EGameActiveStatus.PAUSED]: {
         title: 'Resume the game',
         icon: <Play className={'w-4 h-4 mr-2'}/>,
-        handle: action('changeGameActiveStatus', () => gameStore.changeGameActiveStatus(EGameActiveStatus.ACTIVE)),
-      }
+        newStatus: EGameActiveStatus.RESUMED,
+      },
+      [EGameActiveStatus.RESUMED]: {
+        title: 'Pause the game',
+        icon: <Pause className={'w-4 h-4 mr-2'}/>,
+        newStatus: EGameActiveStatus.PAUSED,
+      },
     }[gameStore.gameActiveStatus];
-  }, [gameStore]); // TODO check necessary of gameStore dependency
+  }, [gameStore.gameActiveStatus]);
 
   return (
-    <Button onClick={buttonBody.handle} variant={'default'} title={buttonBody.title}>
+    <Button
+      onClick={() => action('changeGameActiveStatus', () => gameStore.changeGameActiveStatus(buttonBody.newStatus))}
+      variant={'default'}
+      title={buttonBody.title}>
       {buttonBody.icon}
       {buttonBody.title}
     </Button>

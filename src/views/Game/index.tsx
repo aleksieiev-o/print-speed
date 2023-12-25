@@ -12,6 +12,7 @@ import {observer} from 'mobx-react-lite';
 import {useGameStore} from '@/store/hooks';
 import ChangeGameStatusButton from '@/views/Game/ChangeGameStatus.button';
 import {action} from 'mobx';
+import CurrentText from '@/views/Game/CurrentText';
 
 const Game: FC = observer((): ReactElement => {
   const gameStore = useGameStore();
@@ -29,15 +30,7 @@ const Game: FC = observer((): ReactElement => {
           </CardHeader>
 
           <CardContent className={'h-full grid grid-cols-1 gap-4 justify-center mb-4 overflow-y-hidden'}>
-            <div className={'overflow-y-auto'}>
-              <p className={'text-2xl'}>
-                {gameStore.text.body}
-              </p>
-
-              <p className={'text-md italic'}>
-                By {gameStore.text.author}
-              </p>
-            </div>
+            <CurrentText/>
 
             <Separator/>
 
