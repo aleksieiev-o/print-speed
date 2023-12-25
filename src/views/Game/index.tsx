@@ -11,7 +11,6 @@ import PrintSpeedChanger from '@/views/Game/PrintSpeedChanger';
 import {observer} from 'mobx-react-lite';
 import {useGameStore} from '@/store/hooks';
 import ChangeGameStatusButton from '@/views/Game/ChangeGameStatus.button';
-import {action} from 'mobx';
 import CurrentText from '@/views/Game/CurrentText';
 
 const Game: FC = observer((): ReactElement => {
@@ -46,7 +45,7 @@ const Game: FC = observer((): ReactElement => {
           <CardFooter className={'grid grid-cols-1 md:grid-cols-3 gap-4 items-end'}>
             <PrintSpeedChanger/>
 
-            <Button onClick={action('changeText', () => gameStore.changeText())} variant={'default'} title={'Set another text'}>
+            <Button onClick={() => gameStore.changeText()} variant={'default'} title={'Set another text'}>
               <RefreshCw className={'w-4 h-4 mr-2'}/>
               Set another text
             </Button>

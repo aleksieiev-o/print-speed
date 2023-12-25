@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/select';
 import {observer} from 'mobx-react-lite';
 import {useGameStore} from '@/store/hooks';
-import {action} from 'mobx';
 
 type TPrintSpeedLevelsList = Array<{ lpm: EPrintSpeedLevelsList, title: string }>;
 
@@ -48,7 +47,7 @@ const PrintSpeedChanger: FC = observer((): ReactElement => {
       </p>
 
       <Select
-        onValueChange={action('changePrintSpeedLevel', (value) => changeLPM(value as EPrintSpeedLevelsList))}
+        onValueChange={(value) => changeLPM(value as EPrintSpeedLevelsList)}
         defaultValue={EPrintSpeedLevelsList.AVERAGE}>
         <SelectTrigger>
           <SelectValue placeholder={'Print speed'}/>

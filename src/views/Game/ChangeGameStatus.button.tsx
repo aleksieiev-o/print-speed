@@ -4,7 +4,6 @@ import {EGameActiveStatus} from '@/store/GameStore/types';
 import {Pause, Play} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {useGameStore} from '@/store/hooks';
-import {action} from 'mobx';
 
 const ChangeGameStatusButton: FC = observer((): ReactElement => {
   const gameStore = useGameStore();
@@ -36,7 +35,7 @@ const ChangeGameStatusButton: FC = observer((): ReactElement => {
 
   return (
     <Button
-      onClick={() => action('changeGameActiveStatus', () => gameStore.changeGameActiveStatus(buttonBody.newStatus))}
+      onClick={() => gameStore.changeGameActiveStatus(buttonBody.newStatus)}
       variant={'default'}
       title={buttonBody.title}>
       {buttonBody.icon}
