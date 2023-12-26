@@ -17,6 +17,12 @@ const CurrentText: FC = observer((): ReactElement => {
     setCurrentText(gameStore.text.body);
   }, [gameStore.text.body]);
 
+  useEffect(() => {
+    if (gameStore.gameActiveStatus === EGameActiveStatus.STOPPED) {
+      setCurrentText(gameStore.text.body);
+    }
+  }, [gameStore.gameActiveStatus, gameStore.text.body]);
+
   const isTextAlreadyWritten: boolean = useMemo(() => {
     if (currentText.length > 0) {
       for (const char of currentText) {

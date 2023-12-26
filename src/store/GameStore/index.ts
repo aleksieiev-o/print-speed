@@ -13,7 +13,7 @@ export class GameStore implements IGameStore {
   remainedLettersCounter: number;
   text: IText;
   textsList: Array<IText>;
-  timer: number;
+  textPrintTime: number;
   victoryCounter: number;
 
   constructor(rootStore: RootStore) {
@@ -25,7 +25,7 @@ export class GameStore implements IGameStore {
     this.remainedLettersCounter = 0;
     this.text = {language: '', author: '', body: ''};
     this.textsList = [];
-    this.timer = 0;
+    this.textPrintTime = 0;
     this.victoryCounter = 0;
 
     this.fetchTextsList()
@@ -63,7 +63,7 @@ export class GameStore implements IGameStore {
 
   setTimer(): void {
     const time = this.text.body.length / parseInt(this.printSpeedLevel, 10) * 60;
-    this.timer = Math.round(time);
+    this.textPrintTime = Math.round(time);
   }
 
   private getRandomText(): IText {

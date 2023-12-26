@@ -26,7 +26,7 @@ export interface IText {
 export interface IGameStore {
   rootStore: RootStore;
   gameStoreService: GameStoreService;
-  timer: number;
+  textPrintTime: number;
   text: IText;
   textsList: Array<IText>;
   remainedLettersCounter: number;
