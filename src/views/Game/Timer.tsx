@@ -11,7 +11,7 @@ const Timer: FC = observer((): ReactElement => {
 
   useEffect(() => {
     setTime(gameStore.textPrintTime);
-  }, [gameStore.textPrintTime]);
+  }, [gameStore.text.body, gameStore.textPrintTime]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -30,8 +30,9 @@ const Timer: FC = observer((): ReactElement => {
   useEffect(() => {
     if (time === 0 && (gameStore.gameActiveStatus === EGameActiveStatus.ACTIVE || gameStore.gameActiveStatus === EGameActiveStatus.RESUMED)) {
       gameStore.changeGameActiveStatus(EGameActiveStatus.STOPPED);
+      setTime(gameStore.textPrintTime);
     }
-  }, [gameStore, time]);
+  }, [gameStore.text.body, gameStore.textPrintTime, gameStore, time]);
 
   useEffect(() => {
     switch (gameStore.gameActiveStatus) {
