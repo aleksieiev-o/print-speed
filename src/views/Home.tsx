@@ -4,9 +4,11 @@ import {Card, CardContent, CardFooter, CardHeader, CardTitle} from '@/components
 import {Button} from '@/components/ui/button';
 import {useNavigate} from 'react-router-dom';
 import {EnumRouter} from '@/Router';
+import {useDesktopDevice} from '@/hooks/useDesktopDevice';
 
 const Home: FC = (): ReactElement => {
   const navigate = useNavigate();
+  const {IsNotDesktop} = useDesktopDevice();
 
   return (
     <AppWrapper>
@@ -20,14 +22,21 @@ const Home: FC = (): ReactElement => {
 
           <CardContent className={'justify-center'}>
             <p className={'text-center'}>
-              The goal of the game is to type letters and symbols, except spaces, as quickly as possible before the time runs out
+              The goal of the game is to type letters and symbols, as quickly as possible before the time runs out
             </p>
           </CardContent>
 
           <CardFooter className={'justify-center'}>
-            <Button onClick={() => navigate(EnumRouter.GAME)} variant={'default'} title={'Go to the game'}>
-              Go to the game
-            </Button>
+            {
+              IsNotDesktop ?
+                <p className={'text-center font-bold text-red-500'}>
+                  You can use this application only on a personal computer
+                </p>
+                :
+                <Button onClick={() => navigate(EnumRouter.GAME)} variant={'default'} title={'Go to the game'}>
+                  Go to the game
+                </Button>
+            }
           </CardFooter>
         </Card>
       </div>

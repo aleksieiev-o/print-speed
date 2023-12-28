@@ -1,4 +1,4 @@
-import {FC, ReactElement} from 'react';
+import {FC, ReactElement, useEffect} from 'react';
 import AppWrapper from '@/components/AppWrapper';
 import {Card, CardContent, CardFooter, CardHeader, CardTitle} from '@/components/ui/card';
 import LettersCounter from '@/views/Game/LettersCounter';
@@ -11,9 +11,20 @@ import {useGameStore} from '@/store/hooks';
 import ChangeGameStatusButton from '@/views/Game/ChangeGameStatus.button';
 import CurrentText from '@/views/Game/CurrentText';
 import ChangeTextButton from '@/views/Game/ChangeText.button';
+import {useNavigate} from 'react-router-dom';
+import {EnumRouter} from '@/Router';
+import {useDesktopDevice} from '@/hooks/useDesktopDevice';
 
 const Game: FC = observer((): ReactElement => {
   const gameStore = useGameStore();
+  const {IsNotDesktop} = useDesktopDevice();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (IsNotDesktop) {
+      navigate(EnumRouter.HOME, {replace: true});
+    }
+  }, [IsNotDesktop, navigate]);
 
   return (
     <AppWrapper>
