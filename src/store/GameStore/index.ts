@@ -10,7 +10,6 @@ export class GameStore implements IGameStore {
 
   gameActiveStatus: EGameActiveStatus;
   printSpeedLevel: string;
-  remainedLettersCounter: number;
   text: IText;
   textsList: Array<IText>;
   textPrintTime: number;
@@ -22,7 +21,6 @@ export class GameStore implements IGameStore {
 
     this.gameActiveStatus = EGameActiveStatus.STOPPED;
     this.printSpeedLevel = EPrintSpeedLevelsList.AVERAGE;
-    this.remainedLettersCounter = 0;
     this.text = {language: '', author: '', body: ''};
     this.textsList = [];
     this.textPrintTime = 0;
@@ -76,10 +74,6 @@ export class GameStore implements IGameStore {
     }
 
     return foundedText;
-  }
-
-  private changeRemainedLettersCounter(): void {
-    this.remainedLettersCounter -= 1;
   }
 
   private changeVictoryCount(): void {
