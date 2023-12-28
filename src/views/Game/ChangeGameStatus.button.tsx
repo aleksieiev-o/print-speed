@@ -4,9 +4,16 @@ import {EGameActiveStatus} from '@/store/GameStore/types';
 import {Pause, Play} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {useGameStore} from '@/store/hooks';
+import {useElementFocus} from '@/hooks/useElementFocus';
 
 const ChangeGameStatusButton: FC = observer((): ReactElement => {
   const gameStore = useGameStore();
+  const {elementRef, removeFocus} = useElementFocus<HTMLButtonElement>();
+
+  const handleChangeGameActiveStatus = (newStatus: EGameActiveStatus) => {
+    gameStore.changeGameActiveStatus(newStatus);
+    removeFocus();
+  };
 
   const buttonBody = useMemo(() => {
     return {
@@ -35,7 +42,8 @@ const ChangeGameStatusButton: FC = observer((): ReactElement => {
 
   return (
     <Button
-      onClick={() => gameStore.changeGameActiveStatus(buttonBody.newStatus)}
+      onClick={() => handleChangeGameActiveStatus(buttonBody.newStatus)}
+      ref={elementRef}
       variant={'default'}
       title={buttonBody.title}>
       {buttonBody.icon}
