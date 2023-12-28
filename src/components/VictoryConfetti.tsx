@@ -9,8 +9,7 @@ const VictoryConfetti: FC = (): ReactElement => {
     <Confetti
       width={width}
       height={height}
-      gravity={0.1}
-    />
+      gravity={0.1}/>
   );
 };
 

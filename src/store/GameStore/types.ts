@@ -8,6 +8,12 @@ export enum EGameActiveStatus {
   RESUMED = 'resumed',
 }
 
+export enum EFinishGameStatus {
+  UNKNOWN = 'unknown',
+  SUCCESS = 'success',
+  FAILURE = 'failure',
+}
+
 export enum EPrintSpeedLevelsList {
   VERY_SLOW = '50',
   SLOW = '150',
@@ -32,4 +38,5 @@ export interface IGameStore {
   victoryCounter: number;
   printSpeedLevel: string;
   gameActiveStatus: EGameActiveStatus;
+  gameFinishStatus: EFinishGameStatus;
 }

@@ -2,7 +2,7 @@ import {FC, ReactElement, useEffect, useState} from 'react';
 import {CardDescription} from '@/components/ui/card';
 import {observer} from 'mobx-react-lite';
 import {useGameStore} from '@/store/hooks';
-import {EGameActiveStatus} from '@/store/GameStore/types';
+import {EFinishGameStatus, EGameActiveStatus} from '@/store/GameStore/types';
 
 const Timer: FC = observer((): ReactElement => {
   const gameStore = useGameStore();
@@ -30,6 +30,7 @@ const Timer: FC = observer((): ReactElement => {
   useEffect(() => {
     if (time === 0 && (gameStore.gameActiveStatus === EGameActiveStatus.ACTIVE || gameStore.gameActiveStatus === EGameActiveStatus.RESUMED)) {
       gameStore.changeGameActiveStatus(EGameActiveStatus.STOPPED);
+      gameStore.changeGameFinishStatus(EFinishGameStatus.FAILURE);
       setTime(gameStore.textPrintTime);
     }
   }, [gameStore.text.body, gameStore.textPrintTime, gameStore, time]);

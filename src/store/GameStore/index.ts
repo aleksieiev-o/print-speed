@@ -1,4 +1,4 @@
-import {EGameActiveStatus, EPrintSpeedLevelsList, IGameStore, IText} from '@/store/GameStore/types';
+import {EFinishGameStatus, EGameActiveStatus, EPrintSpeedLevelsList, IGameStore, IText} from '@/store/GameStore/types';
 import {RootStore} from '@/store';
 import {GameStoreService} from '@/store/GameStore/service';
 import {makeAutoObservable, runInAction} from 'mobx';
@@ -9,6 +9,7 @@ export class GameStore implements IGameStore {
   gameStoreService: GameStoreService;
 
   gameActiveStatus: EGameActiveStatus;
+  gameFinishStatus: EFinishGameStatus;
   printSpeedLevel: string;
   text: IText;
   textsList: Array<IText>;
@@ -20,6 +21,7 @@ export class GameStore implements IGameStore {
     this.gameStoreService = new GameStoreService(this);
 
     this.gameActiveStatus = EGameActiveStatus.STOPPED;
+    this.gameFinishStatus = EFinishGameStatus.UNKNOWN;
     this.printSpeedLevel = EPrintSpeedLevelsList.AVERAGE;
     this.text = {language: '', author: '', body: ''};
     this.textsList = [];
@@ -45,16 +47,26 @@ export class GameStore implements IGameStore {
 
   changeGameActiveStatus(status: EGameActiveStatus): void {
     this.gameActiveStatus = status;
+
+    if (this.gameActiveStatus === EGameActiveStatus.ACTIVE) {
+      this.changeGameFinishStatus(EFinishGameStatus.UNKNOWN);
+    }
+  }
+
+  changeGameFinishStatus(status: EFinishGameStatus): void {
+    this.gameFinishStatus = status;
   }
 
   changePrintSpeedLevel(printSpeedLevel: EPrintSpeedLevelsList): void {
     this.changeGameActiveStatus(EGameActiveStatus.STOPPED);
+    this.changeGameFinishStatus(EFinishGameStatus.UNKNOWN);
     this.printSpeedLevel = printSpeedLevel;
     this.setTimer();
   }
 
   changeText(): void {
     this.changeGameActiveStatus(EGameActiveStatus.STOPPED);
+    this.changeGameFinishStatus(EFinishGameStatus.UNKNOWN);
     this.text = this.getRandomText();
     this.setTimer();
   }
@@ -62,6 +74,14 @@ export class GameStore implements IGameStore {
   setTimer(): void {
     const time = this.text.body.length / parseInt(this.printSpeedLevel, 10) * 60;
     this.textPrintTime = Math.round(time);
+  }
+
+  increaseVictoryCount(): void {
+    this.victoryCounter++;
+  }
+
+  resetVictoryCount(): void {
+    this.victoryCounter = 0;
   }
 
   private getRandomText(): IText {
@@ -74,13 +94,5 @@ export class GameStore implements IGameStore {
     }
 
     return foundedText;
-  }
-
-  private changeVictoryCount(): void {
-    this.victoryCounter += 1;
-  }
-
-  private resetVictoryCount(): void {
-    this.victoryCounter = 0;
   }
 }

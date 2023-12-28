@@ -34,7 +34,7 @@ const LettersCounterProvider: FC<Props> = observer((props): ReactElement => {
 
   return (
     <LettersCounterContext.Provider {...props} value={value}>
-      {children}`
+      {children}
     </LettersCounterContext.Provider>
   );
 });

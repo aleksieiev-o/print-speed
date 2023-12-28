@@ -1,6 +1,6 @@
 import {FC, ReactElement, useCallback, useEffect, useMemo, useState} from 'react';
 import {useGameStore} from '@/store/hooks';
-import {EGameActiveStatus} from '@/store/GameStore/types';
+import {EFinishGameStatus, EGameActiveStatus} from '@/store/GameStore/types';
 import {observer} from 'mobx-react-lite';
 import {useRemainedLetters} from '@/hooks/useRemainedLetters';
 
@@ -44,6 +44,8 @@ const CurrentText: FC = observer((): ReactElement => {
   useEffect(() => {
     if (isTextAlreadyWritten) {
       gameStore.changeGameActiveStatus(EGameActiveStatus.STOPPED);
+      gameStore.changeGameFinishStatus(EFinishGameStatus.SUCCESS);
+      gameStore.increaseVictoryCount();
     }
   }, [isTextAlreadyWritten, gameStore]);
 
@@ -65,7 +67,7 @@ const CurrentText: FC = observer((): ReactElement => {
 
   return (
     <div className={'overflow-y-auto'}>
-      <p className={'text-2xl'}>
+      <p className={'text-3xl'}>
         {currentText}
       </p>
 

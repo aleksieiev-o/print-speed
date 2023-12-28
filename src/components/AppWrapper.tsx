@@ -1,7 +1,6 @@
 import {FC, PropsWithChildren, ReactElement} from 'react';
 import AppHeader from '@/components/AppHeader';
 import AppScrollContentWrapper from '@/components/AppScrollContentWrapper';
-import VictoryConfetti from '@/components/VictoryConfetti';
 
 const AppWrapper: FC<PropsWithChildren> = ({children}): ReactElement => {
   return (
@@ -10,10 +9,6 @@ const AppWrapper: FC<PropsWithChildren> = ({children}): ReactElement => {
         <AppHeader/>
 
         <section className={'w-full h-full overflow-hidden relative'}>
-          {
-            false && <VictoryConfetti/> /* TODO add check victory status */
-          }
-
           <AppScrollContentWrapper>
             {children}
           </AppScrollContentWrapper>

@@ -14,6 +14,9 @@ import ChangeTextButton from '@/views/Game/ChangeText.button';
 import {useNavigate} from 'react-router-dom';
 import {EnumRouter} from '@/Router';
 import {useDesktopDevice} from '@/hooks/useDesktopDevice';
+import {EFinishGameStatus} from '@/store/GameStore/types';
+import FinishGameStatusModal from '@/views/Game/FinishGameStatus.modal';
+import VictoryConfetti from '@/components/VictoryConfetti';
 
 const Game: FC = observer((): ReactElement => {
   const gameStore = useGameStore();
@@ -61,6 +64,12 @@ const Game: FC = observer((): ReactElement => {
           </CardFooter>
         </Card>
       </div>
+
+      {
+        gameStore.gameFinishStatus === EFinishGameStatus.SUCCESS && <VictoryConfetti/>
+      }
+
+      <FinishGameStatusModal/>
     </AppWrapper>
   );
 });
