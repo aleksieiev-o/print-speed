@@ -33,7 +33,7 @@ const Game: FC = observer((): ReactElement => {
             <Separator/>
 
             <div className={'w-full flex flex-col md:flex-row gap-4 items-start md:items-center justify-between'}>
-              <LettersCounter remainingLettersQuantity={10} allLettersQuantity={gameStore.text.body.length}/>
+              <LettersCounter/>
 
               {
                 gameStore.victoryCounter > 0 && <VictoryCounter victoryQuantity={gameStore.victoryCounter}/>

@@ -1,12 +1,9 @@
 import {FC, ReactElement} from 'react';
+import {useGameStore} from '@/store/hooks';
+import {observer} from 'mobx-react-lite';
 
-interface Props {
-  remainingLettersQuantity: number;
-  allLettersQuantity: number;
-}
-
-const LettersCounter: FC<Props> = (props): ReactElement => {
-  const {remainingLettersQuantity, allLettersQuantity} = props;
+const LettersCounter: FC = observer((): ReactElement => {
+  const gameStore = useGameStore();
 
   return (
     <div className={'flex gap-2'}>
@@ -15,7 +12,7 @@ const LettersCounter: FC<Props> = (props): ReactElement => {
       </span>
 
       <strong>
-        {remainingLettersQuantity}
+        10???
       </strong>
 
       <span>
@@ -23,10 +20,10 @@ const LettersCounter: FC<Props> = (props): ReactElement => {
       </span>
 
       <strong>
-        {allLettersQuantity}
+        {gameStore.text.body.length}
       </strong>
     </div>
   );
-};
+});
 
 export default LettersCounter;
