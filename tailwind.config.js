@@ -70,7 +70,11 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)',
       },
       transitionDuration: {
+        'DEFAULT': '333ms',
         '1000': '1000ms',
+      },
+      transitionTimingFunction: {
+        'DEFAULT': 'easy-in-out',
       },
       keyframes: {
         'accordion-down': {
