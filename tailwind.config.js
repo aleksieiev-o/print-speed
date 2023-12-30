@@ -69,6 +69,9 @@ module.exports = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      transitionDuration: {
+        '1000': '1000ms',
+      },
       keyframes: {
         'accordion-down': {
           from: { height: 0 },
@@ -78,10 +81,15 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: 0 },
         },
+        'spin-180deg': {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(180deg)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'spin-180deg': 'spin-180deg 1s ease-in-out 0.4s infinite',
       },
     },
   },

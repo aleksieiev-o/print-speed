@@ -32,8 +32,8 @@ const Game: FC = observer((): ReactElement => {
   return (
     <AppWrapper>
       <div className={'w-full h-full grid grid-cols-1 justify-items-center content-center py-4 md:py-8'}>
-        <Card className={'w-full flex flex-col overflow-y-hidden'}>
-          <CardHeader className={'gap-4 justify-center mb-4'}>
+        <Card className={'w-full flex flex-col gap-4 overflow-y-hidden'}>
+          <CardHeader className={'gap-4 justify-center'}>
             <CardTitle>
               Write this text
             </CardTitle>
@@ -41,7 +41,7 @@ const Game: FC = observer((): ReactElement => {
             <Timer/>
           </CardHeader>
 
-          <CardContent className={'h-full grid grid-cols-1 gap-4 justify-center mb-4 overflow-y-hidden'}>
+          <CardContent className={'h-full grid grid-cols-1 gap-4 justify-center overflow-y-hidden'}>
             <CurrentText/>
 
             <Separator/>

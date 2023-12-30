@@ -50,20 +50,20 @@ const CurrentText: FC = observer((): ReactElement => {
   }, [isTextAlreadyWritten, gameStore]);
 
   useEffect(() => {
-    if (gameStore.gameActiveStatus === EGameActiveStatus.STOPPED) {
+    if (gameStore.isGameStopped) {
       setCurrentText(gameStore.text.body);
     }
-  }, [gameStore.gameActiveStatus, gameStore.text.body]);
+  }, [gameStore.isGameStopped, gameStore.text.body]);
 
   useEffect(() => {
-    if (gameStore.gameActiveStatus === EGameActiveStatus.ACTIVE || gameStore.gameActiveStatus === EGameActiveStatus.RESUMED) {
+    if (gameStore.isGameRunning) {
       window.addEventListener('keydown', keyDownHandler, false);
-    } else if (gameStore.gameActiveStatus === EGameActiveStatus.STOPPED || gameStore.gameActiveStatus === EGameActiveStatus.PAUSED) {
+    } else if (!gameStore.isGameRunning) {
       window.removeEventListener('keydown', keyDownHandler, false);
     }
 
     return () => window.removeEventListener('keydown', keyDownHandler, false);
-  }, [gameStore.gameActiveStatus, keyDownHandler]);
+  }, [gameStore.isGameRunning, keyDownHandler]);
 
   return (
     <div className={'overflow-y-auto'}>
