@@ -43,7 +43,7 @@ const PrintSpeedChanger: FC = observer((): ReactElement => {
   return (
     <div>
       <p className={'mb-2'}>
-        Current print speed: <strong>{gameStore.printSpeedLevel}</strong> letters per minute ({currentSpeedLevelTitle})
+        Current print speed: <strong>{gameStore.printSpeedLevel}</strong> symbols per minute ({currentSpeedLevelTitle})
       </p>
 
       <Select

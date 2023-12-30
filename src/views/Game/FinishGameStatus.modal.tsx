@@ -38,7 +38,7 @@ const FinishGameStatusModal: FC = observer((): ReactElement => {
           {
             gameStore.gameFinishStatus === EFinishGameStatus.SUCCESS ?
               <>
-                <Crown className={'h-20 w-20 stroke-yellow-400'}/>
+                <Crown className={'h-20 w-20 stroke-yellow-500'}/>
 
                 <h1 className={'text-xl text-center text-green-600'}>
                   Mission completed successfully

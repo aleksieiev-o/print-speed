@@ -1,23 +1,34 @@
 import {FC, ReactElement} from 'react';
+import {Crown} from 'lucide-react';
+import {observer} from 'mobx-react-lite';
+import {useGameStore} from '@/store/hooks';
 
-interface Props {
-  victoryQuantity: number;
-}
-
-const VictoryCounter: FC<Props> = (props): ReactElement => {
-  const {victoryQuantity} = props;
+const VictoryCounter: FC = observer((): ReactElement => {
+  const gameStore = useGameStore();
 
   return (
-    <div className={'flex gap-2'}>
-      <span>
-        Victory:
-      </span>
+    <>
+      {
+        gameStore.victoryCounter > 0 &&
+        <div className={'flex items-center justify-start md:justify-end gap-2 w-full overflow-hidden'} title={`Victory: ${gameStore.victoryCounter}`}>
+          <Crown className={'h-6 w-6 stroke-yellow-500'}/>
 
-      <strong>
-        {victoryQuantity}
-      </strong>
-    </div>
+          <span>
+            {
+              gameStore.victoryCounter === 1 ?
+                'Win:'
+                :
+                'Wins:'
+            }
+          </span>
+
+          <strong className={'whitespace-nowrap text-ellipsis overflow-hidden'}>
+            {gameStore.victoryCounter}
+          </strong>
+        </div>
+      }
+    </>
   );
-};
+});
 
 export default VictoryCounter;

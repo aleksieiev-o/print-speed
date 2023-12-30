@@ -8,20 +8,35 @@ const LettersCounter: FC = observer((): ReactElement => {
   const {remainedLetters} = useRemainedLetters();
 
   return (
-    <div className={'flex gap-2'}>
-      <span>
-        Letters and signs left:
+    <div
+      className={'flex gap-2 w-full overflow-hidden'}
+      title={gameStore.isGameStopped ?
+        `Symbols quantity: ${gameStore.text.body.length}`
+        :
+        `Symbols left: ${remainedLetters} from ${gameStore.text.body.length}`}>
+      <span className={'whitespace-nowrap'}>
+        {
+          gameStore.isGameStopped ?
+            'Symbols quantity:'
+            :
+            'Symbols left:'
+        }
       </span>
 
-      <strong>
-        {remainedLetters}
-      </strong>
+      {
+        !gameStore.isGameStopped &&
+        <>
+          <strong className={'whitespace-nowrap text-ellipsis overflow-hidden'}>
+            {remainedLetters}
+          </strong>
 
-      <span>
-        from
-      </span>
+          <span>
+            from
+          </span>
+        </>
+      }
 
-      <strong>
+      <strong className={'whitespace-nowrap text-ellipsis overflow-hidden'}>
         {gameStore.text.body.length}
       </strong>
     </div>

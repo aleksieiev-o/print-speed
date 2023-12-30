@@ -46,12 +46,10 @@ const Game: FC = observer((): ReactElement => {
 
             <Separator/>
 
-            <div className={'w-full flex flex-col md:flex-row gap-4 items-start md:items-center justify-between'}>
+            <div className={'w-full flex flex-col md:flex-row md:gap-8 gap-4 items-start md:items-center justify-between overflow-hidden'}>
               <LettersCounter/>
 
-              {
-                gameStore.victoryCounter > 0 && <VictoryCounter victoryQuantity={gameStore.victoryCounter}/>
-              }
+              <VictoryCounter/>
             </div>
           </CardContent>
 

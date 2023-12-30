@@ -22,7 +22,7 @@ const Home: FC = (): ReactElement => {
 
           <CardContent className={'justify-center'}>
             <p className={'text-center'}>
-              The goal of the game is to type letters and symbols, as quickly as possible before the time runs out
+              The goal of the game is to type symbols, as quickly as possible before the time runs out
             </p>
           </CardContent>
 
