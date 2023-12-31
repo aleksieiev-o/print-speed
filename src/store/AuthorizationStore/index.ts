@@ -4,21 +4,17 @@ import { firebaseAuth } from '@/lib/firebase';
 import { User } from '@firebase/auth';
 import { AuthorizationStoreService } from './service';
 import { RootStore } from '@/store';
-
-export interface IAuthSignInRequestDto {
-  email: string;
-  password: string;
-}
+import {IAuthUserCredentialsShape} from '@/store/AuthorizationStore/types';
 
 export interface IAuthChangeUserProfileRequestDto {
   displayName: string;
 }
 
-export interface IAuthChangeEmailRequestDto extends IAuthSignInRequestDto {
+export interface IAuthChangeEmailRequestDto extends IAuthUserCredentialsShape {
   newEmail: string;
 }
 
-export interface IAuthChangePasswordRequestDto extends IAuthSignInRequestDto {
+export interface IAuthChangePasswordRequestDto extends IAuthUserCredentialsShape {
   newPassword: string;
 }
 
@@ -41,10 +37,10 @@ interface IAuthorizationStore {
   user: IUser;
   isAuth: boolean;
   authStateChangeType: EnumAuthStateChangeType,
-  signInEmailPassword: (payload: IAuthSignInRequestDto) => Promise<void>;
-  singUpEmailAndPassword: (payload: IAuthSignInRequestDto) => Promise<void>;
+  signInEmailPassword: (payload: IAuthUserCredentialsShape) => Promise<void>;
+  singUpEmailAndPassword: (payload: IAuthUserCredentialsShape) => Promise<void>;
   singOut: () => Promise<void>;
-  reAuthUser: (payload: IAuthSignInRequestDto) => Promise<void>;
+  reAuthUser: (payload: IAuthUserCredentialsShape) => Promise<void>;
   updateUserProfile: (payload: IAuthChangeUserProfileRequestDto) => void;
   updateUserEmail: (payload: IAuthChangeEmailRequestDto) => void;
   updateUserPassword: (payload: IAuthChangePasswordRequestDto) => void;
@@ -77,12 +73,12 @@ export class AuthorizationStore implements IAuthorizationStore {
     });
   }
 
-  async signInEmailPassword(payload: IAuthSignInRequestDto): Promise<void> {
+  async signInEmailPassword(payload: IAuthUserCredentialsShape): Promise<void> {
     this.authStateChangeType = EnumAuthStateChangeType.SIGN_IN;
     await this.authorizationStoreService.signInEmailPassword(payload);
   }
 
-  async singUpEmailAndPassword(payload: IAuthSignInRequestDto): Promise<void> {
+  async singUpEmailAndPassword(payload: IAuthUserCredentialsShape): Promise<void> {
     this.authStateChangeType = EnumAuthStateChangeType.SIGN_UP;
     await this.authorizationStoreService.singUpEmailAndPassword(payload);
   }
@@ -92,7 +88,7 @@ export class AuthorizationStore implements IAuthorizationStore {
     await this.authorizationStoreService.singOut();
   }
 
-  async reAuthUser(payload: IAuthSignInRequestDto): Promise<void> {
+  async reAuthUser(payload: IAuthUserCredentialsShape): Promise<void> {
     await this.authorizationStoreService.reAuthUser(payload);
   }
 
