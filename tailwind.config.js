@@ -72,6 +72,7 @@ module.exports = {
       transitionDuration: {
         'DEFAULT': '333ms',
         '1000': '1000ms',
+        '2000': '2000ms',
       },
       transitionTimingFunction: {
         'DEFAULT': 'easy-in-out',
