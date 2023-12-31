@@ -41,7 +41,7 @@ const FinishGameStatusModal: FC = observer((): ReactElement => {
                 <Crown className={'h-20 w-20 stroke-yellow-500'}/>
 
                 <h1 className={'text-xl text-center text-green-600'}>
-                  Mission completed successfully
+                  Task completed successfully
                 </h1>
               </>
               :
@@ -49,7 +49,7 @@ const FinishGameStatusModal: FC = observer((): ReactElement => {
                 <XCircle className={'h-20 w-20 stroke-red-500'}/>
 
                 <h1 className={'text-xl text-center text-red-500'}>
-                  Mission not completed
+                  Task not completed
                 </h1>
               </>
           }
