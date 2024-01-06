@@ -4,6 +4,7 @@ import AppScrollContentWrapper from '@/components/AppScrollContentWrapper';
 import {useGlobalLoaderStore} from '@/store/hooks';
 import AppGlobalLoader from '@/components/AppGlobalLoader';
 import {observer} from 'mobx-react-lite';
+import {Toaster} from '@/components/ui/toaster';
 
 const AppWrapper: FC<PropsWithChildren> = observer(({children}): ReactElement => {
   const {isGlobalLoading} = useGlobalLoaderStore();
@@ -23,7 +24,7 @@ const AppWrapper: FC<PropsWithChildren> = observer(({children}): ReactElement =>
               </AppScrollContentWrapper>
             </section>
 
-            {/*<Toaster/>*/}
+            <Toaster/>
           </div>
       }
     </div>
