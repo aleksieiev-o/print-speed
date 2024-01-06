@@ -5,10 +5,11 @@ import {Button} from '@/components/ui/button';
 import {useNavigate} from 'react-router-dom';
 import {ERouter} from '@/Router';
 import {useDesktopDevice} from '@/hooks/useDesktopDevice';
+import {observer} from 'mobx-react-lite';
 
-const Home: FC = (): ReactElement => {
-  const navigate = useNavigate();
+const Home: FC = observer((): ReactElement => {
   const {IsNotDesktop} = useDesktopDevice();
+  const navigate = useNavigate();
 
   return (
     <AppWrapper>
@@ -42,6 +43,6 @@ const Home: FC = (): ReactElement => {
       </div>
     </AppWrapper>
   );
-};
+});
 
 export default Home;
