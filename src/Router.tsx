@@ -3,7 +3,7 @@ import Home from '@/views/Home';
 import Game from '@/views/Game';
 import Authorization from '@/views/Authorization';
 
-export enum EnumRouter {
+export enum ERouter {
   HOME = '/',
   GAME = '/game',
   SIGN_IN = '/sign-in',
@@ -11,9 +11,9 @@ export enum EnumRouter {
 }
 
 export const router = createBrowserRouter([
-  { path: EnumRouter.HOME, element: <Home/> },
-  { path: EnumRouter.GAME, element: <Game/> },
-  { path: EnumRouter.SIGN_IN, element: <Authorization/> },
-  { path: EnumRouter.SIGN_UP, element: <Authorization/> },
-  { path: '*', element: <Navigate to={EnumRouter.HOME} replace={true}/> },
+  { path: ERouter.HOME, element: <Home/> },
+  { path: ERouter.GAME, element: <Game/> },
+  { path: ERouter.SIGN_IN, element: <Authorization/> },
+  { path: ERouter.SIGN_UP, element: <Authorization/> },
+  { path: '*', element: <Navigate to={ERouter.HOME} replace={true}/> },
 ]);

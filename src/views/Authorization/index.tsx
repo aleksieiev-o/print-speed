@@ -5,7 +5,7 @@ import {useAuthorizationStore} from '@/store/hooks';
 import {useLocation} from 'react-router-dom';
 import {useLoading} from '@/hooks/useLoading';
 import {useChangeRoute} from '@/hooks/useChangeRoute';
-import {EnumRouter} from '@/Router';
+import {ERouter} from '@/Router';
 import { FirebaseError } from 'firebase/app';
 import {IAuthUserCredentialsShape} from '@/store/AuthorizationStore/types';
 import {useForm} from 'react-hook-form';
@@ -32,7 +32,7 @@ const Authorization: FC = observer((): ReactElement => {
   const {isLoading, setIsLoading} = useLoading();
   const {changeRoute} = useChangeRoute();
 
-  const isSignInPage = useMemo(() => location.pathname === EnumRouter.SIGN_IN, [location]);
+  const isSignInPage = useMemo(() => location.pathname === ERouter.SIGN_IN, [location]);
 
   const shape = useMemo<IAuthUserCredentialsShape>(() => ({
     email: string()
@@ -61,10 +61,10 @@ const Authorization: FC = observer((): ReactElement => {
     try {
       if (isSignInPage) {
         await authorizationStore.signInEmailPassword(values);
-        await changeRoute(EnumRouter.HOME);
+        await changeRoute(ERouter.HOME);
       } else if (!isSignInPage) {
         await authorizationStore.singUpEmailAndPassword(values);
-        await changeRoute(EnumRouter.HOME);
+        await changeRoute(ERouter.HOME);
       }
 
       formModel.reset();
@@ -119,7 +119,7 @@ const Authorization: FC = observer((): ReactElement => {
   };
 
   const handleToggleAuthRoute = () => {
-    changeRoute(isSignInPage ? EnumRouter.SIGN_UP : EnumRouter.SIGN_IN);
+    changeRoute(isSignInPage ? ERouter.SIGN_UP : ERouter.SIGN_IN);
   };
 
   return (
@@ -179,7 +179,7 @@ const Authorization: FC = observer((): ReactElement => {
 
           <CardFooter className={'w-full flex items-center justify-end gap-4'}>
             <Button
-              onClick={() => changeRoute(EnumRouter.HOME)}
+              onClick={() => changeRoute(ERouter.HOME)}
               variant={'ghost'}
               title={'Cancel'}>
               Cancel

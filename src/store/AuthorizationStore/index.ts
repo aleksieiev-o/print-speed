@@ -24,7 +24,7 @@ interface IUser {
   email: string | null
 }
 
-enum EnumAuthStateChangeType {
+enum EAuthStateChangeType {
   UNDEFINED,
   SIGN_IN,
   SIGN_UP,
@@ -36,7 +36,7 @@ interface IAuthorizationStore {
   authorizationStoreService: AuthorizationStoreService;
   user: IUser;
   isAuth: boolean;
-  authStateChangeType: EnumAuthStateChangeType,
+  authStateChangeType: EAuthStateChangeType,
   signInEmailPassword: (payload: IAuthUserCredentialsShape) => Promise<void>;
   singUpEmailAndPassword: (payload: IAuthUserCredentialsShape) => Promise<void>;
   singOut: () => Promise<void>;
@@ -52,7 +52,7 @@ export class AuthorizationStore implements IAuthorizationStore {
 
   user: IUser = {} as IUser;
   isAuth = false;
-  authStateChangeType = EnumAuthStateChangeType.UNDEFINED;
+  authStateChangeType = EAuthStateChangeType.UNDEFINED;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
@@ -74,17 +74,17 @@ export class AuthorizationStore implements IAuthorizationStore {
   }
 
   async signInEmailPassword(payload: IAuthUserCredentialsShape): Promise<void> {
-    this.authStateChangeType = EnumAuthStateChangeType.SIGN_IN;
+    this.authStateChangeType = EAuthStateChangeType.SIGN_IN;
     await this.authorizationStoreService.signInEmailPassword(payload);
   }
 
   async singUpEmailAndPassword(payload: IAuthUserCredentialsShape): Promise<void> {
-    this.authStateChangeType = EnumAuthStateChangeType.SIGN_UP;
+    this.authStateChangeType = EAuthStateChangeType.SIGN_UP;
     await this.authorizationStoreService.singUpEmailAndPassword(payload);
   }
 
   async singOut(): Promise<void> {
-    this.authStateChangeType = EnumAuthStateChangeType.SIGN_OUT;
+    this.authStateChangeType = EAuthStateChangeType.SIGN_OUT;
     await this.authorizationStoreService.singOut();
   }
 
@@ -116,7 +116,7 @@ export class AuthorizationStore implements IAuthorizationStore {
 
     this.setAuth(true);
 
-    if (this.authStateChangeType === EnumAuthStateChangeType.SIGN_UP) { // TODO add settings store with these functions
+    if (this.authStateChangeType === EAuthStateChangeType.SIGN_UP) { // TODO add settings store with these functions
       // await this.rootStore.settingsStore.createAppSettings();
       // await this.rootStore.settingsStore.createSpeechSettings();
     }

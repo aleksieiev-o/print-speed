@@ -1,15 +1,15 @@
 import {useLocation, useNavigate} from 'react-router-dom';
-import {EnumRouter} from '../Router';
+import {ERouter} from '@/Router';
 
 interface IUseChangeRoute {
-  changeRoute: (to: EnumRouter) => void;
+  changeRoute: (to: ERouter) => void;
 }
 
 export const useChangeRoute = (): IUseChangeRoute => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  const changeRoute = (to: EnumRouter) => {
+  const changeRoute = (to: ERouter) => {
     if (location.pathname !== to) {
       navigate(to);
     }

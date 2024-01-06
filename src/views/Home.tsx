@@ -3,7 +3,7 @@ import AppWrapper from '@/components/AppWrapper';
 import {Card, CardContent, CardFooter, CardHeader, CardTitle} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
 import {useNavigate} from 'react-router-dom';
-import {EnumRouter} from '@/Router';
+import {ERouter} from '@/Router';
 import {useDesktopDevice} from '@/hooks/useDesktopDevice';
 
 const Home: FC = (): ReactElement => {
@@ -33,7 +33,7 @@ const Home: FC = (): ReactElement => {
                   You can use this application only on a personal computer
                 </p>
                 :
-                <Button onClick={() => navigate(EnumRouter.GAME)} variant={'default'} title={'Go to the game'}>
+                <Button onClick={() => navigate(ERouter.GAME)} variant={'default'} title={'Go to the game'}>
                   Go to the game
                 </Button>
             }

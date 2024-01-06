@@ -5,7 +5,7 @@ import {DropdownMenu, DropdownMenuTrigger} from '@radix-ui/react-dropdown-menu';
 import {Button} from '@/components/ui/button';
 import {Moon, Sun} from 'lucide-react';
 import {DropdownMenuContent, DropdownMenuItem} from '@/components/ui/dropdown-menu';
-import {AppThemeEnum} from '@/shared/types/appTheme.enum';
+import {EAppTheme} from '@/shared/types/appTheme.enum';
 import {useTheme} from '@/hooks/useTheme';
 
 const AppThemeChange: FC = (): ReactElement => {
@@ -22,15 +22,15 @@ const AppThemeChange: FC = (): ReactElement => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme(AppThemeEnum.SYSTEM)}>
+        <DropdownMenuItem onClick={() => setTheme(EAppTheme.SYSTEM)}>
           System
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => setTheme(AppThemeEnum.LIGHT)}>
+        <DropdownMenuItem onClick={() => setTheme(EAppTheme.LIGHT)}>
           Light
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => setTheme(AppThemeEnum.DARK)}>
+        <DropdownMenuItem onClick={() => setTheme(EAppTheme.DARK)}>
           Dark
         </DropdownMenuItem>
       </DropdownMenuContent>

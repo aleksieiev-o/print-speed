@@ -12,7 +12,7 @@ import ChangeGameStatusButton from '@/views/Game/ChangeGameStatus.button';
 import CurrentText from '@/views/Game/CurrentText';
 import ChangeTextButton from '@/views/Game/ChangeText.button';
 import {useNavigate} from 'react-router-dom';
-import {EnumRouter} from '@/Router';
+import {ERouter} from '@/Router';
 import {useDesktopDevice} from '@/hooks/useDesktopDevice';
 import {EFinishGameStatus} from '@/store/GameStore/types';
 import FinishGameStatusModal from '@/views/Game/FinishGameStatus.modal';
@@ -25,7 +25,7 @@ const Game: FC = observer((): ReactElement => {
 
   useEffect(() => {
     if (IsNotDesktop) {
-      navigate(EnumRouter.HOME, {replace: true});
+      navigate(ERouter.HOME, {replace: true});
     }
   }, [IsNotDesktop, navigate]);
 
