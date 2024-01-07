@@ -1,16 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const SCREENS = {
-  'xs': '390px',
-  'sm': '640px',
-  'md': '768px',
-  '2md': '860px',
-  'lg': '1024px',
-  'xl': '1280px',
-  '2xl': '1400px',
-};
-
-// eslint-disable-next-line no-undef
+/* eslint-disable no-undef */
 module.exports = {
   darkMode: ['class'],
   content: [
@@ -20,14 +10,6 @@ module.exports = {
     './src/**/*.{ts,tsx}',
 	],
   theme: {
-    screens: SCREENS,
-    container: {
-      center: true,
-      padding: '2rem',
-      screens: {
-        '2xl': SCREENS['2xl'],
-      },
-    },
     extend: {
       colors: {
         border: 'hsl(var(--border))',
@@ -69,14 +51,6 @@ module.exports = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
-      transitionDuration: {
-        'DEFAULT': '333ms',
-        '1000': '1000ms',
-        '2000': '2000ms',
-      },
-      transitionTimingFunction: {
-        'DEFAULT': 'easy-in-out',
-      },
       keyframes: {
         'accordion-down': {
           from: { height: 0 },
@@ -86,18 +60,20 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: 0 },
         },
-        'spin-180deg': {
-          from: { transform: 'rotate(0deg)' },
-          to: { transform: 'rotate(180deg)' },
-        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'spin-180deg': 'spin-180deg 1s ease-in-out 0.4s infinite',
       },
     },
   },
-  // eslint-disable-next-line no-undef
-  plugins: [require('tailwindcss-animate')],
+  variants: {
+
+  },
+  plugins: [
+    require('tailwindcss-animate'),
+  ],
+  presets: [
+    require('./tailwind.preset.config.js'),
+  ],
 };
