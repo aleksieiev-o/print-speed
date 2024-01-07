@@ -49,7 +49,7 @@ const PrintSpeedChanger: FC = observer((): ReactElement => {
       <Select
         onValueChange={(value) => changeLPM(value as EPrintSpeedLevelsList)}
         defaultValue={EPrintSpeedLevelsList.AVERAGE}>
-        <SelectTrigger>
+        <SelectTrigger title={'Change print speed'}>
           <SelectValue placeholder={'Print speed'}/>
         </SelectTrigger>
 
