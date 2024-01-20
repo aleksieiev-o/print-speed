@@ -1,26 +1,14 @@
-'use client';
-
 import React, {FC, ReactElement} from 'react';
 import {DropdownMenu, DropdownMenuTrigger} from '@radix-ui/react-dropdown-menu';
 import {Button} from '@/components/ui/button';
 import {Moon, Sun} from 'lucide-react';
 import {DropdownMenuContent, DropdownMenuItem} from '@/components/ui/dropdown-menu';
-import {useTheme} from '@/hooks/useTheme';
 import {EAppTheme} from '@/store/SettingsStore/types';
-import {useSettingsStore} from '@/store/hooks';
-import {useLoading} from '@/hooks/useLoading';
+import {useAppThemeChange} from '@/components/AppThemeChange/useAppThemeChange';
+import {observer} from 'mobx-react-lite';
 
-const AppThemeChange: FC = (): ReactElement => {
-  const settingsStore = useSettingsStore();
-  const { setTheme } = useTheme();
-  const {isLoading, setIsLoading} = useLoading();
-
-  const handleChangeTheme = async (theme: EAppTheme) => {
-    setIsLoading(true);
-    await settingsStore.updateAppTheme(theme);
-    await setTheme(theme);
-    setIsLoading(false);
-  };
+const AppThemeChange: FC = observer((): ReactElement => {
+  const {isLoading, changeTheme} = useAppThemeChange();
 
   return (
     <DropdownMenu>
@@ -33,20 +21,20 @@ const AppThemeChange: FC = (): ReactElement => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => handleChangeTheme(EAppTheme.SYSTEM)}>
+        <DropdownMenuItem onClick={() => changeTheme(EAppTheme.SYSTEM)}>
           System
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => handleChangeTheme(EAppTheme.LIGHT)}>
+        <DropdownMenuItem onClick={() => changeTheme(EAppTheme.LIGHT)}>
           Light
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => handleChangeTheme(EAppTheme.DARK)}>
+        <DropdownMenuItem onClick={() => changeTheme(EAppTheme.DARK)}>
           Dark
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
-};
+});
 
 export default AppThemeChange;

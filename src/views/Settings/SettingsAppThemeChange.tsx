@@ -10,14 +10,12 @@ import {
 } from '@/components/ui/select';
 import {observer} from 'mobx-react-lite';
 import {useSettingsStore} from '@/store/hooks';
-import {useTheme} from '@/hooks/useTheme';
 import {EAppTheme} from '@/store/SettingsStore/types';
-import {useLoading} from '@/hooks/useLoading';
+import {useAppThemeChange} from '@/components/AppThemeChange/useAppThemeChange';
 
 const SettingsAppThemeChange: FC = observer((): ReactElement => {
   const settingsStore = useSettingsStore();
-  const { setTheme } = useTheme();
-  const {isLoading, setIsLoading} = useLoading();
+  const {isLoading, changeTheme} = useAppThemeChange();
 
   const themesList = useMemo(() => {
     return [
@@ -27,19 +25,12 @@ const SettingsAppThemeChange: FC = observer((): ReactElement => {
     ];
   }, []);
 
-  const handleChangeTheme = async (theme: EAppTheme) => {
-    setIsLoading(true);
-    await settingsStore.updateAppTheme(theme);
-    await setTheme(theme);
-    setIsLoading(false);
-  };
-
   return (
     <div className={'flex flex-col gap-2 items-start justify-start'}>
       <h2 className={'text-md font-bold'}>Application theme</h2>
 
       <Select
-        onValueChange={(value) => handleChangeTheme(value as EAppTheme)}
+        onValueChange={(value) => changeTheme(value as EAppTheme)}
         disabled={isLoading}
         defaultValue={settingsStore.appSettings.appTheme}>
         <SelectTrigger title={'Change application theme'}>
