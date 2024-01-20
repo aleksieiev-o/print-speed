@@ -1,13 +1,16 @@
 import {FC, PropsWithChildren, ReactElement} from 'react';
 import AppHeader from '@/components/AppHeader';
-import {useGlobalLoaderStore} from '@/store/hooks';
+import {useGameStore, useGlobalLoaderStore} from '@/store/hooks';
 import AppGlobalLoader from '@/components/AppGlobalLoader';
 import {observer} from 'mobx-react-lite';
 import {Toaster} from '@/components/ui/toaster';
 import AppNavigation from '@/components/AppNavigation';
+import {EFinishGameStatus} from '@/store/GameStore/types';
+import VictoryConfetti from '@/components/VictoryConfetti';
 
 const AppWrapper: FC<PropsWithChildren> = observer(({children}): ReactElement => {
   const {isGlobalLoading} = useGlobalLoaderStore();
+  const gameStore = useGameStore();
 
   return (
     <div className={'w-full h-full overflow-hidden bg-gradient-to-b from-background to-secondary'}>
@@ -27,6 +30,11 @@ const AppWrapper: FC<PropsWithChildren> = observer(({children}): ReactElement =>
             </section>
 
             <Toaster/>
+
+            {
+              gameStore.gameFinishStatus === EFinishGameStatus.SUCCESS &&
+              <VictoryConfetti/>
+            }
           </section>
       }
     </div>

@@ -7,19 +7,15 @@ import {Separator} from '@/components/ui/separator';
 import VictoryCounter from '@/views/Game/VictoryCounter';
 import PrintSpeedChanger from '@/views/Game/PrintSpeedChanger';
 import {observer} from 'mobx-react-lite';
-import {useGameStore} from '@/store/hooks';
 import ChangeGameStatusButton from '@/views/Game/ChangeGameStatus.button';
 import CurrentText from '@/views/Game/CurrentText';
 import ChangeTextButton from '@/views/Game/ChangeText.button';
 import {useNavigate} from 'react-router-dom';
 import {ERouter} from '@/Router';
 import {useDesktopDevice} from '@/hooks/useDesktopDevice';
-import {EFinishGameStatus} from '@/store/GameStore/types';
 import FinishGameStatusModal from '@/views/Game/FinishGameStatus.modal';
-import VictoryConfetti from '@/components/VictoryConfetti';
 
 const Game: FC = observer((): ReactElement => {
-  const gameStore = useGameStore();
   const {IsNotDesktop} = useDesktopDevice();
   const navigate = useNavigate();
 
@@ -60,11 +56,6 @@ const Game: FC = observer((): ReactElement => {
           <ChangeGameStatusButton/>
         </CardFooter>
       </Card>
-
-      {
-        gameStore.gameFinishStatus === EFinishGameStatus.SUCCESS &&
-        <VictoryConfetti/>
-      }
 
       <FinishGameStatusModal/>
     </AppWrapper>
