@@ -3,6 +3,7 @@ import AppThemeChange from '@/components/AppThemeChange';
 import {observer} from 'mobx-react-lite';
 import {useLocation} from 'react-router-dom';
 import {ERouter, ERouterTitle} from '@/Router';
+import AppAuthButton from '@/components/ui/AppAuth.button';
 
 const AppHeader: FC = observer((): ReactElement => {
   const location = useLocation();
@@ -26,6 +27,8 @@ const AppHeader: FC = observer((): ReactElement => {
       </h1>
 
       <div className={'grid grid-flow-col auto-cols-max gap-4 md:gap-6 items-center'}>
+        <AppAuthButton/>
+
         <AppThemeChange/>
 
         {/*<AppLocaleChange/>*/}
