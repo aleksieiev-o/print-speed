@@ -10,7 +10,6 @@ export class GameStore implements IGameStore {
 
   gameActiveStatus: EGameActiveStatus;
   gameFinishStatus: EFinishGameStatus;
-  printSpeedLevel: string;
   text: IText;
   textsList: Array<IText>;
   textPrintTime: number;
@@ -22,7 +21,6 @@ export class GameStore implements IGameStore {
 
     this.gameActiveStatus = EGameActiveStatus.STOPPED;
     this.gameFinishStatus = EFinishGameStatus.UNKNOWN;
-    this.printSpeedLevel = EPrintSpeedLevelsList.AVERAGE;
     this.text = {language: '', author: '', body: ''};
     this.textsList = [];
     this.textPrintTime = 0;
@@ -73,10 +71,10 @@ export class GameStore implements IGameStore {
     this.gameFinishStatus = status;
   }
 
-  changePrintSpeedLevel(printSpeedLevel: EPrintSpeedLevelsList): void {
+  async changePrintSpeedLevel(printSpeedLevel: EPrintSpeedLevelsList): Promise<void> {
     this.changeGameActiveStatus(EGameActiveStatus.STOPPED);
     this.changeGameFinishStatus(EFinishGameStatus.UNKNOWN);
-    this.printSpeedLevel = printSpeedLevel;
+    await this.rootStore.settingsStore.updatePrintSpeedLevel(printSpeedLevel);
     this.setTimer();
   }
 
@@ -88,7 +86,8 @@ export class GameStore implements IGameStore {
   }
 
   setTimer(): void {
-    const time = this.text.body.length / parseInt(this.printSpeedLevel, 10) * 60;
+    const {printSpeedLevel} = this.rootStore.settingsStore.remoteGameSettings;
+    const time = this.text.body.length / parseInt(printSpeedLevel, 10) * 60;
     this.textPrintTime = Math.round(time);
   }
 

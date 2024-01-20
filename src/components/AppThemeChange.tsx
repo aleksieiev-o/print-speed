@@ -5,11 +5,18 @@ import {DropdownMenu, DropdownMenuTrigger} from '@radix-ui/react-dropdown-menu';
 import {Button} from '@/components/ui/button';
 import {Moon, Sun} from 'lucide-react';
 import {DropdownMenuContent, DropdownMenuItem} from '@/components/ui/dropdown-menu';
-import {EAppTheme} from '@/shared/types/appTheme.enum';
 import {useTheme} from '@/hooks/useTheme';
+import {EAppTheme} from '@/store/SettingsStore/types';
+import {useSettingsStore} from '@/store/hooks';
 
 const AppThemeChange: FC = (): ReactElement => {
+  const settingsStore = useSettingsStore();
   const { setTheme } = useTheme();
+
+  const handleChangeTheme = async (theme: EAppTheme) => {
+    await settingsStore.updateAppTheme(theme);
+    await setTheme(EAppTheme.SYSTEM);
+  };
 
   return (
     <DropdownMenu>
@@ -22,15 +29,15 @@ const AppThemeChange: FC = (): ReactElement => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme(EAppTheme.SYSTEM)}>
+        <DropdownMenuItem onClick={() => handleChangeTheme(EAppTheme.SYSTEM)}>
           System
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => setTheme(EAppTheme.LIGHT)}>
+        <DropdownMenuItem onClick={() => handleChangeTheme(EAppTheme.LIGHT)}>
           Light
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => setTheme(EAppTheme.DARK)}>
+        <DropdownMenuItem onClick={() => handleChangeTheme(EAppTheme.DARK)}>
           Dark
         </DropdownMenuItem>
       </DropdownMenuContent>

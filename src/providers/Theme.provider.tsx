@@ -1,5 +1,5 @@
 import {createContext, FC, ReactElement, useEffect, useState} from 'react';
-import {EAppTheme} from '@/shared/types/appTheme.enum';
+import {EAppTheme} from '@/store/SettingsStore/types';
 
 interface Props {
   children: ReactElement;

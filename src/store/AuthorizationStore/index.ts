@@ -116,13 +116,13 @@ export class AuthorizationStore implements IAuthorizationStore {
 
     this.setAuth(true);
 
-    if (this.authStateChangeType === EAuthStateChangeType.SIGN_UP) { // TODO add settings store with these functions
-      // await this.rootStore.settingsStore.createAppSettings();
-      // await this.rootStore.settingsStore.createSpeechSettings();
+    if (this.authStateChangeType === EAuthStateChangeType.SIGN_UP) {
+      await this.rootStore.settingsStore.createAppSettings();
+      await this.rootStore.settingsStore.createGameSettings();
     }
 
-    // await this.rootStore.settingsStore.fetchAppSettings();
-    // await this.rootStore.settingsStore.fetchSpeechSettings();
+    await this.rootStore.settingsStore.fetchAppSettings();
+    await this.rootStore.settingsStore.fetchGameSettings();
   }
 
   private async reloadFirebaseUser(): Promise<void> {

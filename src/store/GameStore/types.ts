@@ -37,7 +37,6 @@ export interface IGameStore {
   text: IText;
   textsList: Array<IText>;
   victoryCounter: number;
-  printSpeedLevel: string;
   gameActiveStatus: EGameActiveStatus;
   gameFinishStatus: EFinishGameStatus;
 }

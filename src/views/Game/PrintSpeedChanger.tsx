@@ -10,12 +10,15 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import {observer} from 'mobx-react-lite';
-import {useGameStore} from '@/store/hooks';
+import {useGameStore, useSettingsStore} from '@/store/hooks';
+import {useLoading} from '@/hooks/useLoading';
 
 type TPrintSpeedLevelsList = Array<{ lpm: EPrintSpeedLevelsList, title: string }>;
 
 const PrintSpeedChanger: FC = observer((): ReactElement => {
   const gameStore = useGameStore();
+  const settingsStore = useSettingsStore();
+  const {isLoading, setIsLoading} = useLoading();
 
   const printSpeedLevelsList: TPrintSpeedLevelsList = useMemo(() => ([
     { lpm: EPrintSpeedLevelsList.VERY_SLOW, title: 'Very slow' },
@@ -27,28 +30,31 @@ const PrintSpeedChanger: FC = observer((): ReactElement => {
   ]), []);
 
   const defaultSpeedLevelLPM: EPrintSpeedLevelsList = useMemo(() => {
-    const speedLevel = printSpeedLevelsList.find((item) => item.lpm === EPrintSpeedLevelsList.AVERAGE);
+    const speedLevel = printSpeedLevelsList.find((item) => item.lpm === settingsStore.remoteGameSettings.printSpeedLevel);
     return speedLevel.lpm;
-  }, [printSpeedLevelsList]);
+  }, [settingsStore.remoteGameSettings.printSpeedLevel, printSpeedLevelsList]);
 
   const currentSpeedLevelTitle = useMemo(() => {
-    const speedLevel = printSpeedLevelsList.find((item) => item.lpm === gameStore.printSpeedLevel);
+    const speedLevel = printSpeedLevelsList.find((item) => item.lpm === settingsStore.remoteGameSettings.printSpeedLevel);
     return speedLevel.title;
-  }, [gameStore.printSpeedLevel, printSpeedLevelsList]);
+  }, [settingsStore.remoteGameSettings.printSpeedLevel, printSpeedLevelsList]);
 
-  const changeLPM = (lpm: EPrintSpeedLevelsList): void => {
-    gameStore.changePrintSpeedLevel(lpm);
+  const changeLPM = async (lpm: EPrintSpeedLevelsList): Promise<void> => {
+    setIsLoading(true);
+    await gameStore.changePrintSpeedLevel(lpm);
+    setIsLoading(false);
   };
 
   return (
     <div>
       <p className={'mb-2'}>
-        Current print speed: <strong>{gameStore.printSpeedLevel}</strong> symbols per minute ({currentSpeedLevelTitle})
+        Current print speed: <strong>{settingsStore.remoteGameSettings.printSpeedLevel}</strong> symbols per minute ({currentSpeedLevelTitle})
       </p>
 
       <Select
         onValueChange={(value) => changeLPM(value as EPrintSpeedLevelsList)}
-        defaultValue={EPrintSpeedLevelsList.AVERAGE}>
+        disabled={isLoading}
+        defaultValue={settingsStore.remoteGameSettings.printSpeedLevel}>
         <SelectTrigger title={'Change print speed'}>
           <SelectValue placeholder={'Print speed'}/>
         </SelectTrigger>

@@ -4,6 +4,7 @@ import { StoreContext } from '@/providers/StoreContext.provider';
 import {GameStore} from '@/store/GameStore';
 import {GlobalLoaderStore} from '@/store/GlobalLoaderStore';
 import {AuthorizationStore} from '@/store/AuthorizationStore';
+import {SettingsStore} from '@/store/SettingsStore';
 
 export const useRootStore = (): RootStore => {
   const context = useContext(StoreContext);
@@ -26,4 +27,9 @@ export const useAuthorizationStore = (): AuthorizationStore => {
 export const useGameStore = (): GameStore => {
   const { gameStore } = useRootStore();
   return gameStore;
+};
+
+export const useSettingsStore = (): SettingsStore => {
+  const { settingsStore } = useRootStore();
+  return settingsStore;
 };

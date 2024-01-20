@@ -5,8 +5,8 @@ import StoreContextProvider from '@/providers/StoreContext.provider';
 import { RouterProvider } from 'react-router-dom';
 import {router} from '@/Router';
 import {ThemeProvider} from '@/providers/Theme.provider';
-import {EAppTheme} from '@/shared/types/appTheme.enum';
 import LettersCounterProvider from '@/providers/LettersCounter.provider';
+import {EAppTheme} from '@/store/SettingsStore/types';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
