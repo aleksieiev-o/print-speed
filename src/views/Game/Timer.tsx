@@ -5,6 +5,7 @@ import {useGameStore} from '@/store/hooks';
 import {EFinishGameStatus, EGameActiveStatus} from '@/store/GameStore/types';
 import {Alert, AlertDescription, AlertTitle, EAlertVariant} from '@/components/ui/alert';
 import {Hourglass} from 'lucide-react';
+import {useIsGameActive} from '@/hooks/useIsGameActive';
 
 enum ERemainedTime {
   MUCH = 1,
@@ -12,10 +13,14 @@ enum ERemainedTime {
   LITTLE = 0.2,
 }
 
+const defaultPreparingTime = 2;
+
 const Timer: FC = observer((): ReactElement => {
   const gameStore = useGameStore();
   const [time, setTime] = useState<number>(0);
+  const [preparingTime, setPreparingTime] = useState<number>(defaultPreparingTime);
   const [isRunning, setIsRunning] = useState<boolean>(false);
+  const {isGameActive} = useIsGameActive();
 
   const remainedTime = useMemo((): ERemainedTime => {
     if (time <= gameStore.textPrintTime * ERemainedTime.LITTLE) {
@@ -41,6 +46,7 @@ const Timer: FC = observer((): ReactElement => {
 
   useEffect(() => {
     setTime(gameStore.textPrintTime);
+    setPreparingTime(defaultPreparingTime);
   }, [gameStore.text.body, gameStore.textPrintTime]);
 
   useEffect(() => {
@@ -66,6 +72,25 @@ const Timer: FC = observer((): ReactElement => {
   }, [gameStore.text.body, gameStore.textPrintTime, gameStore, time]);
 
   useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    if (gameStore.isGamePreparing && preparingTime >= 0) {
+      timer = setInterval(() => {
+        setPreparingTime((prevTime) => prevTime - 1);
+      }, 1000);
+    }
+
+    return () => {
+      clearInterval(timer);
+
+      if (preparingTime === 0) {
+        setPreparingTime(defaultPreparingTime);
+        gameStore.changeGameActiveStatus(EGameActiveStatus.STARTED);
+      }
+    };
+  }, [gameStore, gameStore.isGamePreparing, preparingTime]);
+
+  useEffect(() => {
     switch (gameStore.gameActiveStatus) {
       case EGameActiveStatus.STARTED: setIsRunning(true); break;
       case EGameActiveStatus.RESUMED: setIsRunning(true); break;
@@ -76,9 +101,9 @@ const Timer: FC = observer((): ReactElement => {
   }, [gameStore.gameActiveStatus]);
 
   return (
-    <Alert variant={!gameStore.isGameStopped ? remainedTimeAlertVariant : EAlertVariant.DEFAULT}>
+    <Alert variant={isGameActive ? remainedTimeAlertVariant : EAlertVariant.DEFAULT}>
       {
-        !gameStore.isGameStopped
+        isGameActive
         && <AlertTitle className={'mb-2'}>
           <Hourglass className={`h-8 w-8 ${isSpinAnimate}`}/>
         </AlertTitle>
@@ -87,17 +112,31 @@ const Timer: FC = observer((): ReactElement => {
       <AlertDescription>
         <CardDescription className={'flex gap-2 text-md text-foreground'}>
           {
-            gameStore.isGameStopped ?
-              <span>Text print time:</span>
+            gameStore.isGamePreparing ?
+              <span>Time to start:</span>
               :
-              <span>Remaining print time:</span>
+              <>
+                {
+                  isGameActive ?
+                    <span>Remaining print time:</span>
+                    :
+                    <span>Text print time:</span>
+                }
+              </>
           }
 
           {
-            gameStore.isGameStopped ?
-              <span>{gameStore.textPrintTime} sec.</span>
+            gameStore.isGamePreparing ?
+              <strong>{preparingTime} sec.</strong>
               :
-              <span>{time} sec.</span>
+              <>
+                {
+                  isGameActive ?
+                    <span>{time} sec.</span>
+                    :
+                    <span>{gameStore.textPrintTime} sec.</span>
+                }
+              </>
           }
         </CardDescription>
       </AlertDescription>

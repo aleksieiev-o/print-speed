@@ -6,6 +6,7 @@ export enum EGameActiveStatus {
   STARTED = 'active',
   PAUSED = 'paused',
   RESUMED = 'resumed',
+  PREPARING = 'preparing',
 }
 
 export enum EFinishGameStatus {

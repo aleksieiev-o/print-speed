@@ -53,8 +53,16 @@ export class GameStore implements IGameStore {
     }
   }
 
+  get isGamePreparing(): boolean {
+    return this.gameActiveStatus === EGameActiveStatus.PREPARING;
+  }
+
   get isGameRunning(): boolean {
     return this.gameActiveStatus === EGameActiveStatus.STARTED || this.gameActiveStatus === EGameActiveStatus.RESUMED;
+  }
+
+  get isGamePaused(): boolean {
+    return this.gameActiveStatus === EGameActiveStatus.PAUSED;
   }
 
   get isGameStopped(): boolean {
