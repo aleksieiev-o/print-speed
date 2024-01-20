@@ -7,21 +7,25 @@ import {Languages} from 'lucide-react';
 import {DropdownMenuContent, DropdownMenuItem} from '@/components/ui/dropdown-menu';
 import {EAppLocale, EAppLocaleName} from '@/store/SettingsStore/types';
 import {useSettingsStore} from '@/store/hooks';
+import {useLoading} from '@/hooks/useLoading';
 
 const AppLocaleChange: FC = (): ReactElement => {
   const settingsStore = useSettingsStore();
+  const {isLoading, setIsLoading} = useLoading();
   const [locale, setLocale] = useState<EAppLocale>(EAppLocale.EN_US);
   console.warn(locale);
 
   const handleChangeLocale = async (locale: EAppLocale) => {
+    setIsLoading(true);
     await settingsStore.updateAppLocale(locale);
     await setLocale(locale);
+    setIsLoading(false);
   };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant={'default'} size="icon" className="shadow-md" title={'Change locale menu'}>
+        <Button variant={'default'} size="icon" className="shadow-md" title={'Change locale menu'} disabled={isLoading}>
           <Languages className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all"/>
         </Button>
       </DropdownMenuTrigger>
