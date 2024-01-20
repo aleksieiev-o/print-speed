@@ -48,13 +48,13 @@ export class GameStore implements IGameStore {
   changeGameActiveStatus(status: EGameActiveStatus): void {
     this.gameActiveStatus = status;
 
-    if (this.gameActiveStatus === EGameActiveStatus.ACTIVE) {
+    if (this.gameActiveStatus === EGameActiveStatus.STARTED) {
       this.changeGameFinishStatus(EFinishGameStatus.UNKNOWN);
     }
   }
 
   get isGameRunning(): boolean {
-    return this.gameActiveStatus === EGameActiveStatus.ACTIVE || this.gameActiveStatus === EGameActiveStatus.RESUMED;
+    return this.gameActiveStatus === EGameActiveStatus.STARTED || this.gameActiveStatus === EGameActiveStatus.RESUMED;
   }
 
   get isGameStopped(): boolean {

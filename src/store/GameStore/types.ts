@@ -3,7 +3,7 @@ import {GameStoreService} from '@/store/GameStore/service';
 
 export enum EGameActiveStatus {
   STOPPED = 'stopped',
-  ACTIVE = 'active',
+  STARTED = 'active',
   PAUSED = 'paused',
   RESUMED = 'resumed',
 }

@@ -20,9 +20,9 @@ const ChangeGameStatusButton: FC = observer((): ReactElement => {
       [EGameActiveStatus.STOPPED]: {
         title: 'Run the game',
         icon: <Play className={'w-4 h-4 mr-2'}/>,
-        newStatus: EGameActiveStatus.ACTIVE,
+        newStatus: EGameActiveStatus.STARTED,
       },
-      [EGameActiveStatus.ACTIVE]: {
+      [EGameActiveStatus.STARTED]: {
         title: 'Pause the game',
         icon: <Pause className={'w-4 h-4 mr-2'}/>,
         newStatus: EGameActiveStatus.PAUSED,

@@ -67,7 +67,7 @@ const Timer: FC = observer((): ReactElement => {
 
   useEffect(() => {
     switch (gameStore.gameActiveStatus) {
-      case EGameActiveStatus.ACTIVE: setIsRunning(true); break;
+      case EGameActiveStatus.STARTED: setIsRunning(true); break;
       case EGameActiveStatus.RESUMED: setIsRunning(true); break;
       case EGameActiveStatus.PAUSED: setIsRunning(false); break;
       case EGameActiveStatus.STOPPED: setIsRunning(false); break;
