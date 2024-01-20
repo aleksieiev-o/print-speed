@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { RootStore } from './index';
-import { StoreContext } from '@/providers/StoreContext.provider';
+import { StoreContext } from '@/providers/Store.provider';
 import {GameStore} from '@/store/GameStore';
 import {GlobalLoaderStore} from '@/store/GlobalLoaderStore';
 import {AuthorizationStore} from '@/store/AuthorizationStore';
@@ -9,7 +9,7 @@ import {SettingsStore} from '@/store/SettingsStore';
 export const useRootStore = (): RootStore => {
   const context = useContext(StoreContext);
   if (context === undefined) {
-    throw new Error('useRootStore must be used within StoreContextProvider');
+    throw new Error('useRootStore must be used within StoreProvider');
   }
   return context;
 };

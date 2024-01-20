@@ -7,7 +7,7 @@ interface Props {
 
 export const StoreContext = createContext<RootStore>({} as RootStore);
 
-const StoreContextProvider: FC<Props> = ({children}): ReactElement => {
+const StoreProvider: FC<Props> = ({children}): ReactElement => {
   return (
     <StoreContext.Provider value={new RootStore()}>
       {children}
@@ -15,4 +15,4 @@ const StoreContextProvider: FC<Props> = ({children}): ReactElement => {
   );
 };
 
-export default StoreContextProvider;
+export default StoreProvider;
