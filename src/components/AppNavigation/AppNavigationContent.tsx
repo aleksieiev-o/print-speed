@@ -9,8 +9,8 @@ const AppNavigationContent: FC = observer((): ReactElement => {
   const authorizationStore = useAuthorizationStore();
 
   return (
-    <CardContent className={'h-full overflow-hidden'}>
-      <ul className={'h-full flex flex-col justify-start gap-4 overflow-x-hidden overflow-y-auto'}>
+    <CardContent className={'flex flex-col justify-start mb-auto overflow-hidden'}>
+      <ul className={'flex flex-col justify-start gap-4 overflow-x-hidden overflow-y-auto'}>
         <AppNavigationLink to={ERouter.HOME} title={ERouterTitle.HOME}/>
 
         <AppNavigationLink to={ERouter.GAME} title={ERouterTitle.GAME}/>

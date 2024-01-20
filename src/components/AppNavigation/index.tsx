@@ -7,7 +7,7 @@ import {observer} from 'mobx-react-lite';
 
 const AppNavigation: FC = observer((): ReactElement => {
   return (
-    <Card className={'h-full min-w-[320px] flex flex-col justify-between overflow-hidden'}>
+    <Card className={'h-full w-[400px] flex flex-col justify-start overflow-hidden'}>
       <AppNavigationHeader/>
 
       <AppNavigationContent/>
