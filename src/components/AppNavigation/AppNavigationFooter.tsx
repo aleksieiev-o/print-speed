@@ -30,13 +30,13 @@ const AppNavigationFooter: FC = observer((): ReactElement => {
           <AppAvatar
             handleClick={() => navigate(ERouter.USER_PROFILE)}
             userImageSrc={''}
-            userName={authorizationStore.user.displayName}/>
+            userName={authorizationStore.user.displayName || authorizationStore.defaultDisplayName}/>
 
           <div className={'w-full flex flex-col items-start justify-start overflow-hidden'}>
             <span
-              className={'w-full whitespace-nowrap text-ellipsis overflow-hidden'}
-              title={authorizationStore.user.displayName || 'User'}>
-              {authorizationStore.user.displayName || 'User'}
+              className={'w-full whitespace-nowrap text-ellipsis font-bold overflow-hidden'}
+              title={authorizationStore.user.displayName || authorizationStore.defaultDisplayName}>
+              {authorizationStore.user.displayName || authorizationStore.defaultDisplayName}
             </span>
 
             <span

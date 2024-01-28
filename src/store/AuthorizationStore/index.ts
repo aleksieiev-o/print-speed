@@ -111,6 +111,10 @@ export class AuthorizationStore implements IAuthorizationStore {
     return this.user.uid;
   }
 
+  get defaultDisplayName(): string {
+    return 'User';
+  }
+
   private async initApp(): Promise<void> {
     await this.reloadFirebaseUser();
 
