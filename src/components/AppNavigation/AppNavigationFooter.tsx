@@ -8,10 +8,13 @@ import {MoreVertical} from 'lucide-react';
 import {DropdownMenu, DropdownMenuTrigger} from '@radix-ui/react-dropdown-menu';
 import {DropdownMenuContent, DropdownMenuItem} from '@/components/ui/dropdown-menu';
 import AppAvatar from '@/components/AppAvatar';
+import {useNavigate} from 'react-router-dom';
+import {ERouter} from '@/Router';
 
 const AppNavigationFooter: FC = observer((): ReactElement => {
   const authorizationStore = useAuthorizationStore();
   const {isLoading, setIsLoading} = useLoading();
+  const navigate = useNavigate();
 
   const handleSignOut = async () => {
     setIsLoading(true);
@@ -24,7 +27,10 @@ const AppNavigationFooter: FC = observer((): ReactElement => {
       {
         authorizationStore.isAuth &&
         <CardFooter className={'w-full grid grid-cols-[56px_1fr_48px] gap-2 overflow-hidden'}>
-          <AppAvatar userImageSrc={''} userName={authorizationStore.user.displayName}/>
+          <AppAvatar
+            handleClick={() => navigate(ERouter.USER_PROFILE)}
+            userImageSrc={''}
+            userName={authorizationStore.user.displayName}/>
 
           <div className={'w-full flex flex-col items-start justify-start overflow-hidden'}>
             <span
@@ -48,11 +54,11 @@ const AppNavigationFooter: FC = observer((): ReactElement => {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate(ERouter.USER_PROFILE)} title={'User profile'}>
                 User profile
               </DropdownMenuItem>
 
-              <DropdownMenuItem onClick={handleSignOut}>
+              <DropdownMenuItem onClick={handleSignOut} title={'Sign out'}>
                 Sign out
               </DropdownMenuItem>
             </DropdownMenuContent>

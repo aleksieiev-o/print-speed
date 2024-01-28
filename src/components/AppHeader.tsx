@@ -14,6 +14,7 @@ const AppHeader: FC = observer((): ReactElement => {
       [ERouter.GAME]: ERouterTitle.GAME,
       [ERouter.TEXTS_LIST]: ERouterTitle.TEXTS_LIST,
       [ERouter.SETTINGS]: ERouterTitle.SETTINGS,
+      [ERouter.USER_PROFILE]: ERouterTitle.USER_PROFILE,
       [ERouter.SIGN_IN]: ERouterTitle.SIGN_IN,
       [ERouter.SIGN_UP]: ERouterTitle.SIGN_UP,
       [ERouter.NOT_FOUND]: ERouterTitle.NOT_FOUND,
