@@ -4,6 +4,7 @@ import AppWrapper from '@/components/AppWrapper';
 import {observer} from 'mobx-react-lite';
 import {useAuthorizationStore} from '@/store/hooks';
 import UserProfileInfo from '@/views/UserProfile/UserProfileInfo';
+import UserProfileSignOut from '@/views/UserProfile/UserProfileSignOut';
 
 const UserProfile: FC = observer((): ReactElement => {
   const authorizationStore = useAuthorizationStore();
@@ -39,6 +40,8 @@ const UserProfile: FC = observer((): ReactElement => {
             witchActionButton={true}
             buttonTitle={'Change password'}
             buttonValue={'Change password'}/>
+
+          <UserProfileSignOut/>
         </CardContent>
       </Card>
     </AppWrapper>

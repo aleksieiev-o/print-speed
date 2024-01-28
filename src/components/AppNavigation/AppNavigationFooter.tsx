@@ -2,7 +2,6 @@ import React, {FC, ReactElement} from 'react';
 import {CardFooter} from '@/components/ui/card';
 import {observer} from 'mobx-react-lite';
 import {Button} from '@/components/ui/button';
-import {useLoading} from '@/hooks/useLoading';
 import {useAuthorizationStore} from '@/store/hooks';
 import {MoreVertical} from 'lucide-react';
 import {DropdownMenu, DropdownMenuTrigger} from '@radix-ui/react-dropdown-menu';
@@ -10,17 +9,12 @@ import {DropdownMenuContent, DropdownMenuItem} from '@/components/ui/dropdown-me
 import AppAvatar from '@/components/AppAvatar';
 import {useNavigate} from 'react-router-dom';
 import {ERouter} from '@/Router';
+import {useSignOut} from '@/hooks/useSignOut';
 
 const AppNavigationFooter: FC = observer((): ReactElement => {
   const authorizationStore = useAuthorizationStore();
-  const {isLoading, setIsLoading} = useLoading();
   const navigate = useNavigate();
-
-  const handleSignOut = async () => {
-    setIsLoading(true);
-    await authorizationStore.singOut();
-    setIsLoading(false);
-  };
+  const {isLoading, handleSignOut} = useSignOut();
 
   return (
     <>
