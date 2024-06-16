@@ -29,7 +29,7 @@ const LettersCounterProvider: FC<Props> = observer((props): ReactElement => {
 
   const value = {
     remainedLetters: letters,
-    setRemainedLetters: (letter) => setLetters(gameStore.text.body.length - letter),
+    setRemainedLetters: (letter: number) => setLetters(gameStore.text.body.length - letter),
   };
 
   return (
