@@ -12,19 +12,28 @@ const UserProfile: FC = observer((): ReactElement => {
   return (
     <AppWrapper>
       <Card className={'w-full h-full flex flex-col overflow-y-hidden'}>
-        <CardContent className={'w-full h-full grid grid-cols-1 gap-4 md:gap-6 content-start overflow-y-auto'}>
+        <CardContent
+          className={
+            'w-full h-full grid grid-cols-1 gap-4 md:gap-6 content-start overflow-y-auto'
+          }
+        >
           <UserProfileInfo
             itemTitle={'User ID:'}
             itemValue={authorizationStore.userUid}
-            witchActionButton={false}/>
+            witchActionButton={false}
+          />
 
           <UserProfileInfo
             handleClick={() => undefined}
             itemTitle={'Display name:'}
-            itemValue={authorizationStore.user.displayName || authorizationStore.defaultDisplayName}
+            itemValue={
+              authorizationStore.user.displayName ||
+              authorizationStore.defaultDisplayName
+            }
             witchActionButton={true}
             buttonTitle={'Change display name'}
-            buttonValue={'Change display name'}/>
+            buttonValue={'Change display name'}
+          />
 
           <UserProfileInfo
             handleClick={() => undefined}
@@ -32,16 +41,18 @@ const UserProfile: FC = observer((): ReactElement => {
             itemValue={authorizationStore.user.email}
             witchActionButton={true}
             buttonTitle={'Change email'}
-            buttonValue={'Change email'}/>
+            buttonValue={'Change email'}
+          />
 
           <UserProfileInfo
             itemTitle={'Password:'}
             itemValue={'*********'}
             witchActionButton={true}
             buttonTitle={'Change password'}
-            buttonValue={'Change password'}/>
+            buttonValue={'Change password'}
+          />
 
-          <UserProfileSignOut/>
+          <UserProfileSignOut />
         </CardContent>
       </Card>
     </AppWrapper>

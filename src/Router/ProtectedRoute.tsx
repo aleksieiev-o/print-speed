@@ -11,10 +11,10 @@ const ProtectedRoute: FC<Props> = (props): ReactElement => {
   const {isAllowed, redirectedPath, children} = props;
 
   if (!isAllowed) {
-    return <Navigate to={redirectedPath} replace={true}/>;
+    return <Navigate to={redirectedPath} replace={true} />;
   }
 
-  return children ? children : <Outlet/>;
+  return children ? children : <Outlet />;
 };
 
 export default ProtectedRoute;

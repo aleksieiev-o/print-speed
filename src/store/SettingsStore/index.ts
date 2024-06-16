@@ -8,7 +8,7 @@ import {
   ESettingsEndpoints,
   IAppSettings,
   IRemoteGameSettings,
-  ISettingsStore
+  ISettingsStore,
 } from './types';
 import {EPrintSpeedLevelsList} from '@/store/GameStore/types';
 
@@ -25,8 +25,13 @@ export class SettingsStore implements ISettingsStore {
     this.settingsStoreService = new SettingsStoreService(this.rootStore);
 
     this.appSettings = {
-      appLocale: window.localStorage.getItem('i18nextLng') as EAppLocale || EAppLocale.EN_US,
-      appTheme: window.localStorage.getItem('print-speed-app-ui-theme') as EAppTheme || EAppTheme.SYSTEM,
+      appLocale:
+        (window.localStorage.getItem('i18nextLng') as EAppLocale) ||
+        EAppLocale.EN_US,
+      appTheme:
+        (window.localStorage.getItem(
+          'print-speed-app-ui-theme',
+        ) as EAppTheme) || EAppTheme.SYSTEM,
     };
 
     this.remoteGameSettings = {
@@ -41,31 +46,45 @@ export class SettingsStore implements ISettingsStore {
   }
 
   async fetchGameSettings(): Promise<void> {
-    this.remoteGameSettings = await this.settingsStoreService.fetchGameSettings();
+    this.remoteGameSettings =
+      await this.settingsStoreService.fetchGameSettings();
   }
 
   async createAppSettings(): Promise<void> {
-    await this.settingsStoreService
-      .createSettings<IAppSettings, EBaseSettingsEndpoints.APP_SETTINGS>(this.appSettings, EBaseSettingsEndpoints.APP_SETTINGS);
+    await this.settingsStoreService.createSettings<
+      IAppSettings,
+      EBaseSettingsEndpoints.APP_SETTINGS
+    >(this.appSettings, EBaseSettingsEndpoints.APP_SETTINGS);
   }
 
   async createGameSettings(): Promise<void> {
-    await this.settingsStoreService
-      .createSettings<IRemoteGameSettings, EBaseSettingsEndpoints.GAME_SETTINGS>(this.remoteGameSettings, EBaseSettingsEndpoints.GAME_SETTINGS);
+    await this.settingsStoreService.createSettings<
+      IRemoteGameSettings,
+      EBaseSettingsEndpoints.GAME_SETTINGS
+    >(this.remoteGameSettings, EBaseSettingsEndpoints.GAME_SETTINGS);
   }
 
   async updateAppLocale(value: EAppLocale): Promise<void> {
-    this.appSettings.appLocale = await this.settingsStoreService
-      .updateSettingsItem<EAppLocale, ESettingsEndpoints.APP_LOCALE>(value, ESettingsEndpoints.APP_LOCALE);
+    this.appSettings.appLocale =
+      await this.settingsStoreService.updateSettingsItem<
+        EAppLocale,
+        ESettingsEndpoints.APP_LOCALE
+      >(value, ESettingsEndpoints.APP_LOCALE);
   }
 
   async updateAppTheme(value: EAppTheme): Promise<void> {
-    this.appSettings.appTheme = await this.settingsStoreService
-      .updateSettingsItem<EAppTheme, ESettingsEndpoints.APP_THEME>(value, ESettingsEndpoints.APP_THEME);
+    this.appSettings.appTheme =
+      await this.settingsStoreService.updateSettingsItem<
+        EAppTheme,
+        ESettingsEndpoints.APP_THEME
+      >(value, ESettingsEndpoints.APP_THEME);
   }
 
   async updatePrintSpeedLevel(value: EPrintSpeedLevelsList): Promise<void> {
-    this.remoteGameSettings.printSpeedLevel = await this.settingsStoreService
-      .updateSettingsItem<EPrintSpeedLevelsList, ESettingsEndpoints.PRINT_SPEED>(value, ESettingsEndpoints.PRINT_SPEED);
+    this.remoteGameSettings.printSpeedLevel =
+      await this.settingsStoreService.updateSettingsItem<
+        EPrintSpeedLevelsList,
+        ESettingsEndpoints.PRINT_SPEED
+      >(value, ESettingsEndpoints.PRINT_SPEED);
   }
 }

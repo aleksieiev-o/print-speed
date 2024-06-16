@@ -16,7 +16,8 @@ const initialState: LettersCounterProviderState = {
   setRemainedLetters: () => null,
 };
 
-export const LettersCounterContext = createContext<LettersCounterProviderState>(initialState);
+export const LettersCounterContext =
+  createContext<LettersCounterProviderState>(initialState);
 
 const LettersCounterProvider: FC<Props> = observer((props): ReactElement => {
   const {children} = props;
@@ -29,7 +30,8 @@ const LettersCounterProvider: FC<Props> = observer((props): ReactElement => {
 
   const value = {
     remainedLetters: letters,
-    setRemainedLetters: (letter: number) => setLetters(gameStore.text.body.length - letter),
+    setRemainedLetters: (letter: number) =>
+      setLetters(gameStore.text.body.length - letter),
   };
 
   return (

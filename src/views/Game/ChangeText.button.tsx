@@ -19,9 +19,9 @@ const ChangeTextButton: FC = observer((): ReactElement => {
       onClick={() => handleChangeText()}
       ref={elementRef}
       variant={'default'}
-      title={'Set another text'}>
-      <RefreshCw className={'w-4 h-4 mr-2'}/>
-
+      title={'Set another text'}
+    >
+      <RefreshCw className={'w-4 h-4 mr-2'} />
       Set another text
     </Button>
   );

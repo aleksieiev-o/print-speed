@@ -29,12 +29,15 @@ export enum ERouterTitle {
 }
 
 export const router = createBrowserRouter([
-  { path: ERouter.HOME, element: <Home/> },
-  { path: ERouter.GAME, element: <Game/> },
-  { path: ERouter.TEXTS_LIST, element: <TextsList/> },
-  { path: ERouter.SETTINGS, element: <Settings/> },
-  { path: ERouter.USER_PROFILE, element: <UserProfile/> },
-  { path: ERouter.SIGN_IN, element: <Authorization/> },
-  { path: ERouter.SIGN_UP, element: <Authorization/> },
-  { path: ERouter.NOT_FOUND, element: <Navigate to={ERouter.HOME} replace={true}/> },
+  {path: ERouter.HOME, element: <Home />},
+  {path: ERouter.GAME, element: <Game />},
+  {path: ERouter.TEXTS_LIST, element: <TextsList />},
+  {path: ERouter.SETTINGS, element: <Settings />},
+  {path: ERouter.USER_PROFILE, element: <UserProfile />},
+  {path: ERouter.SIGN_IN, element: <Authorization />},
+  {path: ERouter.SIGN_UP, element: <Authorization />},
+  {
+    path: ERouter.NOT_FOUND,
+    element: <Navigate to={ERouter.HOME} replace={true} />,
+  },
 ]);

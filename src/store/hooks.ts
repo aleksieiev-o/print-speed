@@ -1,6 +1,6 @@
-import { useContext } from 'react';
-import { RootStore } from './index';
-import { StoreContext } from '@/providers/Store.provider';
+import {useContext} from 'react';
+import {RootStore} from './index';
+import {StoreContext} from '@/providers/Store.provider';
 import {GameStore} from '@/store/GameStore';
 import {GlobalLoaderStore} from '@/store/GlobalLoaderStore';
 import {AuthorizationStore} from '@/store/AuthorizationStore';
@@ -15,21 +15,21 @@ export const useRootStore = (): RootStore => {
 };
 
 export const useGlobalLoaderStore = (): GlobalLoaderStore => {
-  const { globalLoaderStore } = useRootStore();
+  const {globalLoaderStore} = useRootStore();
   return globalLoaderStore;
 };
 
 export const useAuthorizationStore = (): AuthorizationStore => {
-  const { authorizationStore } = useRootStore();
+  const {authorizationStore} = useRootStore();
   return authorizationStore;
 };
 
 export const useGameStore = (): GameStore => {
-  const { gameStore } = useRootStore();
+  const {gameStore} = useRootStore();
   return gameStore;
 };
 
 export const useSettingsStore = (): SettingsStore => {
-  const { settingsStore } = useRootStore();
+  const {settingsStore} = useRootStore();
   return settingsStore;
 };

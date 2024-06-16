@@ -14,23 +14,19 @@ const UserProfileSignOut: FC = observer((): ReactElement => {
         variant={'default'}
         title={'Sign out'}
         disabled={isLoading}
-        className={'min-w-[200px] lg:min-w-[240px]'}>
-        {
-          isLoading ?
-            <>
-              <Loader2 className={'h-4 w-4 mr-2 animate-spin'}/>
-              <span>
-                Please wait
-              </span>
-            </>
-            :
-            <>
-              <LogOut className={'h-4 w-4 mr-2'}/>
-              <span>
-                Sign out
-              </span>
-            </>
-        }
+        className={'min-w-[200px] lg:min-w-[240px]'}
+      >
+        {isLoading ? (
+          <>
+            <Loader2 className={'h-4 w-4 mr-2 animate-spin'} />
+            <span>Please wait</span>
+          </>
+        ) : (
+          <>
+            <LogOut className={'h-4 w-4 mr-2'} />
+            <span>Sign out</span>
+          </>
+        )}
       </Button>
     </div>
   );

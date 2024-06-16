@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import {Dispatch, SetStateAction, useState} from 'react';
 
 interface IUseLoading {
   isLoading: boolean;

@@ -5,7 +5,7 @@ import {FormFieldContext, FormItemContext} from '@/components/ui/form';
 export const useFormField = () => {
   const fieldContext = React.useContext(FormFieldContext);
   const itemContext = React.useContext(FormItemContext);
-  const { getFieldState, formState } = useFormContext();
+  const {getFieldState, formState} = useFormContext();
 
   const fieldState = getFieldState(fieldContext.name, formState);
 
@@ -13,7 +13,7 @@ export const useFormField = () => {
     throw new Error('useFormField should be used within <FormField>');
   }
 
-  const { id } = itemContext;
+  const {id} = itemContext;
 
   return {
     id,

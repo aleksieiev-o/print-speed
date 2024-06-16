@@ -10,8 +10,9 @@ const AppNavigationHeader: FC = (): ReactElement => {
       <Link
         to={ERouter.HOME}
         title={'Print speed'}
-        className={'w-full h-full flex flex-row items-end justify-start gap-4'}>
-        <Snail className={'stroke-primary h-[60px] w-[60px] pointer'}/>
+        className={'w-full h-full flex flex-row items-end justify-start gap-4'}
+      >
+        <Snail className={'stroke-primary h-[60px] w-[60px] pointer'} />
 
         <span className={'text-2xl font-bold text-primary whitespace-nowrap'}>
           Print speed

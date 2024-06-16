@@ -15,10 +15,17 @@
   },
   "scripts": {
     "dev": "vite",
+    "fb_em_start": "firebase emulators:start",
+    "fb_em_import": "firebase emulators:start --import ./src/lib/firebase/seed.development",
+    "fb_em_export": "firebase emulators:export ./src/lib/firebase/seed.development",
+    "fb_em": "firebase emulators:start --import ./src/lib/firebase/seed.development --export-on-exit ./src/lib/firebase/seed.development",
     "build": "tsc && vite build",
     "lint": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint-fix": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
     "preview": "vite preview",
+    "inc ver patch": "./bump-version.sh patch",
+    "inc ver minor": "./bump-version.sh minor",
+    "inc ver major": "./bump-version.sh major",
     "prepare": "husky install"
   },
   "eslintConfig": {

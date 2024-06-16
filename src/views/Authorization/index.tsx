@@ -6,7 +6,7 @@ import {useLocation} from 'react-router-dom';
 import {useLoading} from '@/hooks/useLoading';
 import {useChangeRoute} from '@/hooks/useChangeRoute';
 import {ERouter} from '@/Router';
-import { FirebaseError } from 'firebase/app';
+import {FirebaseError} from 'firebase/app';
 import {IAuthUserCredentialsShape} from '@/store/AuthorizationStore/types';
 import {useForm} from 'react-hook-form';
 import {object, string, z} from 'zod';
@@ -17,7 +17,13 @@ import AppFormField from '@/components/AppFormField';
 import AppFormFieldPassword from '@/components/AppFormFieldPassword';
 import {Button} from '@/components/ui/button';
 import SubmitButton from '@/views/Authorization/Submit.button';
-import {Card, CardContent, CardFooter, CardHeader, CardTitle} from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 const initialAuthValues = {
   email: '',
@@ -28,23 +34,29 @@ const Authorization: FC = observer((): ReactElement => {
   const authorizationStore = useAuthorizationStore();
   const authFormID = useId();
   const location = useLocation();
-  const { toast } = useToast();
+  const {toast} = useToast();
   const {isLoading, setIsLoading} = useLoading();
   const {changeRoute} = useChangeRoute();
 
-  const isSignInPage = useMemo(() => location.pathname === ERouter.SIGN_IN, [location]);
+  const isSignInPage = useMemo(
+    () => location.pathname === ERouter.SIGN_IN,
+    [location],
+  );
 
-  const shape = useMemo<IAuthUserCredentialsShape>(() => ({
-    email: string()
-      .trim()
-      .email()
-      .min(3, 'Error message')
-      .max(254, 'Error message'),
-    password: string()
-      .trim()
-      .min(6, 'Error message')
-      .max(28, 'Error message'),
-  }), []);
+  const shape = useMemo<IAuthUserCredentialsShape>(
+    () => ({
+      email: string()
+        .trim()
+        .email()
+        .min(3, 'Error message')
+        .max(254, 'Error message'),
+      password: string()
+        .trim()
+        .min(6, 'Error message')
+        .max(28, 'Error message'),
+    }),
+    [],
+  );
 
   const formSchema = useMemo(() => {
     return object<IAuthUserCredentialsShape>(shape);
@@ -71,15 +83,16 @@ const Authorization: FC = observer((): ReactElement => {
     } catch (err: unknown) {
       if (err instanceof FirebaseError) {
         switch (err.code) {
-          case('auth/invalid-credential'): {
-            toast({ // TODO fix toast visible
+          case 'auth/invalid-credential': {
+            toast({
+              // TODO fix toast visible
               title: 'Error message',
               description: '',
               variant: 'destructive',
             });
             break;
           }
-          case('auth/wrong-password'): {
+          case 'auth/wrong-password': {
             toast({
               title: 'Error message',
               description: '',
@@ -87,7 +100,7 @@ const Authorization: FC = observer((): ReactElement => {
             });
             break;
           }
-          case('auth/user-not-found'): {
+          case 'auth/user-not-found': {
             toast({
               title: 'Error message',
               description: '',
@@ -95,7 +108,7 @@ const Authorization: FC = observer((): ReactElement => {
             });
             break;
           }
-          case('auth/email-already-in-use'): {
+          case 'auth/email-already-in-use': {
             toast({
               title: 'Error message',
               description: '',
@@ -124,14 +137,14 @@ const Authorization: FC = observer((): ReactElement => {
 
   return (
     <AppWrapper>
-      <div className={'w-full h-full grid grid-cols-1 justify-items-center content-center'}>
+      <div
+        className={
+          'w-full h-full grid grid-cols-1 justify-items-center content-center'
+        }
+      >
         <Card className={'md:w-[550px] w-[350px] shadow-md'}>
           <CardHeader>
-            <CardTitle>
-              {
-                isSignInPage ? 'Sign in' : 'Sign up'
-              }
-            </CardTitle>
+            <CardTitle>{isSignInPage ? 'Sign in' : 'Sign up'}</CardTitle>
           </CardHeader>
 
           <CardContent>
@@ -139,8 +152,15 @@ const Authorization: FC = observer((): ReactElement => {
               <form
                 onSubmit={formModel.handleSubmit(handleSubmitForm)}
                 id={authFormID}
-                className={'w-full flex flex-col items-start justify-center gap-4'}>
-                <div className={'w-full flex flex-col items-start justify-center gap-4'}>
+                className={
+                  'w-full flex flex-col items-start justify-center gap-4'
+                }
+              >
+                <div
+                  className={
+                    'w-full flex flex-col items-start justify-center gap-4'
+                  }
+                >
                   <AppFormField
                     mode={'input'}
                     type={'email'}
@@ -149,28 +169,29 @@ const Authorization: FC = observer((): ReactElement => {
                     label={'Email'}
                     placeholder={'john.doe@company.com'}
                     required={true}
-                    disabled={isLoading}/>
+                    disabled={isLoading}
+                  />
 
                   <AppFormFieldPassword
                     formModel={formModel}
-                    disabled={isLoading}/>
+                    disabled={isLoading}
+                  />
                 </div>
 
                 <div className={'flex items-center justify-start'}>
                   <p>
-                    {
-                      isSignInPage ? 'I don\'t have an account.' : 'I already have an account.'
-                    }
+                    {isSignInPage
+                      ? `"I·don't·have·an·account."`
+                      : 'I already have an account.'}
                   </p>
 
                   <Button
                     onClick={() => handleToggleAuthRoute()}
                     variant={'link'}
                     disabled={isLoading}
-                    title={isSignInPage ? 'Sign up' : 'Sign in'}>
-                    {
-                      isSignInPage ? 'Sign up' : 'Sign in'
-                    }
+                    title={isSignInPage ? 'Sign up' : 'Sign in'}
+                  >
+                    {isSignInPage ? 'Sign up' : 'Sign in'}
                   </Button>
                 </div>
               </form>
@@ -181,11 +202,16 @@ const Authorization: FC = observer((): ReactElement => {
             <Button
               onClick={() => changeRoute(ERouter.HOME)}
               variant={'ghost'}
-              title={'Cancel'}>
+              title={'Cancel'}
+            >
               Cancel
             </Button>
 
-            <SubmitButton formId={authFormID} isSignInPage={isSignInPage} isLoading={isLoading}/>
+            <SubmitButton
+              formId={authFormID}
+              isSignInPage={isSignInPage}
+              isLoading={isLoading}
+            />
           </CardFooter>
         </Card>
       </div>

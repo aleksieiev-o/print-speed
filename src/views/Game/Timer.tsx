@@ -3,7 +3,12 @@ import {CardDescription} from '@/components/ui/card';
 import {observer} from 'mobx-react-lite';
 import {useGameStore} from '@/store/hooks';
 import {EFinishGameStatus, EGameActiveStatus} from '@/store/GameStore/types';
-import {Alert, AlertDescription, AlertTitle, EAlertVariant} from '@/components/ui/alert';
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  EAlertVariant,
+} from '@/components/ui/alert';
 import {Hourglass} from 'lucide-react';
 import {useIsGameActive} from '@/hooks/useIsGameActive';
 
@@ -18,7 +23,8 @@ const defaultPreparingTime = 2;
 const Timer: FC = observer((): ReactElement => {
   const gameStore = useGameStore();
   const [time, setTime] = useState<number>(0);
-  const [preparingTime, setPreparingTime] = useState<number>(defaultPreparingTime);
+  const [preparingTime, setPreparingTime] =
+    useState<number>(defaultPreparingTime);
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const {isGameActive} = useIsGameActive();
 
@@ -40,8 +46,7 @@ const Timer: FC = observer((): ReactElement => {
   }, [remainedTime]);
 
   const isSpinAnimate = useMemo((): string => {
-    return gameStore.isGameRunning
-    ? 'animate-spin-180deg' : '';
+    return gameStore.isGameRunning ? 'animate-spin-180deg' : '';
   }, [gameStore.isGameRunning]);
 
   useEffect(() => {
@@ -64,7 +69,7 @@ const Timer: FC = observer((): ReactElement => {
   }, [isRunning, time]);
 
   useEffect(() => {
-    if (time === 0 && (gameStore.isGameRunning)) {
+    if (time === 0 && gameStore.isGameRunning) {
       gameStore.changeGameActiveStatus(EGameActiveStatus.STOPPED);
       gameStore.changeGameFinishStatus(EFinishGameStatus.FAILURE);
       setTime(gameStore.textPrintTime);
@@ -92,52 +97,58 @@ const Timer: FC = observer((): ReactElement => {
 
   useEffect(() => {
     switch (gameStore.gameActiveStatus) {
-      case EGameActiveStatus.STARTED: setIsRunning(true); break;
-      case EGameActiveStatus.RESUMED: setIsRunning(true); break;
-      case EGameActiveStatus.PAUSED: setIsRunning(false); break;
-      case EGameActiveStatus.STOPPED: setIsRunning(false); break;
-      default: break;
+      case EGameActiveStatus.STARTED:
+        setIsRunning(true);
+        break;
+      case EGameActiveStatus.RESUMED:
+        setIsRunning(true);
+        break;
+      case EGameActiveStatus.PAUSED:
+        setIsRunning(false);
+        break;
+      case EGameActiveStatus.STOPPED:
+        setIsRunning(false);
+        break;
+      default:
+        break;
     }
   }, [gameStore.gameActiveStatus]);
 
   return (
-    <Alert variant={isGameActive ? remainedTimeAlertVariant : EAlertVariant.DEFAULT}>
-      {
-        isGameActive
-        && <AlertTitle className={'mb-2'}>
-          <Hourglass className={`h-8 w-8 ${isSpinAnimate}`}/>
+    <Alert
+      variant={isGameActive ? remainedTimeAlertVariant : EAlertVariant.DEFAULT}
+    >
+      {isGameActive && (
+        <AlertTitle className={'mb-2'}>
+          <Hourglass className={`h-8 w-8 ${isSpinAnimate}`} />
         </AlertTitle>
-      }
+      )}
 
       <AlertDescription>
         <CardDescription className={'flex gap-2 text-md text-foreground'}>
-          {
-            gameStore.isGamePreparing ?
-              <span>Time to start:</span>
-              :
-              <>
-                {
-                  isGameActive ?
-                    <span>Remaining print time:</span>
-                    :
-                    <span>Text print time:</span>
-                }
-              </>
-          }
+          {gameStore.isGamePreparing ? (
+            <span>Time to start:</span>
+          ) : (
+            <>
+              {isGameActive ? (
+                <span>Remaining print time:</span>
+              ) : (
+                <span>Text print time:</span>
+              )}
+            </>
+          )}
 
-          {
-            gameStore.isGamePreparing ?
-              <strong>{preparingTime} sec.</strong>
-              :
-              <>
-                {
-                  isGameActive ?
-                    <span>{time} sec.</span>
-                    :
-                    <span>{gameStore.textPrintTime} sec.</span>
-                }
-              </>
-          }
+          {gameStore.isGamePreparing ? (
+            <strong>{preparingTime} sec.</strong>
+          ) : (
+            <>
+              {isGameActive ? (
+                <span>{time} sec.</span>
+              ) : (
+                <span>{gameStore.textPrintTime} sec.</span>
+              )}
+            </>
+          )}
         </CardDescription>
       </AlertDescription>
     </Alert>

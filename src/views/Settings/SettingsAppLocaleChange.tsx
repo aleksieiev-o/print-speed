@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '@/components/ui/select';
 import {EAppLocale} from '@/store/SettingsStore/types';
 import {useSettingsStore} from '@/store/hooks';
@@ -24,24 +24,21 @@ const SettingsAppLocaleChange: FC = observer((): ReactElement => {
       <Select
         onValueChange={(value) => changeLocale(value as EAppLocale)}
         disabled={isLoading}
-        defaultValue={settingsStore.appSettings.appLocale}>
+        defaultValue={settingsStore.appSettings.appLocale}
+      >
         <SelectTrigger title={'Change application language'}>
-          <SelectValue placeholder={'Application language'}/>
+          <SelectValue placeholder={'Application language'} />
         </SelectTrigger>
 
         <SelectContent defaultValue={settingsStore.appSettings.appLocale}>
           <SelectGroup>
-            <SelectLabel>
-              Application language
-            </SelectLabel>
+            <SelectLabel>Application language</SelectLabel>
 
-            {
-              localeList.map((item) => (
-                <SelectItem key={item.locale} value={item.locale}>
-                  {item.title}
-                </SelectItem>
-              ))
-            }
+            {localeList.map((item) => (
+              <SelectItem key={item.locale} value={item.locale}>
+                {item.title}
+              </SelectItem>
+            ))}
           </SelectGroup>
         </SelectContent>
       </Select>

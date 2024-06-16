@@ -1,5 +1,5 @@
-import { RootStore } from '@/store';
-import { SettingsStoreService } from './service';
+import {RootStore} from '@/store';
+import {SettingsStoreService} from './service';
 import {EPrintSpeedLevelsList} from '@/store/GameStore/types';
 
 export enum EAppLocale {

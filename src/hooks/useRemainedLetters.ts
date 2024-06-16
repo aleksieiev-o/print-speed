@@ -5,7 +5,9 @@ export const useRemainedLetters = () => {
   const context = useContext(LettersCounterContext);
 
   if (context === undefined)
-    throw new Error('useRemainedLetters must be used within a LettersCounterProvider');
+    throw new Error(
+      'useRemainedLetters must be used within a LettersCounterProvider',
+    );
 
   return context;
 };

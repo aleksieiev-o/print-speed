@@ -1,6 +1,12 @@
 import {FC, ReactElement, useEffect} from 'react';
 import AppWrapper from '@/components/AppWrapper';
-import {Card, CardContent, CardFooter, CardHeader, CardTitle} from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import LettersCounter from '@/views/Game/LettersCounter';
 import Timer from '@/views/Game/Timer';
 import {Separator} from '@/components/ui/separator';
@@ -29,35 +35,43 @@ const Game: FC = observer((): ReactElement => {
     <AppWrapper>
       <Card className={'w-full h-full flex flex-col overflow-y-hidden'}>
         <CardHeader className={'gap-4 justify-center'}>
-          <CardTitle>
-            Write this text
-          </CardTitle>
+          <CardTitle>Write this text</CardTitle>
 
-          <Timer/>
+          <Timer />
         </CardHeader>
 
-        <CardContent className={'h-full grid grid-cols-1 gap-4 content-start overflow-y-hidden'}>
-          <CurrentText/>
+        <CardContent
+          className={
+            'h-full grid grid-cols-1 gap-4 content-start overflow-y-hidden'
+          }
+        >
+          <CurrentText />
 
-          <Separator/>
+          <Separator />
 
-          <div className={'w-full flex flex-col md:flex-row md:gap-6 gap-4 items-start md:items-center justify-between overflow-hidden'}>
-            <LettersCounter/>
+          <div
+            className={
+              'w-full flex flex-col md:flex-row md:gap-6 gap-4 items-start md:items-center justify-between overflow-hidden'
+            }
+          >
+            <LettersCounter />
 
-            <VictoryCounter/>
+            <VictoryCounter />
           </div>
         </CardContent>
 
-        <CardFooter className={'grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-end'}>
-          <PrintSpeedChanger/>
+        <CardFooter
+          className={'grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-end'}
+        >
+          <PrintSpeedChanger />
 
-          <ChangeTextButton/>
+          <ChangeTextButton />
 
-          <ChangeGameStatusButton/>
+          <ChangeGameStatusButton />
         </CardFooter>
       </Card>
 
-      <FinishGameStatusModal/>
+      <FinishGameStatusModal />
     </AppWrapper>
   );
 });

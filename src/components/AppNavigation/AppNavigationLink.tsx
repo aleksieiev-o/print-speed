@@ -14,7 +14,10 @@ const AppNavigationLink: FC<Props> = (props): ReactElement => {
     <Link
       to={to}
       title={title}
-      className={'p-4 font-md rounded-lg hover:bg-primary hover:text-secondary duration-400 ease-in-out'}>
+      className={
+        'p-4 font-md rounded-lg hover:bg-primary hover:text-secondary duration-400 ease-in-out'
+      }
+    >
       {title}
     </Link>
   );

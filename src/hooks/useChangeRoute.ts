@@ -8,12 +8,12 @@ interface IUseChangeRoute {
 export const useChangeRoute = (): IUseChangeRoute => {
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const changeRoute = (to: ERouter) => {
     if (location.pathname !== to) {
       navigate(to);
     }
   };
-  
-  return { changeRoute };
+
+  return {changeRoute};
 };

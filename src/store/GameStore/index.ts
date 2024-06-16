@@ -1,4 +1,10 @@
-import {EFinishGameStatus, EGameActiveStatus, EPrintSpeedLevelsList, IGameStore, IText} from '@/store/GameStore/types';
+import {
+  EFinishGameStatus,
+  EGameActiveStatus,
+  EPrintSpeedLevelsList,
+  IGameStore,
+  IText,
+} from '@/store/GameStore/types';
 import {RootStore} from '@/store';
 import {GameStoreService} from '@/store/GameStore/service';
 import {makeAutoObservable, runInAction} from 'mobx';
@@ -26,15 +32,14 @@ export class GameStore implements IGameStore {
     this.textPrintTime = 0;
     this.victoryCounter = 0;
 
-    this.fetchTextsList()
-      .then(() => {
-        this.changeText();
-        this.setTimer();
-      });
+    this.fetchTextsList().then(() => {
+      this.changeText();
+      this.setTimer();
+    });
 
     makeAutoObservable(this, {}, {autoBind: true});
   }
-  
+
   async fetchTextsList(): Promise<void> {
     const data = await this.gameStoreService.fetchTextsList();
 
@@ -56,7 +61,10 @@ export class GameStore implements IGameStore {
   }
 
   get isGameRunning(): boolean {
-    return this.gameActiveStatus === EGameActiveStatus.STARTED || this.gameActiveStatus === EGameActiveStatus.RESUMED;
+    return (
+      this.gameActiveStatus === EGameActiveStatus.STARTED ||
+      this.gameActiveStatus === EGameActiveStatus.RESUMED
+    );
   }
 
   get isGamePaused(): boolean {
@@ -71,7 +79,9 @@ export class GameStore implements IGameStore {
     this.gameFinishStatus = status;
   }
 
-  async changePrintSpeedLevel(printSpeedLevel: EPrintSpeedLevelsList): Promise<void> {
+  async changePrintSpeedLevel(
+    printSpeedLevel: EPrintSpeedLevelsList,
+  ): Promise<void> {
     this.changeGameActiveStatus(EGameActiveStatus.STOPPED);
     this.changeGameFinishStatus(EFinishGameStatus.UNKNOWN);
     await this.rootStore.settingsStore.updatePrintSpeedLevel(printSpeedLevel);
@@ -87,7 +97,7 @@ export class GameStore implements IGameStore {
 
   setTimer(): void {
     const {printSpeedLevel} = this.rootStore.settingsStore.remoteGameSettings;
-    const time = this.text.body.length / parseInt(printSpeedLevel, 10) * 60;
+    const time = (this.text.body.length / parseInt(printSpeedLevel, 10)) * 60;
     this.textPrintTime = Math.round(time);
   }
 
@@ -100,8 +110,11 @@ export class GameStore implements IGameStore {
   }
 
   private getRandomText(): IText {
-    const randomNumber = Math.round(Math.random() * (this.textsList.length - 1));
-    const findText = () => this.textsList.find((item, idx) => idx === randomNumber);
+    const randomNumber = Math.round(
+      Math.random() * (this.textsList.length - 1),
+    );
+    const findText = () =>
+      this.textsList.find((item, idx) => idx === randomNumber);
     let foundedText = findText();
 
     if (this.text.body === foundedText.body) {

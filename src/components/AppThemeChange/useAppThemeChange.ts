@@ -5,7 +5,7 @@ import {useLoading} from '@/hooks/useLoading';
 
 export const useAppThemeChange = () => {
   const settingsStore = useSettingsStore();
-  const { setTheme } = useTheme();
+  const {setTheme} = useTheme();
   const {isLoading, setIsLoading} = useLoading();
 
   const changeTheme = async (theme: EAppTheme) => {

@@ -1,4 +1,11 @@
-import {FC, ReactElement, useCallback, useEffect, useMemo, useState} from 'react';
+import {
+  FC,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import {useGameStore} from '@/store/hooks';
 import {EFinishGameStatus, EGameActiveStatus} from '@/store/GameStore/types';
 import {observer} from 'mobx-react-lite';
@@ -12,12 +19,16 @@ const CurrentText: FC = observer((): ReactElement => {
   const {setRemainedLetters} = useRemainedLetters();
   const [currentText, setCurrentText] = useState<string>('');
 
-  const keyDownHandler = useCallback((event: KeyboardEvent) => {
-    setCurrentText(currentText.replace(event.key, writtenChar));
-  }, [currentText]);
+  const keyDownHandler = useCallback(
+    (event: KeyboardEvent) => {
+      setCurrentText(currentText.replace(event.key, writtenChar));
+    },
+    [currentText],
+  );
 
   const writtenLetterCount = useMemo((): number => {
-    const matchedValues: RegExpMatchArray | null = currentText.match(writtenCharRegExp);
+    const matchedValues: RegExpMatchArray | null =
+      currentText.match(writtenCharRegExp);
     return matchedValues !== null ? matchedValues.length : 0;
   }, [currentText]);
 
@@ -67,13 +78,9 @@ const CurrentText: FC = observer((): ReactElement => {
 
   return (
     <div className={'overflow-y-auto'}>
-      <p className={'text-3xl'}>
-        {currentText}
-      </p>
+      <p className={'text-3xl'}>{currentText}</p>
 
-      <p className={'text-md italic'}>
-        By {gameStore.text.author}
-      </p>
+      <p className={'text-md italic'}>By {gameStore.text.author}</p>
     </div>
   );
 });

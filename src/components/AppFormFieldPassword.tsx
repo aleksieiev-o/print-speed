@@ -19,7 +19,8 @@ const AppFormFieldPassword: FC<Props> = (props): ReactElement => {
         label={'Password'}
         placeholder={checked ? 'Password' : '•••••••••'}
         required={true}
-        disabled={disabled}/>
+        disabled={disabled}
+      />
 
       <div className={'flex items-end gap-2'}>
         <Checkbox
@@ -27,12 +28,16 @@ const AppFormFieldPassword: FC<Props> = (props): ReactElement => {
           checked={checked}
           disabled={disabled}
           onCheckedChange={(isChecked) => setChecked(isChecked as boolean)}
-          title={'Show password'}/>
+          title={'Show password'}
+        />
 
         <div className={'grid gap-1.5 leading-none'}>
           <label
             htmlFor={isPasswordVisibleID}
-            className={'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'}>
+            className={
+              'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+            }
+          >
             Show password
           </label>
         </div>

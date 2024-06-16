@@ -1,12 +1,18 @@
-import { User, updateProfile, updateEmail, updatePassword } from '@firebase/auth';
+import {User, updateProfile, updateEmail, updatePassword} from '@firebase/auth';
 import {
   createUserWithEmailAndPassword,
-  reauthenticateWithCredential, signInWithEmailAndPassword, signOut, UserCredential, EmailAuthProvider } from 'firebase/auth';
-import { firebaseAuth } from '@/lib/firebase';
+  reauthenticateWithCredential,
+  signInWithEmailAndPassword,
+  signOut,
+  UserCredential,
+  EmailAuthProvider,
+} from 'firebase/auth';
+import {firebaseAuth} from '@/lib/firebase/firebase';
 import {
   AuthorizationStore,
-  IAuthChangeEmailRequestDto, IAuthChangePasswordRequestDto,
-  IAuthChangeUserProfileRequestDto
+  IAuthChangeEmailRequestDto,
+  IAuthChangePasswordRequestDto,
+  IAuthChangeUserProfileRequestDto,
 } from './index';
 import {IAuthUserCredentialsShape} from '@/store/AuthorizationStore/types';
 
@@ -29,14 +35,24 @@ export class AuthorizationStoreService implements IAuthorizationStoreService {
   }
 
   async signInEmailPassword(payload: IAuthUserCredentialsShape): Promise<User> {
-    const { email, password } = payload;
-    const userCredential: UserCredential = await signInWithEmailAndPassword(firebaseAuth, email as string, password as string);
+    const {email, password} = payload;
+    const userCredential: UserCredential = await signInWithEmailAndPassword(
+      firebaseAuth,
+      email as string,
+      password as string,
+    );
     return userCredential.user;
   }
 
-  async singUpEmailAndPassword(payload: IAuthUserCredentialsShape): Promise<User> {
-    const { email, password } = payload;
-    const userCredential: UserCredential = await createUserWithEmailAndPassword(firebaseAuth, email as string, password as string);
+  async singUpEmailAndPassword(
+    payload: IAuthUserCredentialsShape,
+  ): Promise<User> {
+    const {email, password} = payload;
+    const userCredential: UserCredential = await createUserWithEmailAndPassword(
+      firebaseAuth,
+      email as string,
+      password as string,
+    );
     return userCredential.user;
   }
 
@@ -44,13 +60,23 @@ export class AuthorizationStoreService implements IAuthorizationStoreService {
     return await signOut(firebaseAuth);
   }
 
-  async reAuthUser(payload: IAuthUserCredentialsShape): Promise<UserCredential> {
-    const { email, password } = payload;
-    const credential = EmailAuthProvider.credential(email as string, password as string);
-    return await reauthenticateWithCredential(firebaseAuth.currentUser!, credential);
+  async reAuthUser(
+    payload: IAuthUserCredentialsShape,
+  ): Promise<UserCredential> {
+    const {email, password} = payload;
+    const credential = EmailAuthProvider.credential(
+      email as string,
+      password as string,
+    );
+    return await reauthenticateWithCredential(
+      firebaseAuth.currentUser!,
+      credential,
+    );
   }
 
-  async updateUserProfile(payload: IAuthChangeUserProfileRequestDto): Promise<void> {
+  async updateUserProfile(
+    payload: IAuthChangeUserProfileRequestDto,
+  ): Promise<void> {
     const currentUser = AuthorizationStoreService.getCurrentUser();
 
     if (currentUser) {
@@ -66,7 +92,9 @@ export class AuthorizationStoreService implements IAuthorizationStoreService {
     }
   }
 
-  async updateUserPassword(payload: IAuthChangePasswordRequestDto): Promise<void> {
+  async updateUserPassword(
+    payload: IAuthChangePasswordRequestDto,
+  ): Promise<void> {
     const currentUser = AuthorizationStoreService.getCurrentUser();
 
     if (currentUser) {
