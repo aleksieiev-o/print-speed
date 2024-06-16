@@ -1,5 +1,5 @@
 import {useContext} from 'react';
-import {LettersCounterContext} from '@/providers/LettersCounter.provider';
+import {LettersCounterContext} from '@/shared/providers/LettersCounter.provider';
 
 export const useRemainedLetters = () => {
   const context = useContext(LettersCounterContext);

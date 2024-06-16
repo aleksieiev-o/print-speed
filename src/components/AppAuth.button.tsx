@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {useNavigate} from 'react-router-dom';
-import {ERouter} from '@/Router';
+import {ERouter} from '@/shared/Router';
 import {useAuthorizationStore} from '@/store/hooks';
 
 const AppAuthButton: FC = observer((): ReactElement => {

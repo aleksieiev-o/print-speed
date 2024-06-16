@@ -1,7 +1,7 @@
 import {EAppTheme} from '@/store/SettingsStore/types';
 import {useSettingsStore} from '@/store/hooks';
-import {useTheme} from '@/hooks/useTheme';
-import {useLoading} from '@/hooks/useLoading';
+import {useTheme} from '@/shared/hooks/useTheme';
+import {useLoading} from '@/shared/hooks/useLoading';
 
 export const useAppThemeChange = () => {
   const settingsStore = useSettingsStore();

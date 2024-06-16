@@ -1,5 +1,5 @@
 import {useLocation, useNavigate} from 'react-router-dom';
-import {ERouter} from '@/Router';
+import {ERouter} from '@/shared/Router';
 
 interface IUseChangeRoute {
   changeRoute: (to: ERouter) => void;

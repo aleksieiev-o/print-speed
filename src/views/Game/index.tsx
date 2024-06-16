@@ -17,8 +17,8 @@ import ChangeGameStatusButton from '@/views/Game/ChangeGameStatus.button';
 import CurrentText from '@/views/Game/CurrentText';
 import ChangeTextButton from '@/views/Game/ChangeText.button';
 import {useNavigate} from 'react-router-dom';
-import {ERouter} from '@/Router';
-import {useDesktopDevice} from '@/hooks/useDesktopDevice';
+import {ERouter} from '@/shared/Router';
+import {useDesktopDevice} from '@/shared/hooks/useDesktopDevice';
 import FinishGameStatusModal from '@/views/Game/FinishGameStatus.modal';
 
 const Game: FC = observer((): ReactElement => {

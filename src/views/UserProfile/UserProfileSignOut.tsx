@@ -2,7 +2,7 @@ import {FC, ReactElement} from 'react';
 import {Button} from '@/components/ui/button';
 import {Loader2, LogOut} from 'lucide-react';
 import {observer} from 'mobx-react-lite';
-import {useSignOut} from '@/hooks/useSignOut';
+import {useSignOut} from '@/shared/hooks/useSignOut';
 
 const UserProfileSignOut: FC = observer((): ReactElement => {
   const {isLoading, handleSignOut} = useSignOut();

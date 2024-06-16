@@ -11,8 +11,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import AppAvatar from '@/components/AppAvatar';
 import {useNavigate} from 'react-router-dom';
-import {ERouter} from '@/Router';
-import {useSignOut} from '@/hooks/useSignOut';
+import {ERouter} from '@/shared/Router';
+import {useSignOut} from '@/shared/hooks/useSignOut';
 
 const AppNavigationFooter: FC = observer((): ReactElement => {
   const authorizationStore = useAuthorizationStore();

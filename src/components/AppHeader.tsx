@@ -2,8 +2,8 @@ import {FC, ReactElement, useMemo} from 'react';
 import AppThemeChange from '@/components/AppThemeChange';
 import {observer} from 'mobx-react-lite';
 import {useLocation} from 'react-router-dom';
-import {ERouter, ERouterTitle} from '@/Router';
-import AppAuthButton from '@/components/ui/AppAuth.button';
+import {ERouter, ERouterTitle} from '@/shared/Router';
+import AppAuthButton from '@/components/AppAuth.button';
 
 const AppHeader: FC = observer((): ReactElement => {
   const location = useLocation();

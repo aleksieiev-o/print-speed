@@ -1,7 +1,7 @@
 import {useAuthorizationStore} from '@/store/hooks';
-import {useLoading} from '@/hooks/useLoading';
+import {useLoading} from '@/shared/hooks/useLoading';
 import {useNavigate} from 'react-router-dom';
-import {ERouter} from '@/Router';
+import {ERouter} from '@/shared/Router';
 
 export const useSignOut = () => {
   const authorizationStore = useAuthorizationStore();

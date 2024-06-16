@@ -1,5 +1,5 @@
 import {createContext, FC, ReactElement} from 'react';
-import {RootStore} from '../store';
+import {RootStore} from '../../store';
 
 interface Props {
   children: ReactElement;

@@ -10,7 +10,7 @@ import {
   EAlertVariant,
 } from '@/components/ui/alert';
 import {Hourglass} from 'lucide-react';
-import {useIsGameActive} from '@/hooks/useIsGameActive';
+import {useIsGameActive} from '@/shared/hooks/useIsGameActive';
 
 enum ERemainedTime {
   MUCH = 1,

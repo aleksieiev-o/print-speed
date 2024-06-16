@@ -1,6 +1,6 @@
 import {FC, PropsWithChildren, ReactElement} from 'react';
 import {Navigate, Outlet} from 'react-router-dom';
-import {ERouter} from '@/Router/index';
+import {ERouter} from '@/shared/Router/index';
 
 interface Props extends PropsWithChildren {
   isAllowed: boolean;

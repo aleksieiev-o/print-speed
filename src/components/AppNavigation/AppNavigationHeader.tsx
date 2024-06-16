@@ -1,6 +1,6 @@
 import {FC, ReactElement} from 'react';
 import {CardHeader} from '@/components/ui/card';
-import {ERouter} from '@/Router';
+import {ERouter} from '@/shared/Router';
 import {Snail} from 'lucide-react';
 import {Link} from 'react-router-dom';
 

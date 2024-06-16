@@ -3,7 +3,7 @@ import {RefreshCw} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {useGameStore} from '@/store/hooks';
 import {observer} from 'mobx-react-lite';
-import {useElementFocus} from '@/hooks/useElementFocus';
+import {useElementFocus} from '@/shared/hooks/useElementFocus';
 
 const ChangeTextButton: FC = observer((): ReactElement => {
   const gameStore = useGameStore();

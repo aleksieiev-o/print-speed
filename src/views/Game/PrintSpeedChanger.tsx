@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/select';
 import {observer} from 'mobx-react-lite';
 import {useGameStore, useSettingsStore} from '@/store/hooks';
-import {useLoading} from '@/hooks/useLoading';
+import {useLoading} from '@/shared/hooks/useLoading';
 
 type TPrintSpeedLevelsList = Array<{lpm: EPrintSpeedLevelsList; title: string}>;
 

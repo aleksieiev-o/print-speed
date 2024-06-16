@@ -9,7 +9,7 @@ import {
 import {useGameStore} from '@/store/hooks';
 import {EFinishGameStatus, EGameActiveStatus} from '@/store/GameStore/types';
 import {observer} from 'mobx-react-lite';
-import {useRemainedLetters} from '@/hooks/useRemainedLetters';
+import {useRemainedLetters} from '@/shared/hooks/useRemainedLetters';
 
 const writtenChar = '*';
 const writtenCharRegExp = new RegExp(`\\${writtenChar}`, 'g');

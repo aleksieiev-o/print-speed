@@ -9,8 +9,8 @@ import {
 } from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
 import {useNavigate} from 'react-router-dom';
-import {ERouter} from '@/Router';
-import {useDesktopDevice} from '@/hooks/useDesktopDevice';
+import {ERouter} from '@/shared/Router';
+import {useDesktopDevice} from '@/shared/hooks/useDesktopDevice';
 import {observer} from 'mobx-react-lite';
 
 const Home: FC = observer((): ReactElement => {

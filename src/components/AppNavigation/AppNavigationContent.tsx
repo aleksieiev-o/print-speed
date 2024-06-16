@@ -1,6 +1,6 @@
 import {FC, ReactElement} from 'react';
 import {CardContent} from '@/components/ui/card';
-import {ERouter, ERouterTitle} from '@/Router';
+import {ERouter, ERouterTitle} from '@/shared/Router';
 import AppNavigationLink from '@/components/AppNavigation/AppNavigationLink';
 import {observer} from 'mobx-react-lite';
 import {useAuthorizationStore} from '@/store/hooks';

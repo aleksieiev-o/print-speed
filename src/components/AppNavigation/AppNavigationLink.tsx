@@ -1,5 +1,5 @@
 import {FC, ReactElement} from 'react';
-import {ERouter} from '@/Router';
+import {ERouter} from '@/shared/Router';
 import {Link} from 'react-router-dom';
 
 interface Props {

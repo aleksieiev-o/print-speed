@@ -1,8 +1,8 @@
 import {FC, ReactElement} from 'react';
 import {useGameStore} from '@/store/hooks';
 import {observer} from 'mobx-react-lite';
-import {useRemainedLetters} from '@/hooks/useRemainedLetters';
-import {useIsGameActive} from '@/hooks/useIsGameActive';
+import {useRemainedLetters} from '@/shared/hooks/useRemainedLetters';
+import {useIsGameActive} from '@/shared/hooks/useIsGameActive';
 
 const LettersCounter: FC = observer((): ReactElement => {
   const gameStore = useGameStore();

@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import {RootStore} from './index';
-import {StoreContext} from '@/providers/Store.provider';
+import {StoreContext} from '@/shared/providers/Store.provider';
 import {GameStore} from '@/store/GameStore';
 import {GlobalLoaderStore} from '@/store/GlobalLoaderStore';
 import {AuthorizationStore} from '@/store/AuthorizationStore';

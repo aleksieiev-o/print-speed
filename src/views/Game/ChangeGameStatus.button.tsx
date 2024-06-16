@@ -4,7 +4,7 @@ import {EGameActiveStatus} from '@/store/GameStore/types';
 import {Loader2, Pause, Play} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {useGameStore} from '@/store/hooks';
-import {useElementFocus} from '@/hooks/useElementFocus';
+import {useElementFocus} from '@/shared/hooks/useElementFocus';
 
 interface IChangeActiveButton {
   title: string;

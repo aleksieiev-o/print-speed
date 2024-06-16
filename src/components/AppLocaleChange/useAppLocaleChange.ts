@@ -1,6 +1,6 @@
 import {EAppLocale, EAppLocaleName} from '@/store/SettingsStore/types';
 import {useSettingsStore} from '@/store/hooks';
-import {useLoading} from '@/hooks/useLoading';
+import {useLoading} from '@/shared/hooks/useLoading';
 import {useMemo, useState} from 'react';
 
 export const useAppLocaleChange = () => {
