@@ -20,9 +20,9 @@ export enum ERouter {
 export enum ERouterTitle {
   HOME = 'Home',
   GAME = 'Game',
-  TEXTS_LIST = 'Texts list',
+  TEXTS_LIST = 'Text list',
   SETTINGS = 'Settings',
-  USER_PROFILE = 'User profile',
+  USER_PROFILE = 'User settings',
   SIGN_IN = 'Sign in',
   SIGN_UP = 'Sign up',
   NOT_FOUND = 'Page not found',

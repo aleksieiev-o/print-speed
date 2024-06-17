@@ -80,9 +80,9 @@ const AppNavigationFooter: FC = observer((): ReactElement => {
             <DropdownMenuContent align="end">
               <DropdownMenuItem
                 onClick={() => navigate(ERouter.USER_PROFILE)}
-                title={'User profile'}
+                title={'User settings'}
               >
-                User profile
+                User settings
               </DropdownMenuItem>
 
               <DropdownMenuItem onClick={handleSignOut} title={'Sign out'}>

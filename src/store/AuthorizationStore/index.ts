@@ -119,7 +119,7 @@ export class AuthorizationStore implements IAuthorizationStore {
   }
 
   get defaultDisplayName(): string {
-    return 'User';
+    return 'Anonymous User';
   }
 
   private async initApp(): Promise<void> {
