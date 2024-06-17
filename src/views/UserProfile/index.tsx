@@ -20,7 +20,7 @@ const UserProfile: FC = observer((): ReactElement => {
           <UserProfileInfo
             itemTitle={'User ID:'}
             itemValue={authorizationStore.userUid}
-            witchActionButton={false}
+            withActionButton={false}
           />
 
           <UserProfileInfo
@@ -30,7 +30,7 @@ const UserProfile: FC = observer((): ReactElement => {
               authorizationStore.user.displayName ||
               authorizationStore.defaultDisplayName
             }
-            witchActionButton={true}
+            withActionButton={true}
             buttonTitle={'Change display name'}
             buttonValue={'Change display name'}
           />
@@ -39,15 +39,16 @@ const UserProfile: FC = observer((): ReactElement => {
             handleClick={() => undefined}
             itemTitle={'Email:'}
             itemValue={authorizationStore.user.email}
-            witchActionButton={true}
+            withActionButton={true}
             buttonTitle={'Change email'}
             buttonValue={'Change email'}
           />
 
           <UserProfileInfo
+            handleClick={() => undefined}
             itemTitle={'Password:'}
             itemValue={'*********'}
-            witchActionButton={true}
+            withActionButton={true}
             buttonTitle={'Change password'}
             buttonValue={'Change password'}
           />

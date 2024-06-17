@@ -1,4 +1,4 @@
-import React, {FC, ReactElement} from 'react';
+import {FC, ReactElement, useState} from 'react';
 import {CardFooter} from '@/components/ui/card';
 import {observer} from 'mobx-react-lite';
 import {Button} from '@/components/ui/button';
@@ -13,11 +13,14 @@ import AppAvatar from '@/components/AppAvatar';
 import {useNavigate} from 'react-router-dom';
 import {ERouter} from '@/shared/Router';
 import {useSignOut} from '@/shared/hooks/useSignOut';
+import SignOutConfirmDialog from '../SignOutConfirm.dialog';
 
 const AppNavigationFooter: FC = observer((): ReactElement => {
   const authorizationStore = useAuthorizationStore();
   const navigate = useNavigate();
-  const {isLoading, handleSignOut} = useSignOut();
+  const {isLoading} = useSignOut();
+  const [dialogIsOpenSignOut, setDialogIsOpenSignOut] =
+    useState<boolean>(false);
 
   return (
     <>
@@ -85,13 +88,22 @@ const AppNavigationFooter: FC = observer((): ReactElement => {
                 User settings
               </DropdownMenuItem>
 
-              <DropdownMenuItem onClick={handleSignOut} title={'Sign out'}>
+              <DropdownMenuItem
+                onClick={() => setDialogIsOpenSignOut(true)}
+                disabled={isLoading}
+                title={'Sign out'}
+              >
                 Sign out
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </CardFooter>
       )}
+
+      <SignOutConfirmDialog
+        setDialogIsOpen={setDialogIsOpenSignOut}
+        dialogIsOpen={dialogIsOpenSignOut}
+      />
     </>
   );
 });

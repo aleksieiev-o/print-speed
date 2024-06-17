@@ -4,7 +4,7 @@ import {Button} from '@/components/ui/button';
 interface Props {
   itemTitle: string;
   itemValue: string | null;
-  witchActionButton: boolean;
+  withActionButton: boolean;
   buttonTitle?: string;
   buttonValue?: string;
   handleClick?: () => void;
@@ -14,7 +14,7 @@ const UserProfileInfo: FC<Props> = (props): ReactElement => {
   const {
     itemTitle,
     itemValue,
-    witchActionButton,
+    withActionButton,
     buttonTitle,
     buttonValue,
     handleClick,
@@ -42,7 +42,7 @@ const UserProfileInfo: FC<Props> = (props): ReactElement => {
         </span>
       </div>
 
-      {witchActionButton && (
+      {withActionButton && (
         <Button
           onClick={handleClick}
           variant={'default'}
