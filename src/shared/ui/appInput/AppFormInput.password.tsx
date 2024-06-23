@@ -1,6 +1,4 @@
-'use client';
-
-import React, {FC, ReactElement, useId, useState} from 'react';
+import {FC, ReactElement, useId, useState} from 'react';
 import {Checkbox} from '@/components/ui/checkbox';
 import AppFormInputText from '@/shared/ui/appInput/AppFormInput.text';
 import {IAppFormInput} from '@/shared/ui/appInput/_types/AppFormInput.interface';

@@ -1,4 +1,4 @@
-import React, {FC, ReactElement, useId, useState} from 'react';
+import {FC, ReactElement, useId, useState} from 'react';
 import AppFormField, {IAppFormFieldProps} from '@/components/AppFormField';
 import {Checkbox} from '@/components/ui/checkbox';
 

@@ -6,7 +6,7 @@ interface IAuthorizationStore {
   rootStore: RootStore;
   user: User | null | undefined;
   loading: boolean;
-  error: Error | null;
+  error: Error | undefined;
 }
 
 export class AuthorizationStore implements IAuthorizationStore {
@@ -14,7 +14,7 @@ export class AuthorizationStore implements IAuthorizationStore {
 
   user: User | null | undefined = null;
   loading: boolean = false;
-  error: Error | null = null;
+  error: Error | undefined = undefined;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
@@ -22,7 +22,7 @@ export class AuthorizationStore implements IAuthorizationStore {
     makeAutoObservable(this);
   }
 
-  setUser(user: User): void {
+  setUser(user: User | null | undefined): void {
     this.user = user;
   }
 
@@ -30,7 +30,7 @@ export class AuthorizationStore implements IAuthorizationStore {
     this.loading = status;
   }
 
-  setError(err: Error): void {
+  setError(err: Error | undefined): void {
     this.error = err;
   }
 
