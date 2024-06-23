@@ -1,20 +1,26 @@
-import {useAuthorizationStore} from '@/store/hooks';
-import {useLoading} from '@/shared/hooks/useLoading';
 import {useNavigate} from 'react-router-dom';
 import {ERouter} from '@/shared/Router';
+import {useContext} from 'react';
+import {AppAuthContext} from '../providers/AppAuth.provider';
 
-export const useSignOut = () => {
-  const authorizationStore = useAuthorizationStore();
+interface IUseSignOut {
+  signOut: () => Promise<boolean>;
+  signOutLoading: boolean;
+}
+
+export const useSignOut = (): IUseSignOut => {
   const navigate = useNavigate();
-  const {isLoading, setIsLoading} = useLoading();
+  const {signOut: handleSignOut, signOutLoading} = useContext(AppAuthContext);
 
-  const handleSignOut = async () => {
-    setIsLoading(true);
-    await authorizationStore.singOut();
-    setIsLoading(false);
-
-    navigate(ERouter.SIGN_IN);
+  const signOut = async (): Promise<boolean> => {
+    try {
+      const result: boolean = await handleSignOut();
+      navigate(ERouter.SIGN_IN);
+      return Promise.resolve(result);
+    } catch (err) {
+      return Promise.reject(false);
+    }
   };
 
-  return {isLoading, handleSignOut};
+  return {signOut, signOutLoading};
 };

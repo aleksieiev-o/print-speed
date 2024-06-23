@@ -20,10 +20,13 @@ import {useNavigate} from 'react-router-dom';
 import {ERouter} from '@/shared/Router';
 import {useDesktopDevice} from '@/shared/hooks/useDesktopDevice';
 import FinishGameStatusModal from '@/views/Game/FinishGameStatus.modal';
+import {Skeleton} from '@/components/ui/skeleton';
+import {useSettingsStore} from '@/store/hooks';
 
 const Game: FC = observer((): ReactElement => {
   const {IsNotDesktop} = useDesktopDevice();
   const navigate = useNavigate();
+  const settingsStore = useSettingsStore();
 
   useEffect(() => {
     if (IsNotDesktop) {
@@ -63,7 +66,11 @@ const Game: FC = observer((): ReactElement => {
         <CardFooter
           className={'grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-end'}
         >
-          <PrintSpeedChanger />
+          {settingsStore.gameSettings?.printSpeedLevel ? (
+            <PrintSpeedChanger />
+          ) : (
+            <Skeleton className={'h-12 w-full bg-white/50'} />
+          )}
 
           <ChangeTextButton />
 

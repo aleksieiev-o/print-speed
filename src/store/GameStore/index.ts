@@ -96,7 +96,7 @@ export class GameStore implements IGameStore {
   }
 
   setTimer(): void {
-    const {printSpeedLevel} = this.rootStore.settingsStore.remoteGameSettings;
+    const {printSpeedLevel} = this.rootStore.settingsStore.gameSettings;
     const time = (this.text.body.length / parseInt(printSpeedLevel, 10)) * 60;
     this.textPrintTime = Math.round(time);
   }

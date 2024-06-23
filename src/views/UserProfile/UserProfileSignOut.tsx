@@ -2,11 +2,11 @@ import {FC, ReactElement, useState} from 'react';
 import {Button} from '@/components/ui/button';
 import {Loader2, LogOut} from 'lucide-react';
 import {observer} from 'mobx-react-lite';
-import {useSignOut} from '@/shared/hooks/useSignOut';
 import SignOutConfirmDialog from '@/components/SignOutConfirm.dialog';
+import {useSignOut} from '@/shared/hooks/useSignOut';
 
 const UserProfileSignOut: FC = observer((): ReactElement => {
-  const {isLoading} = useSignOut();
+  const {signOutLoading} = useSignOut();
   const [dialogIsOpenSignOut, setDialogIsOpenSignOut] =
     useState<boolean>(false);
 
@@ -17,10 +17,10 @@ const UserProfileSignOut: FC = observer((): ReactElement => {
           onClick={() => setDialogIsOpenSignOut(true)}
           variant={'default'}
           title={'Sign out'}
-          disabled={isLoading}
+          disabled={signOutLoading}
           className={'min-w-[200px] lg:min-w-[240px]'}
         >
-          {isLoading ? (
+          {signOutLoading ? (
             <>
               <Loader2 className={'h-4 w-4 mr-2 animate-spin'} />
               <span>Please wait</span>

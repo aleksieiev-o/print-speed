@@ -18,7 +18,7 @@ export class SettingsStore implements ISettingsStore {
   settingsStoreService: SettingsStoreService;
 
   appSettings: IAppSettings;
-  remoteGameSettings: IRemoteGameSettings;
+  gameSettings: IRemoteGameSettings;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
@@ -34,7 +34,7 @@ export class SettingsStore implements ISettingsStore {
         ) as EAppTheme) || EAppTheme.SYSTEM,
     };
 
-    this.remoteGameSettings = {
+    this.gameSettings = {
       printSpeedLevel: EPrintSpeedLevelsList.AVERAGE,
     };
 
@@ -46,8 +46,7 @@ export class SettingsStore implements ISettingsStore {
   }
 
   async fetchGameSettings(): Promise<void> {
-    this.remoteGameSettings =
-      await this.settingsStoreService.fetchGameSettings();
+    this.gameSettings = await this.settingsStoreService.fetchGameSettings();
   }
 
   async createAppSettings(): Promise<void> {
@@ -61,7 +60,7 @@ export class SettingsStore implements ISettingsStore {
     await this.settingsStoreService.createSettings<
       IRemoteGameSettings,
       EBaseSettingsEndpoints.GAME_SETTINGS
-    >(this.remoteGameSettings, EBaseSettingsEndpoints.GAME_SETTINGS);
+    >(this.gameSettings, EBaseSettingsEndpoints.GAME_SETTINGS);
   }
 
   async updateAppLocale(value: EAppLocale): Promise<void> {
@@ -81,7 +80,7 @@ export class SettingsStore implements ISettingsStore {
   }
 
   async updatePrintSpeedLevel(value: EPrintSpeedLevelsList): Promise<void> {
-    this.remoteGameSettings.printSpeedLevel =
+    this.gameSettings.printSpeedLevel =
       await this.settingsStoreService.updateSettingsItem<
         EPrintSpeedLevelsList,
         ESettingsEndpoints.PRINT_SPEED

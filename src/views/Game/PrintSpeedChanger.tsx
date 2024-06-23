@@ -34,17 +34,17 @@ const PrintSpeedChanger: FC = observer((): ReactElement => {
 
   const defaultSpeedLevelLPM: EPrintSpeedLevelsList = useMemo(() => {
     const speedLevel = printSpeedLevelsList.find(
-      (item) => item.lpm === settingsStore.remoteGameSettings.printSpeedLevel,
+      (item) => item.lpm === settingsStore.gameSettings.printSpeedLevel,
     );
     return speedLevel.lpm;
-  }, [settingsStore.remoteGameSettings.printSpeedLevel, printSpeedLevelsList]);
+  }, [settingsStore.gameSettings.printSpeedLevel, printSpeedLevelsList]);
 
   const currentSpeedLevelTitle = useMemo(() => {
     const speedLevel = printSpeedLevelsList.find(
-      (item) => item.lpm === settingsStore.remoteGameSettings.printSpeedLevel,
+      (item) => item.lpm === settingsStore.gameSettings.printSpeedLevel,
     );
     return speedLevel.title;
-  }, [settingsStore.remoteGameSettings.printSpeedLevel, printSpeedLevelsList]);
+  }, [settingsStore.gameSettings.printSpeedLevel, printSpeedLevelsList]);
 
   const changeLPM = async (lpm: EPrintSpeedLevelsList): Promise<void> => {
     setIsLoading(true);
@@ -56,14 +56,14 @@ const PrintSpeedChanger: FC = observer((): ReactElement => {
     <div>
       <p className={'mb-2'}>
         Current print speed:{' '}
-        <strong>{settingsStore.remoteGameSettings.printSpeedLevel}</strong>{' '}
-        symbols per minute ({currentSpeedLevelTitle})
+        <strong>{settingsStore.gameSettings.printSpeedLevel}</strong> symbols
+        per minute ({currentSpeedLevelTitle})
       </p>
 
       <Select
         onValueChange={(value) => changeLPM(value as EPrintSpeedLevelsList)}
         disabled={isLoading}
-        defaultValue={settingsStore.remoteGameSettings.printSpeedLevel}
+        defaultValue={settingsStore.gameSettings.printSpeedLevel}
       >
         <SelectTrigger title={'Change print speed'}>
           <SelectValue placeholder={'Print speed'} />

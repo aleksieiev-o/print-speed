@@ -2,8 +2,8 @@ import {FC, ReactElement} from 'react';
 import {CardContent} from '@/components/ui/card';
 import {ERouter, ERouterTitle} from '@/shared/Router';
 import AppNavigationLink from '@/components/AppNavigation/AppNavigationLink';
-import {observer} from 'mobx-react-lite';
 import {useAuthorizationStore} from '@/store/hooks';
+import {observer} from 'mobx-react-lite';
 
 const AppNavigationContent: FC = observer((): ReactElement => {
   const authorizationStore = useAuthorizationStore();
@@ -21,7 +21,7 @@ const AppNavigationContent: FC = observer((): ReactElement => {
 
         <AppNavigationLink to={ERouter.GAME} title={ERouterTitle.GAME} />
 
-        {authorizationStore.isAuth && (
+        {authorizationStore.user && (
           <>
             <AppNavigationLink
               to={ERouter.TEXTS_LIST}

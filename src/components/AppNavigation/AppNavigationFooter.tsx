@@ -1,8 +1,6 @@
 import {FC, ReactElement, useState} from 'react';
 import {CardFooter} from '@/components/ui/card';
-import {observer} from 'mobx-react-lite';
 import {Button} from '@/components/ui/button';
-import {useAuthorizationStore} from '@/store/hooks';
 import {MoreVertical} from 'lucide-react';
 import {DropdownMenu, DropdownMenuTrigger} from '@radix-ui/react-dropdown-menu';
 import {
@@ -12,19 +10,22 @@ import {
 import AppAvatar from '@/components/AppAvatar';
 import {useNavigate} from 'react-router-dom';
 import {ERouter} from '@/shared/Router';
-import {useSignOut} from '@/shared/hooks/useSignOut';
 import SignOutConfirmDialog from '../SignOutConfirm.dialog';
+import {DEFAULT_USER_DN} from '@/shared/appConstants';
+import {useSignOut} from '@/shared/hooks/useSignOut';
+import {useAuthorizationStore} from '@/store/hooks';
+import {observer} from 'mobx-react-lite';
 
 const AppNavigationFooter: FC = observer((): ReactElement => {
-  const authorizationStore = useAuthorizationStore();
   const navigate = useNavigate();
-  const {isLoading} = useSignOut();
+  const {signOutLoading} = useSignOut();
   const [dialogIsOpenSignOut, setDialogIsOpenSignOut] =
     useState<boolean>(false);
+  const authorizationStore = useAuthorizationStore();
 
   return (
     <>
-      {authorizationStore.isAuth && (
+      {authorizationStore.user && (
         <CardFooter
           className={
             'w-full grid grid-cols-[56px_1fr_48px] gap-2 overflow-hidden'
@@ -33,10 +34,7 @@ const AppNavigationFooter: FC = observer((): ReactElement => {
           <AppAvatar
             handleClick={() => navigate(ERouter.USER_PROFILE)}
             userImageSrc={''}
-            userName={
-              authorizationStore.user.displayName ||
-              authorizationStore.defaultDisplayName
-            }
+            userName={authorizationStore.user.displayName || DEFAULT_USER_DN}
           />
 
           <div
@@ -48,13 +46,9 @@ const AppNavigationFooter: FC = observer((): ReactElement => {
               className={
                 'w-full whitespace-nowrap text-ellipsis font-bold overflow-hidden'
               }
-              title={
-                authorizationStore.user.displayName ||
-                authorizationStore.defaultDisplayName
-              }
+              title={authorizationStore.user.displayName || DEFAULT_USER_DN}
             >
-              {authorizationStore.user.displayName ||
-                authorizationStore.defaultDisplayName}
+              {authorizationStore.user.displayName || DEFAULT_USER_DN}
             </span>
 
             <span
@@ -74,7 +68,7 @@ const AppNavigationFooter: FC = observer((): ReactElement => {
                 size={'icon'}
                 className={''}
                 title={'User menu'}
-                disabled={isLoading}
+                disabled={signOutLoading}
               >
                 <MoreVertical className={'h-[1.2rem] w-[1.2rem]'} />
               </Button>
@@ -90,7 +84,7 @@ const AppNavigationFooter: FC = observer((): ReactElement => {
 
               <DropdownMenuItem
                 onClick={() => setDialogIsOpenSignOut(true)}
-                disabled={isLoading}
+                disabled={signOutLoading}
                 title={'Sign out'}
               >
                 Sign out

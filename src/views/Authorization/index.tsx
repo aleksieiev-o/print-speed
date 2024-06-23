@@ -1,9 +1,6 @@
-import {FC, ReactElement, useId, useMemo} from 'react';
+import {FC, ReactElement, useContext, useId, useMemo} from 'react';
 import AppWrapper from '@/components/AppWrapper';
-import {observer} from 'mobx-react-lite';
-import {useAuthorizationStore} from '@/store/hooks';
 import {useLocation} from 'react-router-dom';
-import {useLoading} from '@/shared/hooks/useLoading';
 import {useChangeRoute} from '@/shared/hooks/useChangeRoute';
 import {ERouter} from '@/shared/Router';
 import {FirebaseError} from 'firebase/app';
@@ -24,6 +21,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {AppAuthContext} from '@/shared/providers/AppAuth.provider';
+import {observer} from 'mobx-react-lite';
 
 const initialAuthValues = {
   email: '',
@@ -31,12 +30,16 @@ const initialAuthValues = {
 };
 
 const Authorization: FC = observer((): ReactElement => {
-  const authorizationStore = useAuthorizationStore();
   const authFormID = useId();
   const location = useLocation();
   const {toast} = useToast();
-  const {isLoading, setIsLoading} = useLoading();
   const {changeRoute} = useChangeRoute();
+  const {
+    signInWithEmailAndPassword,
+    signInLoading,
+    signUpWithEmailAndPassword,
+    signUpLoading,
+  } = useContext(AppAuthContext);
 
   const isSignInPage = useMemo(
     () => location.pathname === ERouter.SIGN_IN,
@@ -68,14 +71,12 @@ const Authorization: FC = observer((): ReactElement => {
   });
 
   const handleSubmitForm = async (values: z.infer<typeof formSchema>) => {
-    setIsLoading(true);
-
     try {
       if (isSignInPage) {
-        await authorizationStore.signInEmailPassword(values);
+        await signInWithEmailAndPassword(values.email, values.password);
         await changeRoute(ERouter.HOME);
       } else if (!isSignInPage) {
-        await authorizationStore.singUpEmailAndPassword(values);
+        await signUpWithEmailAndPassword(values.email, values.password);
         await changeRoute(ERouter.HOME);
       }
 
@@ -126,8 +127,6 @@ const Authorization: FC = observer((): ReactElement => {
         }
         console.warn(err.code);
       }
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -169,12 +168,12 @@ const Authorization: FC = observer((): ReactElement => {
                     label={'Email'}
                     placeholder={'john.doe@company.com'}
                     required={true}
-                    disabled={isLoading}
+                    disabled={signInLoading || signUpLoading}
                   />
 
                   <AppFormFieldPassword
                     formModel={formModel}
-                    disabled={isLoading}
+                    disabled={signInLoading || signUpLoading}
                   />
                 </div>
 
@@ -188,7 +187,7 @@ const Authorization: FC = observer((): ReactElement => {
                   <Button
                     onClick={() => handleToggleAuthRoute()}
                     variant={'link'}
-                    disabled={isLoading}
+                    disabled={signInLoading || signUpLoading}
                     title={isSignInPage ? 'Sign up' : 'Sign in'}
                   >
                     {isSignInPage ? 'Sign up' : 'Sign in'}
@@ -210,7 +209,7 @@ const Authorization: FC = observer((): ReactElement => {
             <SubmitButton
               formId={authFormID}
               isSignInPage={isSignInPage}
-              isLoading={isLoading}
+              isLoading={signInLoading || signUpLoading}
             />
           </CardFooter>
         </Card>

@@ -45,5 +45,5 @@ export interface ISettingsStore {
   rootStore: RootStore;
   settingsStoreService: SettingsStoreService;
   appSettings: IAppSettings;
-  remoteGameSettings: IRemoteGameSettings;
+  gameSettings: IRemoteGameSettings;
 }

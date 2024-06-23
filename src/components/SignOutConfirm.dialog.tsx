@@ -9,8 +9,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import {useToast} from './ui/use-toast';
-import {useSignOut} from '@/shared/hooks/useSignOut';
 import {Button} from './ui/button';
+import {useSignOut} from '@/shared/hooks/useSignOut';
 
 interface Props {
   dialogIsOpen: boolean;
@@ -20,11 +20,11 @@ interface Props {
 const SignOutConfirmDialog: FC<Props> = (props): ReactElement => {
   const {dialogIsOpen, setDialogIsOpen} = props;
   const {toast} = useToast();
-  const {isLoading, handleSignOut} = useSignOut();
+  const {signOut, signOutLoading} = useSignOut();
 
   const handleConfirm = async (): Promise<void> => {
     try {
-      await handleSignOut();
+      signOut();
 
       toast({title: 'Success', description: 'You signed out successfully.'});
     } catch (e) {
@@ -59,7 +59,7 @@ const SignOutConfirmDialog: FC<Props> = (props): ReactElement => {
 
           <Button
             onClick={handleConfirm}
-            disabled={isLoading}
+            disabled={signOutLoading}
             variant={'destructive'}
             title={'Sign out'}
           >

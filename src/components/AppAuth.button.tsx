@@ -1,5 +1,4 @@
 import React, {FC, ReactElement} from 'react';
-import {observer} from 'mobx-react-lite';
 import {Button} from '@/components/ui/button';
 import {LogIn} from 'lucide-react';
 import {
@@ -11,6 +10,7 @@ import {
 import {useNavigate} from 'react-router-dom';
 import {ERouter} from '@/shared/Router';
 import {useAuthorizationStore} from '@/store/hooks';
+import {observer} from 'mobx-react-lite';
 
 const AppAuthButton: FC = observer((): ReactElement => {
   const authorizationStore = useAuthorizationStore();
@@ -18,7 +18,7 @@ const AppAuthButton: FC = observer((): ReactElement => {
 
   return (
     <>
-      {!authorizationStore.isAuth && (
+      {!authorizationStore.user && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
