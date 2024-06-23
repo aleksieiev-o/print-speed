@@ -40,7 +40,7 @@ const ChangeEmailDialog: FC<Props> = observer((props): ReactElement => {
     const currentDate = new Date();
     const lastSignInDate = new Date(
       authorizationStore.user
-        ? authorizationStore.user.metadata.lastSignInTime
+        ? (authorizationStore.user.metadata.lastSignInTime as string)
         : '',
     );
 

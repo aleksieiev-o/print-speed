@@ -9,13 +9,13 @@ import {
 import {Asterisk} from 'lucide-react';
 import {Input} from '@/components/ui/input';
 import {Textarea} from '@/components/ui/textarea';
-import {IAuthUserCredentialsShape} from '@/store/AuthorizationStore/types';
 
 export interface IAppFormFieldProps {
   mode: 'input' | 'textarea';
-  formModel: unknown;
+  // eslint-disable-next-line
+  formModel: any; // TODO change this type
   type: 'text' | 'email' | 'password';
-  name: keyof IAuthUserCredentialsShape;
+  name: 'email' | 'password';
   label: string;
   placeholder: string;
   required: boolean;

@@ -14,7 +14,7 @@ const ProtectedRoute: FC<Props> = (props): ReactElement => {
     return <Navigate to={redirectedPath} replace={true} />;
   }
 
-  return children ? children : <Outlet />;
+  return children ? (children as ReactElement) : <Outlet />;
 };
 
 export default ProtectedRoute;

@@ -1,6 +1,7 @@
 export interface IAppFormInput {
   mode: 'input' | 'textarea';
-  formModel: unknown; // TODO fix type
+  // eslint-disable-next-line
+  formModel: any; // TODO change this type
   type: 'text' | 'email' | 'password' | 'number';
   name: string;
   label: string;

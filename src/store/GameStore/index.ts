@@ -110,17 +110,16 @@ export class GameStore implements IGameStore {
   }
 
   private getRandomText(): IText {
-    const randomNumber = Math.round(
-      Math.random() * (this.textsList.length - 1),
-    );
-    const findText = () =>
-      this.textsList.find((_, idx) => idx === randomNumber);
-    let foundText = findText();
+    const foundText = this.textsList[this.getRandomIdx()];
 
     if (this.text.body === foundText.body) {
-      foundText = findText();
+      this.getRandomText();
     }
 
     return foundText;
+  }
+
+  private getRandomIdx(): number {
+    return Math.round(Math.random() * (this.textsList.length - 1));
   }
 }

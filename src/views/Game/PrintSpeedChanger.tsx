@@ -32,18 +32,18 @@ const PrintSpeedChanger: FC = observer((): ReactElement => {
     [],
   );
 
-  const defaultSpeedLevelLPM: EPrintSpeedLevelsList = useMemo(() => {
+  const defaultSpeedLevelLPM = useMemo((): EPrintSpeedLevelsList => {
     const speedLevel = printSpeedLevelsList.find(
       (item) => item.lpm === settingsStore.gameSettings.printSpeedLevel,
     );
-    return speedLevel.lpm;
+    return speedLevel?.lpm || EPrintSpeedLevelsList.VERY_SLOW;
   }, [settingsStore.gameSettings.printSpeedLevel, printSpeedLevelsList]);
 
-  const currentSpeedLevelTitle = useMemo(() => {
+  const currentSpeedLevelTitle = useMemo((): string => {
     const speedLevel = printSpeedLevelsList.find(
       (item) => item.lpm === settingsStore.gameSettings.printSpeedLevel,
     );
-    return speedLevel.title;
+    return speedLevel?.title || '';
   }, [settingsStore.gameSettings.printSpeedLevel, printSpeedLevelsList]);
 
   const changeLPM = async (lpm: EPrintSpeedLevelsList): Promise<void> => {

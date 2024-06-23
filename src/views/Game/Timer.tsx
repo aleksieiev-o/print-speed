@@ -116,7 +116,11 @@ const Timer: FC = observer((): ReactElement => {
 
   return (
     <Alert
-      variant={isGameActive ? remainedTimeAlertVariant : EAlertVariant.DEFAULT}
+      variant={
+        isGameActive
+          ? (remainedTimeAlertVariant as EAlertVariant)
+          : EAlertVariant.DEFAULT
+      }
     >
       {isGameActive && (
         <AlertTitle className={'mb-2'}>

@@ -4,9 +4,8 @@ import {useLocation} from 'react-router-dom';
 import {useChangeRoute} from '@/shared/hooks/useChangeRoute';
 import {ERouter} from '@/shared/Router';
 import {FirebaseError} from 'firebase/app';
-import {IAuthUserCredentialsShape} from '@/store/AuthorizationStore/types';
 import {useForm} from 'react-hook-form';
-import {object, string, z} from 'zod';
+import {z} from 'zod';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useToast} from '@/components/ui/use-toast';
 import {Form} from '@/components/ui/form';
@@ -23,11 +22,6 @@ import {
 } from '@/components/ui/card';
 import {AppAuthContext} from '@/shared/providers/AppAuth.provider';
 import {observer} from 'mobx-react-lite';
-
-const initialAuthValues = {
-  email: '',
-  password: '',
-};
 
 const Authorization: FC = observer((): ReactElement => {
   const authFormID = useId();
@@ -46,31 +40,39 @@ const Authorization: FC = observer((): ReactElement => {
     [location],
   );
 
-  const shape = useMemo<IAuthUserCredentialsShape>(
-    () => ({
-      email: string()
-        .trim()
-        .email()
-        .min(3, 'Error message')
-        .max(254, 'Error message'),
-      password: string()
-        .trim()
-        .min(6, 'Error message')
-        .max(28, 'Error message'),
-    }),
+  const authSchema = useMemo(
+    () =>
+      z.object({
+        email: z
+          .string({
+            required_error: 'Field is required',
+            invalid_type_error: 'Value must be a string',
+          })
+          .trim()
+          .email('Invalid email address')
+          .min(3, 'Email length must be at least 3 characters')
+          .max(254, 'Email length must not exceed 254 characters'),
+        password: z
+          .string({
+            required_error: 'Field is required',
+            invalid_type_error: 'Value must be a string',
+          })
+          .trim()
+          .min(6, 'Password length must be at least 6 characters')
+          .max(28, 'Password length must not exceed 28 characters'),
+      }),
     [],
   );
 
-  const formSchema = useMemo(() => {
-    return object<IAuthUserCredentialsShape>(shape);
-  }, [shape]);
-
-  const formModel = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: initialAuthValues,
+  const formModel = useForm<z.infer<typeof authSchema>>({
+    resolver: zodResolver(authSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
-  const handleSubmitForm = async (values: z.infer<typeof formSchema>) => {
+  const handleSubmitForm = async (values: z.infer<typeof authSchema>) => {
     try {
       if (isSignInPage) {
         await signInWithEmailAndPassword(values.email, values.password);
