@@ -1,10 +1,5 @@
 import {firebaseAuth} from '@/lib/firebase/firebase';
-import {
-  ActionCodeSettings,
-  AuthError,
-  User,
-  UserCredential,
-} from 'firebase/auth';
+import {ActionCodeSettings, AuthError, UserCredential} from 'firebase/auth';
 import {
   FC,
   ReactElement,
@@ -30,9 +25,6 @@ type Profile = {
 };
 
 interface AppAuthProviderState {
-  user: User | null | undefined;
-  loading: boolean;
-
   signOut: () => Promise<boolean>;
   signOutLoading: boolean;
 
@@ -67,9 +59,6 @@ interface AppAuthProviderState {
 }
 
 const initialState: AppAuthProviderState = {
-  user: undefined,
-  loading: false,
-
   signOutLoading: false,
   signOut: function (): Promise<boolean> {
     throw new Error('Function not implemented.');
@@ -142,8 +131,6 @@ const AppAuthProvider: FC<PropsWithChildren> = observer(
     };
 
     const value: AppAuthProviderState = {
-      user,
-      loading,
       signOut,
       signOutLoading,
       updateProfile,
