@@ -1,13 +1,5 @@
 import {FC, ReactElement} from 'react';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import {Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '@/components/ui/dialog';
 import {useToast} from './ui/use-toast';
 import {Button} from './ui/button';
 import {useSignOut} from '@/shared/hooks/useSignOut';
@@ -57,12 +49,7 @@ const SignOutConfirmDialog: FC<Props> = (props): ReactElement => {
             </Button>
           </DialogClose>
 
-          <Button
-            onClick={handleConfirm}
-            disabled={signOutLoading}
-            variant={'destructive'}
-            title={'Sign out'}
-          >
+          <Button onClick={handleConfirm} disabled={signOutLoading} variant={'destructive'} title={'Sign out'}>
             Sign out
           </Button>
         </DialogFooter>

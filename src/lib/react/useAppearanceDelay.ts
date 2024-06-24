@@ -6,15 +6,8 @@ interface IAppearanceDelayOptions {
   minDisplay?: number;
 }
 
-export const useAppearanceDelay = (
-  show?: boolean,
-  options = {} as IAppearanceDelayOptions,
-) => {
-  const {
-    minDisplay = 500,
-    defaultValue = false,
-    appearanceDelay = 500,
-  } = options;
+export const useAppearanceDelay = (show?: boolean, options = {} as IAppearanceDelayOptions) => {
+  const {minDisplay = 500, defaultValue = false, appearanceDelay = 500} = options;
   const [delayedShow, setDelayedShow] = useState(defaultValue);
 
   useEffect(() => {

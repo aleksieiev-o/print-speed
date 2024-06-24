@@ -17,15 +17,12 @@ const initialState: ThemeProviderState = {
   setTheme: () => null,
 };
 
-export const ThemeProviderContext =
-  createContext<ThemeProviderState>(initialState);
+export const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export const ThemeProvider: FC<Props> = (props) => {
   const {children, defaultTheme, storageKey} = props;
 
-  const [theme, setTheme] = useState<EAppTheme>(
-    () => (localStorage.getItem(storageKey) as EAppTheme) || defaultTheme,
-  );
+  const [theme, setTheme] = useState<EAppTheme>(() => (localStorage.getItem(storageKey) as EAppTheme) || defaultTheme);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -33,11 +30,7 @@ export const ThemeProvider: FC<Props> = (props) => {
     root.classList.remove(EAppTheme.LIGHT, EAppTheme.DARK);
 
     if (theme === 'system') {
-      const systemTheme = window.matchMedia(
-        `(prefers-color-scheme: ${EAppTheme.DARK})`,
-      ).matches
-        ? EAppTheme.DARK
-        : EAppTheme.LIGHT;
+      const systemTheme = window.matchMedia(`(prefers-color-scheme: ${EAppTheme.DARK})`).matches ? EAppTheme.DARK : EAppTheme.LIGHT;
 
       root.classList.add(systemTheme);
       return;

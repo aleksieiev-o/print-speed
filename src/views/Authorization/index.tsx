@@ -13,13 +13,7 @@ import AppFormField from '@/components/AppFormField';
 import AppFormFieldPassword from '@/components/AppFormFieldPassword';
 import {Button} from '@/components/ui/button';
 import SubmitButton from '@/views/Authorization/Submit.button';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import {Card, CardContent, CardFooter, CardHeader, CardTitle} from '@/components/ui/card';
 import {AppAuthContext} from '@/shared/providers/AppAuth.provider';
 import {observer} from 'mobx-react-lite';
 
@@ -28,17 +22,9 @@ const Authorization: FC = observer((): ReactElement => {
   const location = useLocation();
   const {toast} = useToast();
   const {changeRoute} = useChangeRoute();
-  const {
-    signInWithEmailAndPassword,
-    signInLoading,
-    signUpWithEmailAndPassword,
-    signUpLoading,
-  } = useContext(AppAuthContext);
+  const {signInWithEmailAndPassword, signInLoading, signUpWithEmailAndPassword, signUpLoading} = useContext(AppAuthContext);
 
-  const isSignInPage = useMemo(
-    () => location.pathname === ERouter.SIGN_IN,
-    [location],
-  );
+  const isSignInPage = useMemo(() => location.pathname === ERouter.SIGN_IN, [location]);
 
   const authSchema = useMemo(
     () =>
@@ -138,11 +124,7 @@ const Authorization: FC = observer((): ReactElement => {
 
   return (
     <AppWrapper>
-      <div
-        className={
-          'w-full h-full grid grid-cols-1 justify-items-center content-center'
-        }
-      >
+      <div className={'w-full h-full grid grid-cols-1 justify-items-center content-center'}>
         <Card className={'md:w-[550px] w-[350px] shadow-md'}>
           <CardHeader>
             <CardTitle>{isSignInPage ? 'Sign in' : 'Sign up'}</CardTitle>
@@ -150,18 +132,8 @@ const Authorization: FC = observer((): ReactElement => {
 
           <CardContent>
             <Form {...formModel}>
-              <form
-                onSubmit={formModel.handleSubmit(handleSubmitForm)}
-                id={authFormID}
-                className={
-                  'w-full flex flex-col items-start justify-center gap-4'
-                }
-              >
-                <div
-                  className={
-                    'w-full flex flex-col items-start justify-center gap-4'
-                  }
-                >
+              <form onSubmit={formModel.handleSubmit(handleSubmitForm)} id={authFormID} className={'w-full flex flex-col items-start justify-center gap-4'}>
+                <div className={'w-full flex flex-col items-start justify-center gap-4'}>
                   <AppFormField
                     mode={'input'}
                     type={'email'}
@@ -173,25 +145,13 @@ const Authorization: FC = observer((): ReactElement => {
                     disabled={signInLoading || signUpLoading}
                   />
 
-                  <AppFormFieldPassword
-                    formModel={formModel}
-                    disabled={signInLoading || signUpLoading}
-                  />
+                  <AppFormFieldPassword formModel={formModel} disabled={signInLoading || signUpLoading} />
                 </div>
 
                 <div className={'flex items-center justify-start'}>
-                  <p>
-                    {isSignInPage
-                      ? `"I·don't·have·an·account."`
-                      : 'I already have an account.'}
-                  </p>
+                  <p>{isSignInPage ? `"I·don't·have·an·account."` : 'I already have an account.'}</p>
 
-                  <Button
-                    onClick={() => handleToggleAuthRoute()}
-                    variant={'link'}
-                    disabled={signInLoading || signUpLoading}
-                    title={isSignInPage ? 'Sign up' : 'Sign in'}
-                  >
+                  <Button onClick={() => handleToggleAuthRoute()} variant={'link'} disabled={signInLoading || signUpLoading} title={isSignInPage ? 'Sign up' : 'Sign in'}>
                     {isSignInPage ? 'Sign up' : 'Sign in'}
                   </Button>
                 </div>
@@ -200,19 +160,11 @@ const Authorization: FC = observer((): ReactElement => {
           </CardContent>
 
           <CardFooter className={'w-full flex items-center justify-end gap-4'}>
-            <Button
-              onClick={() => changeRoute(ERouter.HOME)}
-              variant={'ghost'}
-              title={'Cancel'}
-            >
+            <Button onClick={() => changeRoute(ERouter.HOME)} variant={'ghost'} title={'Cancel'}>
               Cancel
             </Button>
 
-            <SubmitButton
-              formId={authFormID}
-              isSignInPage={isSignInPage}
-              isLoading={signInLoading || signUpLoading}
-            />
+            <SubmitButton formId={authFormID} isSignInPage={isSignInPage} isLoading={signInLoading || signUpLoading} />
           </CardFooter>
         </Card>
       </div>

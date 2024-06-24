@@ -1,13 +1,5 @@
 import {FC, ReactElement, useContext, useId, useMemo} from 'react';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import {Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '@/components/ui/dialog';
 import {Button} from '@/components/ui/button';
 import {useToast} from '@/components/ui/use-toast';
 import {zodResolver} from '@hookform/resolvers/zod';
@@ -47,10 +39,7 @@ const ChangeDisplayNameDialog: FC<Props> = observer((props): ReactElement => {
             .max(20, 'Display name length must not exceed 20 characters'),
         })
         .superRefine((data, ctx) => {
-          if (
-            data.displayName === authorizationStore.user?.displayName ||
-            data.displayName === DEFAULT_USER_DN
-          ) {
+          if (data.displayName === authorizationStore.user?.displayName || data.displayName === DEFAULT_USER_DN) {
             ctx.addIssue({
               code: ZodIssueCode.custom,
               path: ['displayName'],
@@ -65,9 +54,7 @@ const ChangeDisplayNameDialog: FC<Props> = observer((props): ReactElement => {
     resolver: zodResolver(displayNameSchema),
   });
 
-  const handleSubmitForm = async (
-    values: z.infer<typeof displayNameSchema>,
-  ) => {
+  const handleSubmitForm = async (values: z.infer<typeof displayNameSchema>) => {
     try {
       await updateProfile({displayName: values.displayName});
 
@@ -94,35 +81,20 @@ const ChangeDisplayNameDialog: FC<Props> = observer((props): ReactElement => {
         <DialogHeader>
           <DialogTitle>Change display name</DialogTitle>
 
-          <DialogDescription>
-            You are about to change your display name.
-          </DialogDescription>
+          <DialogDescription>You are about to change your display name.</DialogDescription>
         </DialogHeader>
 
-        <div
-          className={
-            'flex h-full w-full flex-col items-center justify-center gap-6'
-          }
-        >
+        <div className={'flex h-full w-full flex-col items-center justify-center gap-6'}>
           <div className="flex w-full flex-col items-start justify-start gap-2 overflow-hidden">
             <p>Your current display name is</p>
 
-            <span
-              title={authorizationStore.user?.displayName || DEFAULT_USER_DN}
-              className="w-full overflow-hidden text-ellipsis whitespace-nowrap font-bold"
-            >
+            <span title={authorizationStore.user?.displayName || DEFAULT_USER_DN} className="w-full overflow-hidden text-ellipsis whitespace-nowrap font-bold">
               {authorizationStore.user?.displayName || DEFAULT_USER_DN}
             </span>
           </div>
 
           <Form {...formModel}>
-            <form
-              onSubmit={formModel.handleSubmit(handleSubmitForm)}
-              id={formID}
-              className={
-                'flex w-full flex-col items-start justify-center gap-4'
-              }
-            >
+            <form onSubmit={formModel.handleSubmit(handleSubmitForm)} id={formID} className={'flex w-full flex-col items-start justify-center gap-4'}>
               <AppFormInputText
                 mode={'input'}
                 type={'text'}
@@ -145,13 +117,7 @@ const ChangeDisplayNameDialog: FC<Props> = observer((props): ReactElement => {
             </Button>
           </DialogClose>
 
-          <SubmitButton
-            formId={formID}
-            title={'Change display name'}
-            btnBody={'Update'}
-            isLoading={updateProfileLoading}
-            disabled={false}
-          />
+          <SubmitButton formId={formID} title={'Change display name'} btnBody={'Update'} isLoading={updateProfileLoading} disabled={false} />
         </DialogFooter>
       </DialogContent>
     </Dialog>

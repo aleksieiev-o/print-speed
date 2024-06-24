@@ -1,13 +1,5 @@
 import {FC, ReactElement, useMemo} from 'react';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import {Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue} from '@/components/ui/select';
 import {observer} from 'mobx-react-lite';
 import {useSettingsStore} from '@/store/hooks';
 import {EAppTheme} from '@/store/SettingsStore/types';
@@ -29,11 +21,7 @@ const SettingsAppThemeChange: FC = observer((): ReactElement => {
     <div className={'flex flex-col gap-2 items-start justify-start'}>
       <h2 className={'text-md font-bold'}>Application theme</h2>
 
-      <Select
-        onValueChange={(value) => changeTheme(value as EAppTheme)}
-        disabled={isLoading}
-        defaultValue={settingsStore.appSettings.appTheme}
-      >
+      <Select onValueChange={(value) => changeTheme(value as EAppTheme)} disabled={isLoading} defaultValue={settingsStore.appSettings.appTheme}>
         <SelectTrigger title={'Change application theme'}>
           <SelectValue placeholder={'Application theme'} />
         </SelectTrigger>

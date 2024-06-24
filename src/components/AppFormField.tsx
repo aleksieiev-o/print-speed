@@ -1,11 +1,5 @@
 import {FC, ReactElement} from 'react';
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import {FormControl, FormField, FormItem, FormLabel, FormMessage} from '@/components/ui/form';
 import {Asterisk} from 'lucide-react';
 import {Input} from '@/components/ui/input';
 import {Textarea} from '@/components/ui/textarea';
@@ -23,8 +17,7 @@ export interface IAppFormFieldProps {
 }
 
 const AppFormField: FC<IAppFormFieldProps> = (props): ReactElement => {
-  const {mode, formModel, type, name, label, placeholder, required, disabled} =
-    props;
+  const {mode, formModel, type, name, label, placeholder, required, disabled} = props;
 
   return (
     <FormField
@@ -41,23 +34,10 @@ const AppFormField: FC<IAppFormFieldProps> = (props): ReactElement => {
           <FormControl aria-required={required}>
             {mode === 'input' ? (
               <>
-                <Input
-                  type={type}
-                  placeholder={placeholder}
-                  aria-required={required}
-                  className={'shadow-md'}
-                  disabled={disabled}
-                  {...field}
-                />
+                <Input type={type} placeholder={placeholder} aria-required={required} className={'shadow-md'} disabled={disabled} {...field} />
               </>
             ) : (
-              <Textarea
-                placeholder={placeholder}
-                aria-required={required}
-                className={'shadow-md'}
-                disabled={disabled}
-                {...field}
-              />
+              <Textarea placeholder={placeholder} aria-required={required} className={'shadow-md'} disabled={disabled} {...field} />
             )}
           </FormControl>
 

@@ -1,11 +1,4 @@
-import {
-  FC,
-  ReactElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import {FC, ReactElement, useCallback, useEffect, useMemo, useState} from 'react';
 import {useGameStore} from '@/store/hooks';
 import {EFinishGameStatus, EGameActiveStatus} from '@/store/GameStore/types';
 import {observer} from 'mobx-react-lite';
@@ -27,8 +20,7 @@ const CurrentText: FC = observer((): ReactElement => {
   );
 
   const writtenLetterCount = useMemo((): number => {
-    const matchedValues: RegExpMatchArray | null =
-      currentText.match(writtenCharRegExp);
+    const matchedValues: RegExpMatchArray | null = currentText.match(writtenCharRegExp);
     return matchedValues !== null ? matchedValues.length : 0;
   }, [currentText]);
 

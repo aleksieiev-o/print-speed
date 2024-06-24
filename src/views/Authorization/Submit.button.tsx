@@ -12,12 +12,7 @@ const SubmitButton: FC<Props> = (props): ReactElement => {
   const {formId, isLoading, isSignInPage} = props;
 
   return (
-    <Button
-      type={'submit'}
-      form={formId}
-      disabled={isLoading}
-      title={isSignInPage ? 'Sign in' : 'Sign up'}
-    >
+    <Button type={'submit'} form={formId} disabled={isLoading} title={isSignInPage ? 'Sign in' : 'Sign up'}>
       {isLoading ? (
         <>
           <Loader2 className={'h-4 w-4 mr-2 animate-spin'} />

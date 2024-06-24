@@ -2,9 +2,7 @@ import {useEffect, useMemo, useRef} from 'react';
 
 type Fn<ARGS extends unknown[], R> = (...args: ARGS) => R;
 
-export const useEventCallback = <A extends unknown[], R>(
-  fn: Fn<A, R>,
-): Fn<A, R> => {
+export const useEventCallback = <A extends unknown[], R>(fn: Fn<A, R>): Fn<A, R> => {
   const ref = useRef<Fn<A, R>>(fn);
 
   useEffect(() => {

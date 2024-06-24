@@ -7,19 +7,12 @@ import {useSignOut} from '@/shared/hooks/useSignOut';
 
 const UserProfileSignOut: FC = observer((): ReactElement => {
   const {signOutLoading} = useSignOut();
-  const [dialogIsOpenSignOut, setDialogIsOpenSignOut] =
-    useState<boolean>(false);
+  const [dialogIsOpenSignOut, setDialogIsOpenSignOut] = useState<boolean>(false);
 
   return (
     <>
       <div className={'w-full flex items-center justify-start 2md:justify-end'}>
-        <Button
-          onClick={() => setDialogIsOpenSignOut(true)}
-          variant={'default'}
-          title={'Sign out'}
-          disabled={signOutLoading}
-          className={'min-w-[200px] lg:min-w-[240px]'}
-        >
+        <Button onClick={() => setDialogIsOpenSignOut(true)} variant={'default'} title={'Sign out'} disabled={signOutLoading} className={'min-w-[200px] lg:min-w-[240px]'}>
           {signOutLoading ? (
             <>
               <Loader2 className={'h-4 w-4 mr-2 animate-spin'} />
@@ -34,10 +27,7 @@ const UserProfileSignOut: FC = observer((): ReactElement => {
         </Button>
       </div>
 
-      <SignOutConfirmDialog
-        setDialogIsOpen={setDialogIsOpenSignOut}
-        dialogIsOpen={dialogIsOpenSignOut}
-      />
+      <SignOutConfirmDialog setDialogIsOpen={setDialogIsOpenSignOut} dialogIsOpen={dialogIsOpenSignOut} />
     </>
   );
 });

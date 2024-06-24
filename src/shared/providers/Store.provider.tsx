@@ -8,11 +8,7 @@ interface Props {
 export const StoreContext = createContext<RootStore>({} as RootStore);
 
 const StoreProvider: FC<Props> = ({children}): ReactElement => {
-  return (
-    <StoreContext.Provider value={new RootStore()}>
-      {children}
-    </StoreContext.Provider>
-  );
+  return <StoreContext.Provider value={new RootStore()}>{children}</StoreContext.Provider>;
 };
 
 export default StoreProvider;

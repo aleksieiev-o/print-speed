@@ -1,13 +1,5 @@
 import {FC, ReactElement, useContext} from 'react';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import {Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '@/components/ui/dialog';
 import {Button} from '@/components/ui/button';
 import {useToast} from '@/components/ui/use-toast';
 import {AppAuthContext} from '@/shared/providers/AppAuth.provider';
@@ -24,31 +16,19 @@ interface Props {
 const ChangePasswordDialog: FC<Props> = observer((props): ReactElement => {
   const {dialogIsOpen, setDialogIsOpen} = props;
   const {toast} = useToast();
-  const {sendPasswordResetEmail, sendPasswordResetEmailLoading} =
-    useContext(AppAuthContext);
+  const {sendPasswordResetEmail, sendPasswordResetEmailLoading} = useContext(AppAuthContext);
   const authorizationStore = useAuthorizationStore();
   const {signOut, signOutLoading} = useSignOut();
 
   const handleSendRequest = async () => {
     try {
-      await sendPasswordResetEmail(
-        authorizationStore.user
-          ? (authorizationStore.user.email as string)
-          : '',
-        undefined,
-      );
+      await sendPasswordResetEmail(authorizationStore.user ? (authorizationStore.user.email as string) : '', undefined);
 
       toast({
         title: 'Re-authentication is required',
-        description:
-          'Please check your email and click on the link to change your password. After changing your password, you will need to re-authenticate.',
+        description: 'Please check your email and click on the link to change your password. After changing your password, you will need to re-authenticate.',
         action: (
-          <Button
-            onClick={handleSignOut}
-            disabled={signOutLoading}
-            variant={'destructive'}
-            title={'Sign out'}
-          >
+          <Button onClick={handleSignOut} disabled={signOutLoading} variant={'destructive'} title={'Sign out'}>
             Sign out
           </Button>
         ),
@@ -88,16 +68,11 @@ const ChangePasswordDialog: FC<Props> = observer((props): ReactElement => {
         <DialogHeader>
           <DialogTitle>Change password</DialogTitle>
 
-          <DialogDescription>
-            You are about to change your password.
-          </DialogDescription>
+          <DialogDescription>You are about to change your password.</DialogDescription>
         </DialogHeader>
 
         <div className="flex w-full flex-col items-start justify-start gap-2 text-sm text-muted-foreground">
-          <p>
-            You will be prompted to change your password using your email
-            address.
-          </p>
+          <p>You will be prompted to change your password using your email address.</p>
         </div>
 
         <DialogFooter className="flex justify-end gap-4">
@@ -107,12 +82,7 @@ const ChangePasswordDialog: FC<Props> = observer((props): ReactElement => {
             </Button>
           </DialogClose>
 
-          <Button
-            onClick={handleSendRequest}
-            disabled={sendPasswordResetEmailLoading}
-            variant={'default'}
-            title={'Send request'}
-          >
+          <Button onClick={handleSendRequest} disabled={sendPasswordResetEmailLoading} variant={'default'} title={'Send request'}>
             <Send className={'mr-4 h-5 w-5'} />
 
             <p>Send request</p>

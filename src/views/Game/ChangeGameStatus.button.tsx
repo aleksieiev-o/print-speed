@@ -58,13 +58,7 @@ const ChangeGameStatusButton: FC = observer((): ReactElement => {
   }, [gameStore.gameActiveStatus]);
 
   return (
-    <Button
-      onClick={() => handleChangeGameActiveStatus(buttonBody.newStatus)}
-      ref={elementRef}
-      variant={'default'}
-      disabled={buttonBody.isDisabled}
-      title={buttonBody.title}
-    >
+    <Button onClick={() => handleChangeGameActiveStatus(buttonBody.newStatus)} ref={elementRef} variant={'default'} disabled={buttonBody.isDisabled} title={buttonBody.title}>
       {buttonBody.icon}
       {buttonBody.title}
     </Button>

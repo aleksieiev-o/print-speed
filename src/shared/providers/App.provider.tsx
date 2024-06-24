@@ -11,10 +11,7 @@ const AppProvider: FC = (): ReactElement => {
   return (
     <StoreProvider>
       <AppAuthProvider>
-        <ThemeProvider
-          defaultTheme={EAppTheme.SYSTEM}
-          storageKey={'print-speed-app-ui-theme'}
-        >
+        <ThemeProvider defaultTheme={EAppTheme.SYSTEM} storageKey={'print-speed-app-ui-theme'}>
           <LettersCounterProvider>
             <RouterProvider router={router} />
           </LettersCounterProvider>

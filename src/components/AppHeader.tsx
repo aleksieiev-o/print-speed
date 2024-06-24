@@ -24,18 +24,10 @@ const AppHeader: FC = observer((): ReactElement => {
   }, [location.pathname]);
 
   return (
-    <header
-      className={
-        'w-full flex flex-row items-center justify-between gap-4 md:gap-6 p-4 md:p-6 overflow-hidden'
-      }
-    >
+    <header className={'w-full flex flex-row items-center justify-between gap-4 md:gap-6 p-4 md:p-6 overflow-hidden'}>
       <h1 className={'text-3xl font-bold'}>{pageTitle}</h1>
 
-      <div
-        className={
-          'grid grid-flow-col auto-cols-max gap-4 md:gap-6 items-center'
-        }
-      >
+      <div className={'grid grid-flow-col auto-cols-max gap-4 md:gap-6 items-center'}>
         <AppAuthButton />
 
         <AppThemeChange />

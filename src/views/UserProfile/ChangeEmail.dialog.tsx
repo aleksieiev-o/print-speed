@@ -1,13 +1,5 @@
 import {FC, ReactElement, useContext, useId, useMemo, useState} from 'react';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import {Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '@/components/ui/dialog';
 import {Button} from '@/components/ui/button';
 import {useToast} from '@/components/ui/use-toast';
 import {zodResolver} from '@hookform/resolvers/zod';
@@ -30,19 +22,14 @@ const ChangeEmailDialog: FC<Props> = observer((props): ReactElement => {
   const formID = useId();
   const {dialogIsOpen, setDialogIsOpen} = props;
   const {toast} = useToast();
-  const {verifyBeforeUpdateEmail, verifyBeforeUpdateEmailLoading} =
-    useContext(AppAuthContext);
+  const {verifyBeforeUpdateEmail, verifyBeforeUpdateEmailLoading} = useContext(AppAuthContext);
   const authorizationStore = useAuthorizationStore();
   const {signOut, signOutLoading} = useSignOut();
   const [additionalInfo, setAdditionalInfo] = useState<boolean>(false);
 
   const isUserNeedsReAuth = () => {
     const currentDate = new Date();
-    const lastSignInDate = new Date(
-      authorizationStore.user
-        ? (authorizationStore.user.metadata.lastSignInTime as string)
-        : '',
-    );
+    const lastSignInDate = new Date(authorizationStore.user ? (authorizationStore.user.metadata.lastSignInTime as string) : '');
 
     const datesDiff = currentDate.getTime() - lastSignInDate.getTime();
 
@@ -64,10 +51,7 @@ const ChangeEmailDialog: FC<Props> = observer((props): ReactElement => {
             .max(254, 'Email length must not exceed 254 characters'),
         })
         .superRefine((data, ctx) => {
-          if (
-            data.email === authorizationStore.user?.email ||
-            data.email === ''
-          ) {
+          if (data.email === authorizationStore.user?.email || data.email === '') {
             ctx.addIssue({
               code: ZodIssueCode.custom,
               path: ['email'],
@@ -92,15 +76,9 @@ const ChangeEmailDialog: FC<Props> = observer((props): ReactElement => {
       } else {
         toast({
           title: 'Re-authentication is required',
-          description:
-            'Please check your email to verify your updated email address. After verifying the new email, you will need to re-authenticate.',
+          description: 'Please check your email to verify your updated email address. After verifying the new email, you will need to re-authenticate.',
           action: (
-            <Button
-              onClick={handleSignOut}
-              disabled={signOutLoading}
-              variant={'destructive'}
-              title={'Sign out'}
-            >
+            <Button onClick={handleSignOut} disabled={signOutLoading} variant={'destructive'} title={'Sign out'}>
               Sign out
             </Button>
           ),
@@ -145,35 +123,20 @@ const ChangeEmailDialog: FC<Props> = observer((props): ReactElement => {
         <DialogHeader>
           <DialogTitle>Change email</DialogTitle>
 
-          <DialogDescription>
-            You are about to change your email.
-          </DialogDescription>
+          <DialogDescription>You are about to change your email.</DialogDescription>
         </DialogHeader>
 
-        <div
-          className={
-            'flex h-full w-full flex-col items-center justify-center gap-6'
-          }
-        >
+        <div className={'flex h-full w-full flex-col items-center justify-center gap-6'}>
           <div className="flex w-full flex-col items-start justify-start gap-2 overflow-hidden">
             <p>Your current email is</p>
 
-            <span
-              title={authorizationStore.user?.email || ''}
-              className="w-full overflow-hidden text-ellipsis whitespace-nowrap font-bold"
-            >
+            <span title={authorizationStore.user?.email || ''} className="w-full overflow-hidden text-ellipsis whitespace-nowrap font-bold">
               {authorizationStore.user?.email || ''}
             </span>
           </div>
 
           <Form {...formModel}>
-            <form
-              onSubmit={formModel.handleSubmit(handleSubmitForm)}
-              id={formID}
-              className={
-                'flex w-full flex-col items-start justify-center gap-4'
-              }
-            >
+            <form onSubmit={formModel.handleSubmit(handleSubmitForm)} id={formID} className={'flex w-full flex-col items-start justify-center gap-4'}>
               <AppFormInputText
                 mode={'input'}
                 type={'text'}
@@ -190,15 +153,9 @@ const ChangeEmailDialog: FC<Props> = observer((props): ReactElement => {
 
           {additionalInfo && (
             <div className="flex w-full flex-col items-start justify-start gap-2 text-sm text-muted-foreground">
-              <p>
-                In order to change your email, you will need to re-authenticate.
-                This process is necessary for security reasons.
-              </p>
+              <p>In order to change your email, you will need to re-authenticate. This process is necessary for security reasons.</p>
 
-              <p>
-                After re-authenticating within 5 minutes, you will be able to
-                change your email.
-              </p>
+              <p>After re-authenticating within 5 minutes, you will be able to change your email.</p>
             </div>
           )}
         </div>
@@ -211,22 +168,11 @@ const ChangeEmailDialog: FC<Props> = observer((props): ReactElement => {
           </DialogClose>
 
           {additionalInfo ? (
-            <Button
-              onClick={handleSignOut}
-              disabled={signOutLoading}
-              variant={'destructive'}
-              title={'Sign out'}
-            >
+            <Button onClick={handleSignOut} disabled={signOutLoading} variant={'destructive'} title={'Sign out'}>
               Sign out
             </Button>
           ) : (
-            <SubmitButton
-              formId={formID}
-              title={'Change email'}
-              btnBody={'Update'}
-              isLoading={verifyBeforeUpdateEmailLoading}
-              disabled={false}
-            />
+            <SubmitButton formId={formID} title={'Change email'} btnBody={'Update'} isLoading={verifyBeforeUpdateEmailLoading} disabled={false} />
           )}
         </DialogFooter>
       </DialogContent>

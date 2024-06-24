@@ -1,10 +1,4 @@
-import {
-  EFinishGameStatus,
-  EGameActiveStatus,
-  EPrintSpeedLevelsList,
-  IGameStore,
-  IText,
-} from '@/store/GameStore/types';
+import {EFinishGameStatus, EGameActiveStatus, EPrintSpeedLevelsList, IGameStore, IText} from '@/store/GameStore/types';
 import {RootStore} from '@/store';
 import {GameStoreService} from '@/store/GameStore/service';
 import {makeAutoObservable, runInAction} from 'mobx';
@@ -61,10 +55,7 @@ export class GameStore implements IGameStore {
   }
 
   get isGameRunning(): boolean {
-    return (
-      this.gameActiveStatus === EGameActiveStatus.STARTED ||
-      this.gameActiveStatus === EGameActiveStatus.RESUMED
-    );
+    return this.gameActiveStatus === EGameActiveStatus.STARTED || this.gameActiveStatus === EGameActiveStatus.RESUMED;
   }
 
   get isGamePaused(): boolean {
@@ -79,9 +70,7 @@ export class GameStore implements IGameStore {
     this.gameFinishStatus = status;
   }
 
-  async changePrintSpeedLevel(
-    printSpeedLevel: EPrintSpeedLevelsList,
-  ): Promise<void> {
+  async changePrintSpeedLevel(printSpeedLevel: EPrintSpeedLevelsList): Promise<void> {
     this.changeGameActiveStatus(EGameActiveStatus.STOPPED);
     this.changeGameFinishStatus(EFinishGameStatus.UNKNOWN);
     await this.rootStore.settingsStore.updatePrintSpeedLevel(printSpeedLevel);
