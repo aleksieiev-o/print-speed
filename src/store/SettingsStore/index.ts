@@ -3,6 +3,7 @@ import {RootStore} from '@/store';
 import {SettingsStoreService} from './service';
 import {EAppLocale, EAppTheme, EBaseSettingsEndpoints, ESettingsEndpoints, IAppSettings, IRemoteGameSettings, ISettingsStore} from './types';
 import {EPrintSpeedLevelsList} from '@/store/GameStore/types';
+import {APP_LS_LOCALE_KEY, APP_LS_THEME_KEY} from '@/shared/appConstants';
 
 export class SettingsStore implements ISettingsStore {
   rootStore: RootStore;
@@ -17,8 +18,8 @@ export class SettingsStore implements ISettingsStore {
     this.settingsStoreService = new SettingsStoreService(this.rootStore);
 
     this.appSettings = {
-      appLocale: (window.localStorage.getItem('i18nextLng') as EAppLocale) || EAppLocale.EN_US,
-      appTheme: (window.localStorage.getItem('print-speed-app-ui-theme') as EAppTheme) || EAppTheme.SYSTEM,
+      appLocale: (window.localStorage.getItem(APP_LS_LOCALE_KEY) as EAppLocale) || EAppLocale.EN_US,
+      appTheme: (window.localStorage.getItem(APP_LS_THEME_KEY) as EAppTheme) || EAppTheme.SYSTEM,
     };
 
     this.gameSettings = {
