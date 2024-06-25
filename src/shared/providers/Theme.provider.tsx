@@ -1,5 +1,6 @@
 import {createContext, FC, ReactElement, useEffect, useState} from 'react';
 import {EAppTheme} from '@/store/SettingsStore/types';
+import {observer} from 'mobx-react-lite';
 
 interface Props {
   children: ReactElement;
@@ -19,7 +20,7 @@ const initialState: ThemeProviderState = {
 
 export const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
-export const ThemeProvider: FC<Props> = (props) => {
+export const ThemeProvider: FC<Props> = observer((props) => {
   const {children, defaultTheme, storageKey} = props;
 
   const [theme, setTheme] = useState<EAppTheme>(() => (localStorage.getItem(storageKey) as EAppTheme) || defaultTheme);
@@ -29,7 +30,7 @@ export const ThemeProvider: FC<Props> = (props) => {
 
     root.classList.remove(EAppTheme.LIGHT, EAppTheme.DARK);
 
-    if (theme === 'system') {
+    if (theme === EAppTheme.SYSTEM) {
       const systemTheme = window.matchMedia(`(prefers-color-scheme: ${EAppTheme.DARK})`).matches ? EAppTheme.DARK : EAppTheme.LIGHT;
 
       root.classList.add(systemTheme);
@@ -52,4 +53,4 @@ export const ThemeProvider: FC<Props> = (props) => {
       {children}
     </ThemeProviderContext.Provider>
   );
-};
+});

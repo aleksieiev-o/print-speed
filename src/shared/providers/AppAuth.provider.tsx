@@ -12,6 +12,7 @@ import {
 } from 'react-firebase-hooks/auth';
 import {useAuthorizationStore, useSettingsStore} from '@/store/hooks';
 import {observer} from 'mobx-react-lite';
+import {User} from '@firebase/auth';
 
 type Profile = {
   displayName?: string | null;
@@ -99,10 +100,12 @@ const AppAuthProvider: FC<PropsWithChildren> = observer((props): ReactElement =>
   const signUpWithEmailAndPassword = async (email: string, password: string): Promise<UserCredential | undefined> => {
     const user = await createUserWithEmailAndPassword(email, password);
 
-    // TODO this settings below don't create after sign up
-    // TODO Then I have to check theme change
-    await settingsStore.createAppSettings();
-    await settingsStore.createGameSettings();
+    if (user) {
+      authorizationStore.setUser(user.user as User | null | undefined);
+
+      await settingsStore.createAppSettings();
+      await settingsStore.createGameSettings();
+    }
 
     return user;
   };
