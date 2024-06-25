@@ -16,7 +16,7 @@ const SignOutConfirmDialog: FC<Props> = (props): ReactElement => {
 
   const handleConfirm = async (): Promise<void> => {
     try {
-      signOut();
+      await signOut();
 
       toast({title: 'Success', description: 'You signed out successfully.'});
     } catch (e) {

@@ -1,8 +1,7 @@
 import {firebaseAuth} from '@/lib/firebase/firebase';
 import {ActionCodeSettings, AuthError, UserCredential} from 'firebase/auth';
-import {createContext, FC, PropsWithChildren, ReactElement, useEffect} from 'react';
+import {createContext, FC, PropsWithChildren, ReactElement} from 'react';
 import {
-  useAuthState,
   useCreateUserWithEmailAndPassword,
   useSendPasswordResetEmail,
   useSignInWithEmailAndPassword,
@@ -10,9 +9,9 @@ import {
   useUpdateProfile,
   useVerifyBeforeUpdateEmail,
 } from 'react-firebase-hooks/auth';
-import {useAuthorizationStore, useSettingsStore} from '@/store/hooks';
+import {useAuthorizationStore} from '@/store/hooks';
 import {observer} from 'mobx-react-lite';
-import {User} from '@firebase/auth';
+import {EAppAuthStatus} from '@/store/AuthorizationStore';
 
 type Profile = {
   displayName?: string | null;
@@ -20,9 +19,6 @@ type Profile = {
 };
 
 interface AppAuthProviderState {
-  signOut: () => Promise<boolean>;
-  signOutLoading: boolean;
-
   updateProfile: (profile: Profile) => Promise<boolean>;
   updateProfileLoading: boolean;
 
@@ -32,21 +28,21 @@ interface AppAuthProviderState {
   verifyBeforeUpdateEmail: (email: string, actionCodeSettings: ActionCodeSettings | null) => Promise<boolean>;
   verifyBeforeUpdateEmailLoading: boolean;
 
-  signInWithEmailAndPassword: (email: string, password: string) => Promise<UserCredential | undefined>;
-  signInLoading: boolean;
-  signInError: AuthError | undefined;
+  baseSignIn: (email: string, password: string) => Promise<UserCredential | undefined>;
+  baseSignInLoading: boolean;
+  baseSignInError: AuthError | undefined;
 
-  signUpWithEmailAndPassword: (email: string, password: string) => Promise<UserCredential | undefined>;
-  signUpLoading: boolean;
-  signUpError: AuthError | undefined;
+  baseSignUp: (email: string, password: string) => Promise<UserCredential | undefined>;
+  baseSignUpLoading: boolean;
+  baseSignUpError: AuthError | undefined;
+
+  baseSignOut: () => Promise<boolean>;
+  signOutLoading: boolean;
 }
 
-const initialState: AppAuthProviderState = {
-  signOutLoading: false,
-  signOut: function (): Promise<boolean> {
-    throw new Error('Function not implemented.');
-  },
+type TUserCredential = UserCredential | undefined;
 
+const initialState: AppAuthProviderState = {
   updateProfile: function (): Promise<boolean> {
     throw new Error('Function not implemented.');
   },
@@ -62,69 +58,73 @@ const initialState: AppAuthProviderState = {
   },
   verifyBeforeUpdateEmailLoading: false,
 
-  signInWithEmailAndPassword: function () {
+  baseSignIn: function () {
     throw new Error('Function not implemented.');
   },
-  signInLoading: false,
-  signInError: undefined,
+  baseSignInLoading: false,
+  baseSignInError: undefined,
 
-  signUpWithEmailAndPassword: function () {
+  baseSignUp: function () {
     throw new Error('Function not implemented.');
   },
-  signUpLoading: false,
-  signUpError: undefined,
+  baseSignUpLoading: false,
+  baseSignUpError: undefined,
+
+  baseSignOut: function (): Promise<boolean> {
+    throw new Error('Function not implemented.');
+  },
+  signOutLoading: false,
 };
 
 export const AppAuthContext = createContext<AppAuthProviderState>(initialState);
 
 const AppAuthProvider: FC<PropsWithChildren> = observer((props): ReactElement => {
   const {children} = props;
-  const [user, loading, error] = useAuthState(firebaseAuth);
 
-  const [signOut, signOutLoading] = useSignOut(firebaseAuth);
   const [updateProfile, updateProfileLoading] = useUpdateProfile(firebaseAuth);
   const [verifyBeforeUpdateEmail, verifyBeforeUpdateEmailLoading] = useVerifyBeforeUpdateEmail(firebaseAuth);
   const [sendPasswordResetEmail, sendPasswordResetEmailLoading] = useSendPasswordResetEmail(firebaseAuth);
-  const [signInWithEmailAndPassword, , signInLoading, signInError] = useSignInWithEmailAndPassword(firebaseAuth);
-  const [createUserWithEmailAndPassword, , signUpLoading, signUpError] = useCreateUserWithEmailAndPassword(firebaseAuth);
+  const [signInWithEmailAndPassword, , baseSignInLoading, baseSignInError] = useSignInWithEmailAndPassword(firebaseAuth);
+  const [createUserWithEmailAndPassword, , baseSignUpLoading, baseSignUpError] = useCreateUserWithEmailAndPassword(firebaseAuth);
+  const [signOut, signOutLoading] = useSignOut(firebaseAuth);
 
   const authorizationStore = useAuthorizationStore();
-  const settingsStore = useSettingsStore();
 
-  useEffect(() => {
-    authorizationStore.setLoading(loading);
-    authorizationStore.setUser(user);
-    authorizationStore.setError(error);
-  }, [user, loading, error, authorizationStore]);
+  const baseSignIn = async (email: string, password: string): Promise<TUserCredential> => {
+    authorizationStore.setAppAuthStatus(EAppAuthStatus.SIGN_IN);
+    return await signInWithEmailAndPassword(email, password);
+  };
 
-  const signUpWithEmailAndPassword = async (email: string, password: string): Promise<UserCredential | undefined> => {
-    const user = await createUserWithEmailAndPassword(email, password);
+  const baseSignUp = async (email: string, password: string): Promise<TUserCredential> => {
+    authorizationStore.setAppAuthStatus(EAppAuthStatus.SIGN_UP);
+    return await createUserWithEmailAndPassword(email, password);
+  };
 
-    if (user) {
-      authorizationStore.setUser(user.user as User | null | undefined);
-
-      await settingsStore.createAppSettings();
-      await settingsStore.createGameSettings();
-    }
-
-    return user;
+  const baseSignOut = async (): Promise<boolean> => {
+    authorizationStore.setAppAuthStatus(EAppAuthStatus.SIGN_OUT);
+    return await signOut();
   };
 
   const value: AppAuthProviderState = {
-    signOut,
-    signOutLoading,
     updateProfile,
     updateProfileLoading,
+
     sendPasswordResetEmail,
     sendPasswordResetEmailLoading,
+
     verifyBeforeUpdateEmail,
     verifyBeforeUpdateEmailLoading,
-    signInWithEmailAndPassword,
-    signInLoading,
-    signInError,
-    signUpWithEmailAndPassword,
-    signUpLoading,
-    signUpError,
+
+    baseSignIn,
+    baseSignInLoading,
+    baseSignInError,
+
+    baseSignUp,
+    baseSignUpLoading,
+    baseSignUpError,
+
+    baseSignOut,
+    signOutLoading,
   };
 
   return (

@@ -26,28 +26,9 @@ export class GameStore implements IGameStore {
     this.textPrintTime = 0;
     this.victoryCounter = 0;
 
-    this.fetchTextsList().then(() => {
-      this.changeText();
-      this.setTimer();
-    });
+    this.fetchTextsList();
 
     makeAutoObservable(this, {}, {autoBind: true});
-  }
-
-  async fetchTextsList(): Promise<void> {
-    const data = await this.gameStoreService.fetchTextsList();
-
-    runInAction(() => {
-      this.textsList = data;
-    });
-  }
-
-  changeGameActiveStatus(status: EGameActiveStatus): void {
-    this.gameActiveStatus = status;
-
-    if (this.gameActiveStatus === EGameActiveStatus.STARTED) {
-      this.changeGameFinishStatus(EFinishGameStatus.UNKNOWN);
-    }
   }
 
   get isGamePreparing(): boolean {
@@ -64,6 +45,24 @@ export class GameStore implements IGameStore {
 
   get isGameStopped(): boolean {
     return this.gameActiveStatus === EGameActiveStatus.STOPPED;
+  }
+
+  async fetchTextsList(): Promise<void> {
+    const data = await this.gameStoreService.fetchTextsList();
+
+    runInAction(() => {
+      this.textsList = data;
+    });
+
+    this.changeText();
+  }
+
+  changeGameActiveStatus(status: EGameActiveStatus): void {
+    this.gameActiveStatus = status;
+
+    if (this.gameActiveStatus === EGameActiveStatus.STARTED) {
+      this.changeGameFinishStatus(EFinishGameStatus.UNKNOWN);
+    }
   }
 
   changeGameFinishStatus(status: EFinishGameStatus): void {

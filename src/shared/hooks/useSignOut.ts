@@ -10,11 +10,11 @@ interface IUseSignOut {
 
 export const useSignOut = (): IUseSignOut => {
   const navigate = useNavigate();
-  const {signOut: handleSignOut, signOutLoading} = useContext(AppAuthContext);
+  const {baseSignOut, signOutLoading} = useContext(AppAuthContext);
 
   const signOut = async (): Promise<boolean> => {
     try {
-      const result: boolean = await handleSignOut();
+      const result: boolean = await baseSignOut();
       navigate(ERouter.SIGN_IN);
       return Promise.resolve(result);
     } catch (err) {

@@ -22,7 +22,7 @@ const Authorization: FC = observer((): ReactElement => {
   const location = useLocation();
   const {toast} = useToast();
   const {changeRoute} = useChangeRoute();
-  const {signInWithEmailAndPassword, signInLoading, signUpWithEmailAndPassword, signUpLoading} = useContext(AppAuthContext);
+  const {baseSignIn, baseSignInLoading, baseSignUp, baseSignUpLoading} = useContext(AppAuthContext);
 
   const isSignInPage = useMemo(() => location.pathname === ERouter.SIGN_IN, [location]);
 
@@ -61,10 +61,10 @@ const Authorization: FC = observer((): ReactElement => {
   const handleSubmitForm = async (values: z.infer<typeof authSchema>) => {
     try {
       if (isSignInPage) {
-        await signInWithEmailAndPassword(values.email, values.password);
+        await baseSignIn(values.email, values.password);
         await changeRoute(ERouter.HOME);
       } else if (!isSignInPage) {
-        await signUpWithEmailAndPassword(values.email, values.password);
+        await baseSignUp(values.email, values.password);
         await changeRoute(ERouter.HOME);
       }
 
@@ -142,16 +142,16 @@ const Authorization: FC = observer((): ReactElement => {
                     label={'Email'}
                     placeholder={'john.doe@company.com'}
                     required={true}
-                    disabled={signInLoading || signUpLoading}
+                    disabled={baseSignInLoading || baseSignUpLoading}
                   />
 
-                  <AppFormFieldPassword formModel={formModel} disabled={signInLoading || signUpLoading} />
+                  <AppFormFieldPassword formModel={formModel} disabled={baseSignInLoading || baseSignUpLoading} />
                 </div>
 
                 <div className={'flex items-center justify-start'}>
-                  <p>{isSignInPage ? `"I·don't·have·an·account."` : 'I already have an account.'}</p>
+                  <p>{isSignInPage ? `"I don't have an account."` : 'I already have an account.'}</p>
 
-                  <Button onClick={() => handleToggleAuthRoute()} variant={'link'} disabled={signInLoading || signUpLoading} title={isSignInPage ? 'Sign up' : 'Sign in'}>
+                  <Button onClick={() => handleToggleAuthRoute()} variant={'link'} disabled={baseSignInLoading || baseSignUpLoading} title={isSignInPage ? 'Sign up' : 'Sign in'}>
                     {isSignInPage ? 'Sign up' : 'Sign in'}
                   </Button>
                 </div>
@@ -164,7 +164,7 @@ const Authorization: FC = observer((): ReactElement => {
               Cancel
             </Button>
 
-            <SubmitButton formId={authFormID} isSignInPage={isSignInPage} isLoading={signInLoading || signUpLoading} />
+            <SubmitButton formId={authFormID} isSignInPage={isSignInPage} isLoading={baseSignInLoading || baseSignUpLoading} />
           </CardFooter>
         </Card>
       </div>

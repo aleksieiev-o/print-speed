@@ -1,37 +1,48 @@
 import {makeAutoObservable} from 'mobx';
 import {User} from '@firebase/auth';
 import {RootStore} from '@/store';
+import {onAuthStateChanged} from 'firebase/auth';
+import {firebaseAuth} from '@/lib/firebase/firebase';
+
+export enum EAppAuthStatus {
+  UNDEFINED,
+  SIGN_IN,
+  SIGN_UP,
+  SIGN_OUT,
+}
 
 interface IAuthorizationStore {
   rootStore: RootStore;
-  user: User | null | undefined;
-  loading: boolean;
-  error: Error | undefined;
+  user: User | null;
+  userLoading: boolean;
+  userError: Error | undefined;
+  appAuthStatus: EAppAuthStatus;
 }
 
 export class AuthorizationStore implements IAuthorizationStore {
   rootStore: RootStore;
 
-  user: User | null | undefined = null;
-  loading: boolean = false;
-  error: Error | undefined = undefined;
+  user = null;
+  userLoading = false;
+  userError = undefined;
+  appAuthStatus = EAppAuthStatus.UNDEFINED;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
 
     makeAutoObservable(this);
-  }
 
-  setUser(user: User | null | undefined): void {
-    this.user = user;
-  }
+    onAuthStateChanged(firebaseAuth, async (user: User | null) => {
+      this.setUserLoading(true);
 
-  setLoading(status: boolean): void {
-    this.loading = status;
-  }
+      if (user && user.uid) {
+        await this.initApp();
+      } else {
+        this.resetUserData();
+      }
 
-  setError(err: Error | undefined): void {
-    this.error = err;
+      this.setUserLoading(false);
+    });
   }
 
   get userUid(): string {
@@ -40,5 +51,49 @@ export class AuthorizationStore implements IAuthorizationStore {
 
   get isAuth(): boolean {
     return Boolean(this.user);
+  }
+
+  get isUserLoading(): boolean {
+    return this.userLoading;
+  }
+
+  setAppAuthStatus(status: EAppAuthStatus): void {
+    this.appAuthStatus = status;
+  }
+
+  private async initApp(): Promise<void> {
+    await this.reloadUserData();
+
+    if (this.appAuthStatus === EAppAuthStatus.SIGN_UP) {
+      await this.rootStore.settingsStore.createAppSettings();
+      await this.rootStore.settingsStore.createGameSettings();
+    }
+
+    await this.rootStore.settingsStore.fetchAppSettings();
+    await this.rootStore.settingsStore.fetchGameSettings();
+
+    await this.rootStore.gameStore.fetchTextsList();
+  }
+
+  private async reloadUserData(): Promise<void> {
+    await firebaseAuth.currentUser?.reload();
+
+    if (firebaseAuth.currentUser) {
+      this.user = firebaseAuth.currentUser;
+    } else {
+      this.resetUserData();
+    }
+  }
+
+  private resetUserData(): void {
+    this.user = null;
+  }
+
+  private setUserLoading(status: boolean): void {
+    this.userLoading = status;
+  }
+
+  private setUserError(err: Error | undefined): void {
+    this.userError = err;
   }
 }
