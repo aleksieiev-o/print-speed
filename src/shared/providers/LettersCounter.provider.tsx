@@ -24,12 +24,12 @@ const LettersCounterProvider: FC<Props> = observer((props): ReactElement => {
   const [letters, setLetters] = useState<number>(initialState.remainedLetters);
 
   useEffect(() => {
-    setLetters(gameStore.text.body.length);
-  }, [gameStore.text.body]);
+    setLetters(gameStore.text.charQuantity);
+  }, [gameStore.text.charQuantity]);
 
   const value = {
     remainedLetters: letters,
-    setRemainedLetters: (letter: number) => setLetters(gameStore.text.body.length - letter),
+    setRemainedLetters: (letter: number) => setLetters(gameStore.text.charQuantity - letter),
   };
 
   return (

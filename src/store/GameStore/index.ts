@@ -1,34 +1,36 @@
-import {EFinishGameStatus, EGameActiveStatus, EPrintSpeedLevelsList, IGameStore, IText} from '@/store/GameStore/types';
+import {EFinishGameStatus, EGameActiveStatus, EPrintSpeedLevelsList, IGameStore} from '@/store/GameStore/types';
 import {RootStore} from '@/store';
-import {GameStoreService} from '@/store/GameStore/service';
-import {makeAutoObservable, runInAction} from 'mobx';
+import {makeAutoObservable} from 'mobx';
+import {IText} from '@/store/TextsStore/types';
 
 export class GameStore implements IGameStore {
   rootStore: RootStore;
 
-  gameStoreService: GameStoreService;
-
   gameActiveStatus: EGameActiveStatus;
   gameFinishStatus: EFinishGameStatus;
   text: IText;
-  textsList: Array<IText>;
   textPrintTime: number;
   victoryCounter: number;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
-    this.gameStoreService = new GameStoreService(this);
 
     this.gameActiveStatus = EGameActiveStatus.STOPPED;
     this.gameFinishStatus = EFinishGameStatus.UNKNOWN;
-    this.text = {language: '', author: '', body: ''};
-    this.textsList = [];
+    this.text = {
+      id: '',
+      language: '',
+      author: '',
+      body: '',
+      charQuantity: 0,
+      isCustom: false,
+      createdDate: '',
+      updatedDate: '',
+    };
     this.textPrintTime = 0;
     this.victoryCounter = 0;
 
-    this.fetchTextsList();
-
-    makeAutoObservable(this, {}, {autoBind: true});
+    makeAutoObservable(this);
   }
 
   get isGamePreparing(): boolean {
@@ -45,16 +47,6 @@ export class GameStore implements IGameStore {
 
   get isGameStopped(): boolean {
     return this.gameActiveStatus === EGameActiveStatus.STOPPED;
-  }
-
-  async fetchTextsList(): Promise<void> {
-    const data = await this.gameStoreService.fetchTextsList();
-
-    runInAction(() => {
-      this.textsList = data;
-    });
-
-    this.changeText();
   }
 
   changeGameActiveStatus(status: EGameActiveStatus): void {
@@ -85,7 +77,7 @@ export class GameStore implements IGameStore {
 
   setTimer(): void {
     const {printSpeedLevel} = this.rootStore.settingsStore.gameSettings;
-    const time = (this.text.body.length / parseInt(printSpeedLevel, 10)) * 60;
+    const time = (this.text.charQuantity / parseInt(printSpeedLevel, 10)) * 60;
     this.textPrintTime = Math.round(time);
   }
 
@@ -98,7 +90,7 @@ export class GameStore implements IGameStore {
   }
 
   private getRandomText(): IText {
-    const foundText = this.textsList[this.getRandomIdx()];
+    const foundText = this.rootStore.textsStore.textsList[this.getRandomIdx()];
 
     if (this.text.body === foundText.body) {
       this.getRandomText();
@@ -108,6 +100,6 @@ export class GameStore implements IGameStore {
   }
 
   private getRandomIdx(): number {
-    return Math.round(Math.random() * (this.textsList.length - 1));
+    return Math.round(Math.random() * (this.rootStore.textsStore.textsList.length - 1));
   }
 }

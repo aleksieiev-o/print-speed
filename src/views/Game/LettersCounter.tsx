@@ -12,7 +12,7 @@ const LettersCounter: FC = observer((): ReactElement => {
   return (
     <div
       className={'flex gap-2 w-full overflow-hidden'}
-      title={isGameActive ? `Symbols left: ${remainedLetters} from ${gameStore.text.body.length}` : `Symbols quantity: ${gameStore.text.body.length}`}
+      title={isGameActive ? `Symbols left: ${remainedLetters} from ${gameStore.text.charQuantity}` : `Symbols quantity: ${gameStore.text.charQuantity}`}
     >
       <span className={'whitespace-nowrap'}>{isGameActive ? 'Symbols left:' : 'Symbols quantity:'}</span>
 
@@ -24,7 +24,7 @@ const LettersCounter: FC = observer((): ReactElement => {
         </>
       )}
 
-      <strong className={'whitespace-nowrap text-ellipsis overflow-hidden'}>{gameStore.text.body.length}</strong>
+      <strong className={'whitespace-nowrap text-ellipsis overflow-hidden'}>{gameStore.text.charQuantity}</strong>
     </div>
   );
 });

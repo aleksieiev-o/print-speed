@@ -1,100 +1,200 @@
 [
   {
+    "id": "default-text-0",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 67,
     "language": "en-US",
     "author": "Steve Jobs",
     "body": "Your time is limited, so don't waste it living someone else's life."
   },
   {
+    "id": "default-text-1",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 69,
     "language": "en-US",
     "author": "Albert Schweitzer",
     "body": "Success is not the key to happiness. Happiness is the key to success."
   },
   {
+    "id": "default-text-2",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 73,
     "language": "en-US",
     "author": "Albert Einstein",
     "body": "In the middle of difficulty lies opportunity, and growth comes from pain."
   },
   {
+    "id": "default-text-3",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 74,
     "language": "en-US",
     "author": "Franklin D. Roosevelt",
     "body": "The only limit to our realization of tomorrow will be our doubts of today."
   },
   {
+    "id": "default-text-4",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 71,
     "language": "en-US",
     "author": "Theodore Roosevelt",
     "body": "Believe you can and you're halfway there; confidence is the foundation."
   },
   {
+    "id": "default-text-5",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 69,
     "language": "en-US",
     "author": "Norman Vincent Peale",
     "body": "Change your thoughts and you change your world, shaping your reality."
   },
   {
+    "id": "default-text-6",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 71,
     "language": "en-US",
     "author": "Albert Einstein",
     "body": "Strive not to be a success, but rather to be of value and significance."
   },
   {
+    "id": "default-text-7",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 60,
     "language": "en-US",
     "author": "Peter Drucker",
     "body": "The best way to predict the future is to create it yourself."
   },
   {
+    "id": "default-text-8",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 89,
     "language": "en-US",
     "author": "Nelson Mandela",
     "body": "The greatest glory in living lies not in never falling, but in rising every time we fall."
   },
   {
+    "id": "default-text-9",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 72,
     "language": "en-US",
     "author": "Winston Churchill",
     "body": "Success is stumbling from failure to failure with no loss of enthusiasm."
   },
   {
+    "id": "default-text-10",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 77,
     "language": "en-US",
     "author": "Nelson Mandela",
     "body": "It always seems impossible until it's done; perseverance conquers challenges."
   },
   {
+    "id": "default-text-11",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 72,
     "language": "en-US",
     "author": "William Butler Yeats",
     "body": "Do not wait to strike till the iron is hot, but make it hot by striking."
   },
   {
+    "id": "default-text-12",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 77,
     "language": "en-US",
     "author": "Anonymous",
     "body": "If you want to achieve greatness, stop asking for permission and start doing."
   },
   {
+    "id": "default-text-13",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 70,
     "language": "en-US",
     "author": "Eleanor Roosevelt",
     "body": "The future belongs to those who believe in the beauty of their dreams."
   },
   {
+    "id": "default-text-14",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 71,
     "language": "en-US",
     "author": "Anonymous",
     "body": "Success is not just about making money; it's about making a difference."
   },
   {
+    "id": "default-text-15",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 74,
     "language": "en-US",
     "author": "Ralph Waldo Emerson",
     "body": "The only person you are destined to become is the person you decide to be."
   },
   {
+    "id": "default-text-16",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 74,
     "language": "en-US",
     "author": "Frank Sinatra",
     "body": "The only person you are destined to become is the person you decide to be."
   },
   {
+    "id": "default-text-17",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 78,
     "language": "en-US",
     "author": "Vince Lombardi",
     "body": "It's not whether you get knocked down, it's whether you get up and keep going."
   },
   {
+    "id": "default-text-18",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 68,
     "language": "en-US",
     "author": "Sam Levenson",
     "body": "Don't watch the clock; do what it does. Keep going and stay focused."
   },
   {
+    "id": "default-text-19",
+    "isCustom": false,
+    "createdDate": "2024-01-01T00:00:00.000Z",
+    "updatedDate": "2024-01-01T00:00:00.000Z",
+    "charQuantity": 85,
     "language": "en-US",
     "author": "Marilyn vos Savant",
     "body": "Success is achieved by developing your strengths, not by eliminating your weaknesses."

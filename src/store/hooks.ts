@@ -5,6 +5,7 @@ import {GameStore} from '@/store/GameStore';
 import {GlobalLoaderStore} from '@/store/GlobalLoaderStore';
 import {AuthorizationStore} from '@/store/AuthorizationStore';
 import {SettingsStore} from '@/store/SettingsStore';
+import {TextsStore} from '@/store/TextsStore';
 
 export const useRootStore = (): RootStore => {
   const context = useContext(StoreContext);
@@ -22,6 +23,11 @@ export const useGlobalLoaderStore = (): GlobalLoaderStore => {
 export const useAuthorizationStore = (): AuthorizationStore => {
   const {authorizationStore} = useRootStore();
   return authorizationStore;
+};
+
+export const useTextsStore = (): TextsStore => {
+  const {textsStore} = useRootStore();
+  return textsStore;
 };
 
 export const useGameStore = (): GameStore => {

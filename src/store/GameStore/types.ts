@@ -1,5 +1,5 @@
 import {RootStore} from '@/store';
-import {GameStoreService} from '@/store/GameStore/service';
+import {IText} from '@/store/TextsStore/types';
 
 export enum EGameActiveStatus {
   STOPPED = 'stopped',
@@ -24,18 +24,10 @@ export enum EPrintSpeedLevelsList {
   LIGHTNING = '550',
 }
 
-export interface IText {
-  language: string;
-  author: string;
-  body: string;
-}
-
 export interface IGameStore {
   rootStore: RootStore;
-  gameStoreService: GameStoreService;
   textPrintTime: number;
   text: IText;
-  textsList: Array<IText>;
   victoryCounter: number;
   gameActiveStatus: EGameActiveStatus;
   gameFinishStatus: EFinishGameStatus;
