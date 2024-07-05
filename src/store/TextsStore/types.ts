@@ -8,7 +8,6 @@ export enum ETextsEndpoints {
 
 export interface IText {
   id: string;
-  language: string;
   author: string;
   body: string;
   isCustom: boolean;

@@ -19,7 +19,6 @@ export class GameStore implements IGameStore {
     this.gameFinishStatus = EFinishGameStatus.UNKNOWN;
     this.text = {
       id: '',
-      language: '',
       author: '',
       body: '',
       charQuantity: 0,

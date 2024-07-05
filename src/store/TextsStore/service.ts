@@ -42,7 +42,7 @@ export class TextsStoreService implements ITextsStoreService {
   }
 
   async createCustomText(payload: IText): Promise<IText> {
-    const {author, body, charQuantity, language} = payload;
+    const {author, body, charQuantity} = payload;
 
     try {
       const textRef = push(ref(firebaseDataBase, this.getCustomTextsListEndpoint(ETextsEndpoints.TEXTS_LIST)));
@@ -55,7 +55,6 @@ export class TextsStoreService implements ITextsStoreService {
         createdDate: new Date().toISOString(),
         id: textKey,
         isCustom: true,
-        language,
         updatedDate: new Date().toISOString(),
       };
 
@@ -63,6 +62,7 @@ export class TextsStoreService implements ITextsStoreService {
       return await this.fetchCustomText(textKey);
     } catch (err) {
       console.warn(err);
+      return Promise.reject({} as IText);
     }
   }
 
@@ -76,6 +76,7 @@ export class TextsStoreService implements ITextsStoreService {
       return await this.fetchCustomText(id);
     } catch (err) {
       console.warn(err);
+      return Promise.reject({} as IText);
     }
   }
 

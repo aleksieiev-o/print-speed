@@ -17,7 +17,7 @@ export class TextsStore implements ITextsStore {
 
     this.fetchDefaultTextsList().then(() => {
       this.fetchCustomTextsList().then(() => {
-        // TODO change execute the "changeText" in this class
+        // TODO change executing the "changeText" in this class
         this.rootStore.gameStore.changeText();
       });
     });
