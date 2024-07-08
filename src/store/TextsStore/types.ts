@@ -19,5 +19,6 @@ export interface IText {
 export interface ITextsStore {
   rootStore: RootStore;
   textsStoreService: TextsStoreService;
-  textsList: IText[];
+  defaultTextsList: IText[];
+  customTextsList: IText[];
 }

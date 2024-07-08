@@ -71,6 +71,8 @@ export class AuthorizationStore implements IAuthorizationStore {
 
     await this.rootStore.settingsStore.fetchAppSettings();
     await this.rootStore.settingsStore.fetchGameSettings();
+    await this.rootStore.textsStore.fetchCustomTextsList();
+    this.rootStore.gameStore.changeText();
   }
 
   private async reloadUserData(): Promise<void> {

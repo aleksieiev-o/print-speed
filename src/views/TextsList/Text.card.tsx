@@ -1,15 +1,23 @@
 import {Badge} from '@/components/ui/badge';
 import {Card, CardContent, CardFooter, CardHeader} from '@/components/ui/card';
+import {DEFAULT_USER_DN} from '@/shared/appConstants';
+import {useAuthorizationStore} from '@/store/hooks';
 import {IText} from '@/store/TextsStore/types';
-import {FC, ReactElement} from 'react';
+import {observer} from 'mobx-react-lite';
+import {FC, ReactElement, useState} from 'react';
+import RemoveCustomTextDialog from './RemoveCustomText.dialog';
+import {Button} from '@/components/ui/button';
+import {Pencil, Trash} from 'lucide-react';
 
 interface Props {
   text: IText;
 }
 
-const TextCard: FC<Props> = (props): ReactElement => {
+const TextCard: FC<Props> = observer((props): ReactElement => {
   const {text} = props;
   const {id, body, author, isCustom, charQuantity, createdDate, updatedDate} = text;
+  const authorizationStore = useAuthorizationStore();
+  const [dialogRemoveIsOpen, setDialogRemoveIsOpen] = useState<boolean>(false);
 
   return (
     <Card className="bg-background shadow-md">
@@ -18,13 +26,13 @@ const TextCard: FC<Props> = (props): ReactElement => {
         <p className="font-bold">{id}</p>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="flex flex-row flex-nowrap md:gap-6 gap-4 w-full">
         <div className="w-full grid grid-cols-1 gap-4">
           <p>{body}</p>
 
-          <div className="flex items-center justify-start gap-4">
+          <div className="flex items-center justify-start gap-4 grow">
             <span className="font-bold">Author:</span>
-            <span className="italic">{author}</span>
+            <span className="italic">{!isCustom ? author : authorizationStore.user.displayName || DEFAULT_USER_DN}</span>
           </div>
 
           <div className="flex items-center justify-start gap-4">
@@ -33,11 +41,19 @@ const TextCard: FC<Props> = (props): ReactElement => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 items-start justify-start">
-          {/* <UpdateCustomTextDialog />
+        {isCustom && (
+          <div className="flex flex-col gap-4 items-start justify-start">
+            <Button onClick={() => undefined} variant="default" className="shadow-md" title="Update custom text">
+              <Pencil className="mr-4 h-5 w-5" />
+              <p>Update</p>
+            </Button>
 
-						<RemoveCustomTextDialog /> */}
-        </div>
+            <Button onClick={() => setDialogRemoveIsOpen(true)} variant="destructive" className="shadow-md" title="Remove custom text">
+              <Trash className="mr-4 h-5 w-5" />
+              <p>Remove</p>
+            </Button>
+          </div>
+        )}
       </CardContent>
 
       {isCustom && (
@@ -53,8 +69,16 @@ const TextCard: FC<Props> = (props): ReactElement => {
           </div>
         </CardFooter>
       )}
+
+      {isCustom && (
+        <>
+          {/* <UpdateCustomTextDialog /> */}
+
+          <RemoveCustomTextDialog setDialogIsOpen={setDialogRemoveIsOpen} dialogIsOpen={dialogRemoveIsOpen} text={text} />
+        </>
+      )}
     </Card>
   );
-};
+});
 
 export default TextCard;

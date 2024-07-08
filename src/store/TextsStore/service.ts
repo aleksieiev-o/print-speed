@@ -21,9 +21,10 @@ export class TextsStoreService implements ITextsStoreService {
 
   async fetchCustomTextsList(): Promise<IText[]> {
     try {
-      const path = this.getCustomTextsListEndpoint(ETextsEndpoints.TEXTS_LIST);
+      const path = this.getCustomTextsListEndpoint();
       const snapshot: DataSnapshot = await get(child(ref(firebaseDataBase), path));
-      return snapshot.val() || [];
+      const result = snapshot.val() || {};
+      return Object.keys(result).map((key) => ({...result[key]})) || [];
     } catch (err) {
       console.warn(err);
       return [] as IText[];
@@ -32,7 +33,7 @@ export class TextsStoreService implements ITextsStoreService {
 
   async fetchCustomText(id: string): Promise<IText> {
     try {
-      const path = this.getCustomTextByIdEndpoint(ETextsEndpoints.TEXTS_LIST, id);
+      const path = this.getCustomTextByIdEndpoint(id);
       const snapshot: DataSnapshot = await get(child(ref(firebaseDataBase), path));
       return snapshot.val() || {};
     } catch (err) {
@@ -41,17 +42,15 @@ export class TextsStoreService implements ITextsStoreService {
     }
   }
 
-  async createCustomText(payload: IText): Promise<IText> {
-    const {author, body, charQuantity} = payload;
-
+  async createCustomText(body: string): Promise<IText> {
     try {
-      const textRef = push(ref(firebaseDataBase, this.getCustomTextsListEndpoint(ETextsEndpoints.TEXTS_LIST)));
+      const textRef = push(ref(firebaseDataBase, this.getCustomTextsListEndpoint()));
       const textKey = textRef.key!;
 
       const customText: IText = {
-        author,
+        author: this.rootStore.authorizationStore.userUid,
         body,
-        charQuantity,
+        charQuantity: body.length,
         createdDate: new Date().toISOString(),
         id: textKey,
         isCustom: true,
@@ -59,7 +58,7 @@ export class TextsStoreService implements ITextsStoreService {
       };
 
       await set(textRef, customText);
-      return await this.fetchCustomText(textKey);
+      return customText;
     } catch (err) {
       console.warn(err);
       return Promise.reject({} as IText);
@@ -68,12 +67,13 @@ export class TextsStoreService implements ITextsStoreService {
 
   async updateCustomText(id: string, payload: IText): Promise<IText> {
     try {
-      await update(child(ref(firebaseDataBase), this.getCustomTextByIdEndpoint(ETextsEndpoints.TEXT_BY_ID, id)), {
+      const customText = {
         ...payload,
         updatedDate: new Date().toISOString(),
-      });
+      };
 
-      return await this.fetchCustomText(id);
+      await update(child(ref(firebaseDataBase), this.getCustomTextByIdEndpoint(id)), customText);
+      return customText;
     } catch (err) {
       console.warn(err);
       return Promise.reject({} as IText);
@@ -82,7 +82,7 @@ export class TextsStoreService implements ITextsStoreService {
 
   async removeCustomText(id: string): Promise<string> {
     try {
-      await remove(ref(firebaseDataBase, this.getCustomTextByIdEndpoint(ETextsEndpoints.TEXT_BY_ID, id)));
+      await remove(ref(firebaseDataBase, this.getCustomTextByIdEndpoint(id)));
       return id;
     } catch (err) {
       console.warn(err);
@@ -92,7 +92,7 @@ export class TextsStoreService implements ITextsStoreService {
 
   async removeAllCustomTexts(): Promise<boolean> {
     try {
-      await set(ref(firebaseDataBase, this.getCustomTextsListEndpoint(ETextsEndpoints.TEXTS_LIST)), null);
+      await set(ref(firebaseDataBase, this.getCustomTextsListEndpoint()), null);
       return true;
     } catch (err) {
       console.warn(err);
@@ -100,11 +100,11 @@ export class TextsStoreService implements ITextsStoreService {
     }
   }
 
-  private getCustomTextsListEndpoint(endpoint: ETextsEndpoints): string {
-    return `${endpoint}`.replace('[id]', this.rootStore.authorizationStore.userUid);
+  private getCustomTextsListEndpoint(): string {
+    return `${ETextsEndpoints.TEXTS_LIST}`.replace('[id]', this.rootStore.authorizationStore.userUid);
   }
 
-  private getCustomTextByIdEndpoint(endpoint: ETextsEndpoints, textId: string): string {
-    return `${endpoint}`.replace('[id]', this.rootStore.authorizationStore.userUid).replace('[textId]', textId);
+  private getCustomTextByIdEndpoint(textId: string): string {
+    return `${ETextsEndpoints.TEXT_BY_ID}`.replace('[id]', this.rootStore.authorizationStore.userUid).replace('[textId]', textId);
   }
 }

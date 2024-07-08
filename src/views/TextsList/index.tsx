@@ -6,6 +6,7 @@ import {Input} from '@/components/ui/input';
 import TextCard from './Text.card';
 import {useTextsStore} from '@/store/hooks';
 import {IText} from '@/store/TextsStore/types';
+import CreateCustomTextDialog from './CreateCustomText.dialog';
 
 const TextsList: FC = observer((): ReactElement => {
   const textsListStore = useTextsStore();
@@ -24,7 +25,7 @@ const TextsList: FC = observer((): ReactElement => {
           <div className="flex w-full flex-col items-end justify-between gap-6 sm:flex-row sm:items-center">
             <Input onChange={(e) => setTextFilter(e.target.value)} value={textFilter} placeholder={'Try to search some text...'} className={'h-12 w-full shadow-md'} />
 
-            {/* <CreateCustomTextDialog /> */}
+            <CreateCustomTextDialog />
           </div>
 
           <div className="w-full h-full grid grid-cols-1 gap-4 md:gap-6 content-start overflow-y-auto overflow-x-hidden pb-1">
