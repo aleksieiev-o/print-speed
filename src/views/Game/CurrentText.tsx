@@ -1,5 +1,5 @@
 import {FC, ReactElement, useCallback, useEffect, useMemo, useState} from 'react';
-import {useGameStore} from '@/store/hooks';
+import {useAuthorizationStore, useGameStore} from '@/store/hooks';
 import {EFinishGameStatus, EGameActiveStatus} from '@/store/GameStore/types';
 import {observer} from 'mobx-react-lite';
 import {useRemainedLetters} from '@/shared/hooks/useRemainedLetters';
@@ -9,6 +9,7 @@ const writtenCharRegExp = new RegExp(`\\${writtenChar}`, 'g');
 
 const CurrentText: FC = observer((): ReactElement => {
   const gameStore = useGameStore();
+  const authorizationStore = useAuthorizationStore();
   const {setRemainedLetters} = useRemainedLetters();
   const [currentText, setCurrentText] = useState<string>('');
 
@@ -72,7 +73,7 @@ const CurrentText: FC = observer((): ReactElement => {
     <div className={'overflow-y-auto'}>
       <p className={'text-3xl'}>{currentText}</p>
 
-      <p className={'text-md italic'}>By {gameStore.text.author}</p>
+      <p className={'text-md italic'}>By {!gameStore.text.isCustom ? gameStore.text.author : authorizationStore.userDN}</p>
     </div>
   );
 });
