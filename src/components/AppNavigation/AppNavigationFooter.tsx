@@ -8,7 +8,6 @@ import AppAvatar from '@/components/AppAvatar';
 import {useNavigate} from 'react-router-dom';
 import {ERouter} from '@/shared/Router';
 import SignOutConfirmDialog from '../SignOutConfirm.dialog';
-import {DEFAULT_USER_DN} from '@/shared/appConstants';
 import {useSignOut} from '@/shared/hooks/useSignOut';
 import {useAuthorizationStore} from '@/store/hooks';
 import {observer} from 'mobx-react-lite';
@@ -23,11 +22,11 @@ const AppNavigationFooter: FC = observer((): ReactElement => {
     <>
       {authorizationStore.user && (
         <CardFooter className={'w-full grid grid-cols-[56px_1fr_48px] gap-2 overflow-hidden'}>
-          <AppAvatar handleClick={() => navigate(ERouter.USER_PROFILE)} userImageSrc={''} userName={authorizationStore.user.displayName || DEFAULT_USER_DN} />
+          <AppAvatar handleClick={() => navigate(ERouter.USER_PROFILE)} userImageSrc={''} userName={authorizationStore.userDN} />
 
           <div className={'w-full flex flex-col items-start justify-start overflow-hidden'}>
-            <span className={'w-full whitespace-nowrap text-ellipsis font-bold overflow-hidden'} title={authorizationStore.user.displayName || DEFAULT_USER_DN}>
-              {authorizationStore.user.displayName || DEFAULT_USER_DN}
+            <span className={'w-full whitespace-nowrap text-ellipsis font-bold overflow-hidden'} title={authorizationStore.userDN}>
+              {authorizationStore.userDN}
             </span>
 
             <span className={'w-full whitespace-nowrap text-ellipsis overflow-hidden'} title={authorizationStore.user.email || 'User email'}>

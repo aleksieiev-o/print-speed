@@ -8,7 +8,6 @@ import ChangeEmailDialog from './ChangeEmail.dialog';
 import ChangePasswordDialog from './ChangePassword.dialog';
 import {observer} from 'mobx-react-lite';
 import {useAuthorizationStore} from '@/store/hooks';
-import {DEFAULT_USER_DN} from '@/shared/appConstants';
 
 const UserProfile: FC = observer((): ReactElement => {
   const [dialogIsOpenChangeDisplayName, setDialogIsOpenChangeDisplayName] = useState<boolean>(false);
@@ -20,12 +19,12 @@ const UserProfile: FC = observer((): ReactElement => {
     <AppWrapper>
       <Card className={'w-full h-full flex flex-col overflow-y-hidden'}>
         <CardContent className={'w-full h-full grid grid-cols-1 gap-4 md:gap-6 content-start overflow-y-auto'}>
-          <UserProfileInfo itemTitle={'User ID:'} itemValue={authorizationStore.user?.uid || ''} withActionButton={false} />
+          <UserProfileInfo itemTitle={'User ID:'} itemValue={authorizationStore.userUid} withActionButton={false} />
 
           <UserProfileInfo
             handleClick={() => setDialogIsOpenChangeDisplayName(true)}
             itemTitle={'Display name:'}
-            itemValue={authorizationStore.user?.displayName || DEFAULT_USER_DN}
+            itemValue={authorizationStore.userDN}
             withActionButton={true}
             buttonTitle={'Change display name'}
             buttonValue={'Change display name'}
@@ -34,7 +33,7 @@ const UserProfile: FC = observer((): ReactElement => {
           <UserProfileInfo
             handleClick={() => setDialogIsOpenChangeEmail(true)}
             itemTitle={'Email:'}
-            itemValue={authorizationStore.user?.email || ''}
+            itemValue={authorizationStore.userEmail}
             withActionButton={true}
             buttonTitle={'Change email'}
             buttonValue={'Change email'}

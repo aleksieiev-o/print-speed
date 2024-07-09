@@ -8,7 +8,6 @@ import {Form} from '@/components/ui/form';
 import {z, ZodIssueCode} from 'zod';
 import SubmitButton from '@/shared/ui/appButton/Submit.button';
 import {AppAuthContext} from '@/shared/providers/AppAuth.provider';
-import {DEFAULT_USER_DN} from '@/shared/appConstants';
 import AppFormInputText from '@/shared/ui/appInput/AppFormInput.text';
 import {useAuthorizationStore} from '@/store/hooks';
 import {observer} from 'mobx-react-lite';
@@ -39,7 +38,7 @@ const ChangeDisplayNameDialog: FC<Props> = observer((props): ReactElement => {
             .max(20, 'Display name length must not exceed 20 characters'),
         })
         .superRefine((data, ctx) => {
-          if (data.displayName === authorizationStore.user?.displayName || data.displayName === DEFAULT_USER_DN) {
+          if (data.displayName === authorizationStore.userDN) {
             ctx.addIssue({
               code: ZodIssueCode.custom,
               path: ['displayName'],
@@ -47,7 +46,7 @@ const ChangeDisplayNameDialog: FC<Props> = observer((props): ReactElement => {
             });
           }
         }),
-    [authorizationStore.user?.displayName],
+    [authorizationStore.userDN],
   );
 
   const formModel = useForm<z.infer<typeof displayNameSchema>>({
@@ -88,8 +87,8 @@ const ChangeDisplayNameDialog: FC<Props> = observer((props): ReactElement => {
           <div className="flex w-full flex-col items-start justify-start gap-2 overflow-hidden">
             <p>Your current display name is</p>
 
-            <span title={authorizationStore.user?.displayName || DEFAULT_USER_DN} className="w-full overflow-hidden text-ellipsis whitespace-nowrap font-bold">
-              {authorizationStore.user?.displayName || DEFAULT_USER_DN}
+            <span title={authorizationStore.userDN} className="w-full overflow-hidden text-ellipsis whitespace-nowrap font-bold">
+              {authorizationStore.userDN}
             </span>
           </div>
 

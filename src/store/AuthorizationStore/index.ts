@@ -3,6 +3,7 @@ import {User} from '@firebase/auth';
 import {RootStore} from '@/store';
 import {onAuthStateChanged} from 'firebase/auth';
 import {firebaseAuth} from '@/lib/firebase/firebase';
+import {DEFAULT_USER_DN} from '@/shared/appConstants';
 
 export enum EAppAuthStatus {
   UNDEFINED,
@@ -22,9 +23,9 @@ interface IAuthorizationStore {
 export class AuthorizationStore implements IAuthorizationStore {
   rootStore: RootStore;
 
-  user = null;
+  user: User | null = null;
   userLoading = false;
-  userError = undefined;
+  userError: Error | undefined = undefined;
   appAuthStatus = EAppAuthStatus.UNDEFINED;
 
   constructor(rootStore: RootStore) {
@@ -47,6 +48,14 @@ export class AuthorizationStore implements IAuthorizationStore {
 
   get userUid(): string {
     return this.user?.uid || ''; // TODO remove "|| ''" and fix it
+  }
+
+  get userDN(): string {
+    return this.user?.displayName || DEFAULT_USER_DN;
+  }
+
+  get userEmail(): string {
+    return this.user?.email || '';
   }
 
   get isAuth(): boolean {
@@ -93,7 +102,7 @@ export class AuthorizationStore implements IAuthorizationStore {
     this.userLoading = status;
   }
 
-  private setUserError(err: Error | undefined): void {
-    this.userError = err;
-  }
+  // private setUserError(err: Error | undefined): void {
+  //   this.userError = err;
+  // }
 }

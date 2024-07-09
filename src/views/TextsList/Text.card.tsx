@@ -1,6 +1,5 @@
 import {Badge} from '@/components/ui/badge';
 import {Card, CardContent, CardFooter, CardHeader} from '@/components/ui/card';
-import {DEFAULT_USER_DN} from '@/shared/appConstants';
 import {useAuthorizationStore} from '@/store/hooks';
 import {IText} from '@/store/TextsStore/types';
 import {observer} from 'mobx-react-lite';
@@ -32,7 +31,7 @@ const TextCard: FC<Props> = observer((props): ReactElement => {
 
           <div className="flex items-center justify-start gap-4 grow">
             <span className="font-bold">Author:</span>
-            <span className="italic">{!isCustom ? author : authorizationStore.user.displayName || DEFAULT_USER_DN}</span>
+            <span className="italic">{!isCustom ? author : authorizationStore.userDN}</span>
           </div>
 
           <div className="flex items-center justify-start gap-4">

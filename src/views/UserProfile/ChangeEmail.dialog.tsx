@@ -51,7 +51,7 @@ const ChangeEmailDialog: FC<Props> = observer((props): ReactElement => {
             .max(254, 'Email length must not exceed 254 characters'),
         })
         .superRefine((data, ctx) => {
-          if (data.email === authorizationStore.user?.email || data.email === '') {
+          if (data.email === authorizationStore.userEmail) {
             ctx.addIssue({
               code: ZodIssueCode.custom,
               path: ['email'],
@@ -59,7 +59,7 @@ const ChangeEmailDialog: FC<Props> = observer((props): ReactElement => {
             });
           }
         }),
-    [authorizationStore.user?.email],
+    [authorizationStore.userEmail],
   );
 
   const formModel = useForm<z.infer<typeof emailSchema>>({
@@ -130,8 +130,8 @@ const ChangeEmailDialog: FC<Props> = observer((props): ReactElement => {
           <div className="flex w-full flex-col items-start justify-start gap-2 overflow-hidden">
             <p>Your current email is</p>
 
-            <span title={authorizationStore.user?.email || ''} className="w-full overflow-hidden text-ellipsis whitespace-nowrap font-bold">
-              {authorizationStore.user?.email || ''}
+            <span title={authorizationStore.userEmail} className="w-full overflow-hidden text-ellipsis whitespace-nowrap font-bold">
+              {authorizationStore.userEmail}
             </span>
           </div>
 
