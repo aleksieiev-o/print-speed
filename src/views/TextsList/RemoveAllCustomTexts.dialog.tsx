@@ -1,19 +1,17 @@
-import {FC, ReactElement} from 'react';
 import {useToast} from '@/components/ui/use-toast';
 import {useLoading} from '@/shared/hooks/useLoading';
-import {IText} from '@/store/TextsStore/types';
 import RemoveConfirmDialog from '@/shared/ui/appDialog/RemoveConfirm.dialog';
-import {observer} from 'mobx-react-lite';
 import {useTextsStore} from '@/store/hooks';
+import {observer} from 'mobx-react-lite';
+import {FC, ReactElement} from 'react';
 
 interface Props {
-  text: IText;
   dialogIsOpen: boolean;
   setDialogIsOpen: (value: boolean) => void;
 }
 
-const RemoveCustomTextDialog: FC<Props> = observer((props): ReactElement => {
-  const {text, dialogIsOpen, setDialogIsOpen} = props;
+const RemoveAllCustomTextsDialog: FC<Props> = observer((props): ReactElement => {
+  const {dialogIsOpen, setDialogIsOpen} = props;
   const {toast} = useToast();
   const {isLoading, setIsLoading} = useLoading();
   const textsStore = useTextsStore();
@@ -21,7 +19,7 @@ const RemoveCustomTextDialog: FC<Props> = observer((props): ReactElement => {
   const onSuccessCallback = async (): Promise<void> => {
     toast({
       title: 'Success',
-      description: 'The custom text has successfully removed.',
+      description: 'All custom texts have successfully removed.',
     });
   };
 
@@ -41,7 +39,7 @@ const RemoveCustomTextDialog: FC<Props> = observer((props): ReactElement => {
   const handleConfirm = async () => {
     setIsLoading(true);
     try {
-      await textsStore.removeCustomText(text.id);
+      await textsStore.removeAllCustomTexts();
       await onSuccessCallback();
     } catch (err) {
       await onErrorCallback();
@@ -57,13 +55,13 @@ const RemoveCustomTextDialog: FC<Props> = observer((props): ReactElement => {
       dialogIsOpen={dialogIsOpen}
       setDialogIsOpen={setDialogIsOpen}
       handleConfirm={handleConfirm}
-      dialogTitle={'Remove custom text confirmation'}
-      dialogDescription={'You are about to remove this custom text.'}
-      dialogQuestion={'Are you sure you want to remove this custom text?'}
-      btnTitle={'Remove custom text'}
+      dialogTitle={'Remove all custom texts confirmation'}
+      dialogDescription={'You are about to remove all custom texts.'}
+      dialogQuestion={'Are you sure you want to remove all custom texts?'}
+      btnTitle={'Remove custom texts'}
       btnBody={'Remove'}
     />
   );
 });
 
-export default RemoveCustomTextDialog;
+export default RemoveAllCustomTextsDialog;
