@@ -26,7 +26,7 @@ const PrintSpeedChanger: FC = observer((): ReactElement => {
 
   const defaultSpeedLevelLPM = useMemo((): EPrintSpeedLevelsList => {
     const speedLevel = printSpeedLevelsList.find((item) => item.lpm === settingsStore.gameSettings.printSpeedLevel);
-    return speedLevel?.lpm || EPrintSpeedLevelsList.VERY_SLOW;
+    return speedLevel?.lpm || settingsStore.gameSettings.printSpeedLevel;
   }, [settingsStore.gameSettings.printSpeedLevel, printSpeedLevelsList]);
 
   const currentSpeedLevelTitle = useMemo((): string => {
@@ -46,7 +46,12 @@ const PrintSpeedChanger: FC = observer((): ReactElement => {
         Current print speed: <strong>{settingsStore.gameSettings.printSpeedLevel}</strong> symbols per minute ({currentSpeedLevelTitle})
       </p>
 
-      <Select onValueChange={(value) => changeLPM(value as EPrintSpeedLevelsList)} disabled={isLoading} defaultValue={settingsStore.gameSettings.printSpeedLevel}>
+      <Select
+        onValueChange={(value) => changeLPM(value as EPrintSpeedLevelsList)}
+        value={settingsStore.gameSettings.printSpeedLevel}
+        disabled={isLoading}
+        defaultValue={settingsStore.gameSettings.printSpeedLevel}
+      >
         <SelectTrigger title={'Change print speed'}>
           <SelectValue placeholder={'Print speed'} />
         </SelectTrigger>
