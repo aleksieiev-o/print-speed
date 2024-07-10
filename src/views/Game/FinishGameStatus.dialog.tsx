@@ -9,7 +9,7 @@ import {EFinishGameStatus} from '@/store/GameStore/types';
 import {useLocation} from 'react-router-dom';
 import {VictoryConfettiContext} from '@/shared/providers/VictoryConfetti.provider';
 
-const FinishGameStatusModal: FC = observer((): ReactElement => {
+const FinishGameStatusDialog: FC = observer((): ReactElement => {
   const gameStore = useGameStore();
   const {setConfettiStarted} = useContext(VictoryConfettiContext);
   const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
@@ -68,4 +68,4 @@ const FinishGameStatusModal: FC = observer((): ReactElement => {
   );
 });
 
-export default FinishGameStatusModal;
+export default FinishGameStatusDialog;

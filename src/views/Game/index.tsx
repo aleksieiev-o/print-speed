@@ -13,7 +13,7 @@ import ChangeTextButton from '@/views/Game/ChangeText.button';
 import {useNavigate} from 'react-router-dom';
 import {ERouter} from '@/shared/Router';
 import {useDesktopDevice} from '@/shared/hooks/useDesktopDevice';
-import FinishGameStatusModal from '@/views/Game/FinishGameStatus.modal';
+import FinishGameStatusDialog from '@/views/Game/FinishGameStatus.dialog';
 import {Skeleton} from '@/components/ui/skeleton';
 import {useSettingsStore} from '@/store/hooks';
 
@@ -58,7 +58,7 @@ const Game: FC = observer((): ReactElement => {
         </CardFooter>
       </Card>
 
-      <FinishGameStatusModal />
+      <FinishGameStatusDialog />
     </AppWrapper>
   );
 });
