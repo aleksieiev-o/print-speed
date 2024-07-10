@@ -110,25 +110,27 @@ const Timer: FC = observer((): ReactElement => {
   }, [gameStore.gameActiveStatus]);
 
   return (
-    <Alert variant={isGameActive ? (remainedTimeAlertVariant as EAlertVariant) : EAlertVariant.DEFAULT}>
-      {isGameActive && (
-        <AlertTitle className={'mb-2'}>
-          <Hourglass className={`h-8 w-8 ${isSpinAnimate}`} />
-        </AlertTitle>
+    <>
+      {gameStore.text.body ? (
+        <Alert variant={isGameActive ? (remainedTimeAlertVariant as EAlertVariant) : EAlertVariant.DEFAULT}>
+          {isGameActive && (
+            <AlertTitle className={'mb-2'}>
+              <Hourglass className={`h-8 w-8 ${isSpinAnimate}`} />
+            </AlertTitle>
+          )}
+
+          <AlertDescription>
+            <CardDescription className={'flex gap-2 text-md text-foreground'}>
+              {gameStore.isGamePreparing ? <span>Time to start:</span> : <>{isGameActive ? <span>Remaining print time:</span> : <span>Text print time:</span>}</>}
+
+              {gameStore.isGamePreparing ? <strong>{preparingTime} sec.</strong> : <>{isGameActive ? <span>{time} sec.</span> : <span>{gameStore.textPrintTime} sec.</span>}</>}
+            </CardDescription>
+          </AlertDescription>
+        </Alert>
+      ) : (
+        <Skeleton className={'h-12 w-full bg-white/50'} />
       )}
-
-      <AlertDescription>
-        {gameStore.text.body ? (
-          <CardDescription className={'flex gap-2 text-md text-foreground'}>
-            {gameStore.isGamePreparing ? <span>Time to start:</span> : <>{isGameActive ? <span>Remaining print time:</span> : <span>Text print time:</span>}</>}
-
-            {gameStore.isGamePreparing ? <strong>{preparingTime} sec.</strong> : <>{isGameActive ? <span>{time} sec.</span> : <span>{gameStore.textPrintTime} sec.</span>}</>}
-          </CardDescription>
-        ) : (
-          <Skeleton className={'h-6 w-full bg-white/50'} />
-        )}
-      </AlertDescription>
-    </Alert>
+    </>
   );
 });
 
