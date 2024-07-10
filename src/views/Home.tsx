@@ -6,6 +6,7 @@ import {useNavigate} from 'react-router-dom';
 import {ERouter} from '@/shared/Router';
 import {useDesktopDevice} from '@/shared/hooks/useDesktopDevice';
 import {observer} from 'mobx-react-lite';
+import {SquarePlay} from 'lucide-react';
 
 const Home: FC = observer((): ReactElement => {
   const {IsNotDesktop} = useDesktopDevice();
@@ -28,7 +29,8 @@ const Home: FC = observer((): ReactElement => {
               <p className={'text-center font-bold text-red-500'}>You can use this application only on a personal computer</p>
             ) : (
               <Button onClick={() => navigate(ERouter.GAME)} variant={'default'} title={'Go to the game'}>
-                Go to the game
+                <SquarePlay className="mr-4 h-5 w-5" />
+                <p>Go to the game</p>
               </Button>
             )}
           </CardFooter>

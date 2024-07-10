@@ -4,6 +4,7 @@ import {ERouter, ERouterTitle} from '@/shared/Router';
 import AppNavigationLink from '@/components/AppNavigation/AppNavigationLink';
 import {useAuthorizationStore} from '@/store/hooks';
 import {observer} from 'mobx-react-lite';
+import {House, SquarePlay, Settings, ClipboardList} from 'lucide-react';
 
 const AppNavigationContent: FC = observer((): ReactElement => {
   const authorizationStore = useAuthorizationStore();
@@ -11,15 +12,15 @@ const AppNavigationContent: FC = observer((): ReactElement => {
   return (
     <CardContent className={'flex flex-col justify-start mb-auto overflow-hidden'}>
       <ul className={'flex flex-col justify-start gap-4 overflow-x-hidden overflow-y-auto'}>
-        <AppNavigationLink to={ERouter.HOME} title={ERouterTitle.HOME} />
+        <AppNavigationLink to={ERouter.HOME} title={ERouterTitle.HOME} Icon={House} />
 
-        <AppNavigationLink to={ERouter.GAME} title={ERouterTitle.GAME} />
+        <AppNavigationLink to={ERouter.GAME} title={ERouterTitle.GAME} Icon={SquarePlay} />
 
-        {authorizationStore.user && (
+        {authorizationStore.isAuth && (
           <>
-            <AppNavigationLink to={ERouter.TEXTS_LIST} title={ERouterTitle.TEXTS_LIST} />
+            <AppNavigationLink to={ERouter.TEXTS_LIST} title={ERouterTitle.TEXTS_LIST} Icon={ClipboardList} />
 
-            <AppNavigationLink to={ERouter.SETTINGS} title={ERouterTitle.SETTINGS} />
+            <AppNavigationLink to={ERouter.SETTINGS} title={ERouterTitle.SETTINGS} Icon={Settings} />
           </>
         )}
       </ul>
