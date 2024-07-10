@@ -22,7 +22,7 @@ const UserProfileInfo: FC<Props> = observer((props): ReactElement => {
       <div className={'w-full flex flex-row flex-row-nowrap gap-4 items-center justify-start overflow-hidden'}>
         <h6 className={'lg:min-w-[150px] whitespace-nowrap'}>{itemTitle}</h6>
 
-        {authorizationStore.loading ? (
+        {authorizationStore.userLoading ? (
           <Skeleton className={'h-5 w-[180px] bg-white/50'} />
         ) : (
           <span className={'font-bold whitespace-nowrap text-ellipsis overflow-hidden'}>{itemValue}</span>
@@ -31,7 +31,7 @@ const UserProfileInfo: FC<Props> = observer((props): ReactElement => {
 
       {withActionButton && (
         <>
-          {authorizationStore.loading ? (
+          {authorizationStore.userLoading ? (
             <Skeleton className={'h-12 min-w-[200px] lg:min-w-[240px] bg-white/50'} />
           ) : (
             <Button onClick={handleClick} variant={'default'} title={buttonTitle} className={'min-w-[200px] lg:min-w-[240px]'}>
