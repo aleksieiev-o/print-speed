@@ -1,4 +1,4 @@
-import {FC, ReactElement, useEffect, useState} from 'react';
+import {FC, ReactElement, useContext, useEffect, useState} from 'react';
 import {DialogContent, DialogFooter, DialogHeader, DialogTitle} from '@/components/ui/dialog';
 import {Crown, XCircle} from 'lucide-react';
 import {Dialog, DialogClose} from '@radix-ui/react-dialog';
@@ -7,11 +7,21 @@ import {observer} from 'mobx-react-lite';
 import {useGameStore} from '@/store/hooks';
 import {EFinishGameStatus} from '@/store/GameStore/types';
 import {useLocation} from 'react-router-dom';
+import {VictoryConfettiContext} from '@/shared/providers/VictoryConfetti.provider';
 
 const FinishGameStatusModal: FC = observer((): ReactElement => {
   const gameStore = useGameStore();
+  const {setConfettiStarted} = useContext(VictoryConfettiContext);
   const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
   const location = useLocation();
+
+  const changeDialogOpenStatus = (status: boolean): void => {
+    setDialogOpen(status);
+
+    if (gameStore.gameFinishStatus === EFinishGameStatus.SUCCESS && status === false) {
+      setConfettiStarted(true);
+    }
+  };
 
   useEffect(() => {
     if (gameStore.gameFinishStatus === EFinishGameStatus.SUCCESS || gameStore.gameFinishStatus === EFinishGameStatus.FAILURE) {
@@ -26,7 +36,7 @@ const FinishGameStatusModal: FC = observer((): ReactElement => {
   }, [location]);
 
   return (
-    <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
+    <Dialog open={isDialogOpen} onOpenChange={changeDialogOpenStatus}>
       <DialogContent className={'sm:max-w-md'}>
         <DialogHeader>
           <DialogTitle>Game result</DialogTitle>

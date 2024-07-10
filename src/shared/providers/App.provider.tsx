@@ -5,6 +5,7 @@ import LettersCounterProvider from '@/shared/providers/LettersCounter.provider';
 import {RouterProvider} from 'react-router-dom';
 import {router} from '@/shared/Router';
 import AppAuthProvider from './AppAuth.provider';
+import VictoryConfettiProvider from './VictoryConfetti.provider';
 
 const AppProvider: FC = (): ReactElement => {
   return (
@@ -12,7 +13,9 @@ const AppProvider: FC = (): ReactElement => {
       <AppAuthProvider>
         <ThemeProvider>
           <LettersCounterProvider>
-            <RouterProvider router={router} />
+            <VictoryConfettiProvider>
+              <RouterProvider router={router} />
+            </VictoryConfettiProvider>
           </LettersCounterProvider>
         </ThemeProvider>
       </AppAuthProvider>

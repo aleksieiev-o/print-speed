@@ -1,14 +1,12 @@
-import {FC, PropsWithChildren, ReactElement} from 'react';
+import {FC, PropsWithChildren, ReactElement, useContext} from 'react';
 import AppHeader from '@/components/AppHeader';
-import {useGameStore} from '@/store/hooks';
-import {observer} from 'mobx-react-lite';
 import {Toaster} from '@/components/ui/toaster';
 import AppNavigation from '@/components/AppNavigation';
-import {EFinishGameStatus} from '@/store/GameStore/types';
 import VictoryConfetti from '@/components/VictoryConfetti';
+import {VictoryConfettiContext} from '@/shared/providers/VictoryConfetti.provider';
 
-const AppWrapper: FC<PropsWithChildren> = observer(({children}): ReactElement => {
-  const gameStore = useGameStore();
+const AppWrapper: FC<PropsWithChildren> = ({children}): ReactElement => {
+  const {isConfettiStarted} = useContext(VictoryConfettiContext);
 
   return (
     <div className={'w-full h-full overflow-hidden bg-gradient-to-b from-background to-secondary'}>
@@ -25,10 +23,10 @@ const AppWrapper: FC<PropsWithChildren> = observer(({children}): ReactElement =>
 
         <Toaster />
 
-        {gameStore.gameFinishStatus === EFinishGameStatus.SUCCESS && <VictoryConfetti />}
+        {isConfettiStarted && <VictoryConfetti />}
       </section>
     </div>
   );
-});
+};
 
 export default AppWrapper;
