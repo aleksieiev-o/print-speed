@@ -36,8 +36,10 @@ export class AuthorizationStore implements IAuthorizationStore {
     onAuthStateChanged(firebaseAuth, async (user: User | null) => {
       this.setUserLoading(true);
 
+      await this.initApp(); // TODO change call-place of this method
+
       if (user && user.uid) {
-        await this.initApp();
+        await this.fetchRemoteData();
       } else {
         this.resetUserData();
       }
@@ -71,6 +73,11 @@ export class AuthorizationStore implements IAuthorizationStore {
   }
 
   private async initApp(): Promise<void> {
+    await this.rootStore.textsStore.fetchDefaultTextsList();
+    this.rootStore.gameStore.changeText();
+  }
+
+  private async fetchRemoteData(): Promise<void> {
     await this.reloadUserData();
 
     if (this.appAuthStatus === EAppAuthStatus.SIGN_UP) {
@@ -81,9 +88,7 @@ export class AuthorizationStore implements IAuthorizationStore {
     await this.rootStore.settingsStore.fetchAppSettings();
     await this.rootStore.settingsStore.fetchGameSettings();
 
-    await this.rootStore.textsStore.fetchDefaultTextsList();
     await this.rootStore.textsStore.fetchCustomTextsList();
-    this.rootStore.gameStore.changeText();
   }
 
   private async reloadUserData(): Promise<void> {
