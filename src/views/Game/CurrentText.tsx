@@ -3,6 +3,7 @@ import {useAuthorizationStore, useGameStore} from '@/store/hooks';
 import {EFinishGameStatus, EGameActiveStatus} from '@/store/GameStore/types';
 import {observer} from 'mobx-react-lite';
 import {useRemainedLetters} from '@/shared/hooks/useRemainedLetters';
+import {Skeleton} from '@/components/ui/skeleton';
 
 const writtenChar = '*';
 const writtenCharRegExp = new RegExp(`\\${writtenChar}`, 'g');
@@ -70,10 +71,14 @@ const CurrentText: FC = observer((): ReactElement => {
   }, [gameStore.isGameRunning, keyDownHandler]);
 
   return (
-    <div className={'overflow-y-auto'}>
-      <p className={'text-3xl'}>{currentText}</p>
+    <div className={'flex flex-col gap-2 overflow-y-auto'}>
+      {currentText ? <span className={'text-3xl'}>{currentText}</span> : <Skeleton className={'h-12 w-7/12 bg-white/50'} />}
 
-      <p className={'text-md italic'}>By {!gameStore.text.isCustom ? gameStore.text.author : authorizationStore.userDN}</p>
+      {currentText ? (
+        <span className={'text-md italic'}>By {!gameStore.text.isCustom ? gameStore.text.author : authorizationStore.userDN}</span>
+      ) : (
+        <Skeleton className={'h-8 w-3/12 bg-white/50'} />
+      )}
     </div>
   );
 });

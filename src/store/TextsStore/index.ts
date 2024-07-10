@@ -17,8 +17,6 @@ export class TextsStore implements ITextsStore {
     this.defaultTextsList = [];
     this.customTextsList = [];
 
-    this.fetchDefaultTextsList();
-
     makeAutoObservable(this, {}, {autoBind: true});
   }
 

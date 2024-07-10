@@ -6,6 +6,7 @@ import {EFinishGameStatus, EGameActiveStatus} from '@/store/GameStore/types';
 import {Alert, AlertDescription, AlertTitle, EAlertVariant} from '@/components/ui/alert';
 import {Hourglass} from 'lucide-react';
 import {useIsGameActive} from '@/shared/hooks/useIsGameActive';
+import {Skeleton} from '@/components/ui/skeleton';
 
 enum ERemainedTime {
   MUCH = 1,
@@ -117,11 +118,15 @@ const Timer: FC = observer((): ReactElement => {
       )}
 
       <AlertDescription>
-        <CardDescription className={'flex gap-2 text-md text-foreground'}>
-          {gameStore.isGamePreparing ? <span>Time to start:</span> : <>{isGameActive ? <span>Remaining print time:</span> : <span>Text print time:</span>}</>}
+        {gameStore.text.body ? (
+          <CardDescription className={'flex gap-2 text-md text-foreground'}>
+            {gameStore.isGamePreparing ? <span>Time to start:</span> : <>{isGameActive ? <span>Remaining print time:</span> : <span>Text print time:</span>}</>}
 
-          {gameStore.isGamePreparing ? <strong>{preparingTime} sec.</strong> : <>{isGameActive ? <span>{time} sec.</span> : <span>{gameStore.textPrintTime} sec.</span>}</>}
-        </CardDescription>
+            {gameStore.isGamePreparing ? <strong>{preparingTime} sec.</strong> : <>{isGameActive ? <span>{time} sec.</span> : <span>{gameStore.textPrintTime} sec.</span>}</>}
+          </CardDescription>
+        ) : (
+          <Skeleton className={'h-6 w-full bg-white/50'} />
+        )}
       </AlertDescription>
     </Alert>
   );
