@@ -1,21 +1,58 @@
 import {FC, ReactElement} from 'react';
 import {Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '@/components/ui/dialog';
 import {Button} from '@/components/ui/button';
+import {useLoading} from '@/shared/hooks/useLoading';
+import {useToast} from '@/components/ui/use-toast';
 
 interface Props {
-  isLoading: boolean;
   dialogIsOpen: boolean;
   setDialogIsOpen: (value: boolean) => void;
-  handleConfirm: () => void;
+  handleAction: (prop?: string) => Promise<void>;
   dialogTitle: string;
   dialogDescription: string;
   dialogQuestion: string;
   btnTitle: string;
   btnBody: string;
+  successCallbackDesc: string;
 }
 
 const RemoveConfirmDialog: FC<Props> = (props): ReactElement => {
-  const {isLoading, dialogIsOpen, setDialogIsOpen, handleConfirm, dialogDescription, dialogQuestion, dialogTitle, btnTitle, btnBody} = props;
+  const {dialogIsOpen, setDialogIsOpen, handleAction, dialogDescription, dialogQuestion, dialogTitle, btnTitle, btnBody, successCallbackDesc} = props;
+  const {isLoading, setIsLoading} = useLoading();
+  const {toast} = useToast();
+
+  const onSuccessCallback = async (): Promise<void> => {
+    toast({
+      title: 'Success',
+      description: successCallbackDesc,
+    });
+  };
+
+  const onErrorCallback = async (): Promise<void> => {
+    toast({
+      title: 'Failure',
+      description: 'An error has occurred. Something went wrong.',
+      variant: 'destructive',
+    });
+  };
+
+  const onSettledCallback = async (): Promise<void> => {
+    setIsLoading(false);
+    setDialogIsOpen(false);
+  };
+
+  const handleConfirm = async () => {
+    setIsLoading(true);
+    try {
+      await handleAction();
+      await onSuccessCallback();
+    } catch (err) {
+      await onErrorCallback();
+      console.warn(err);
+    } finally {
+      await onSettledCallback();
+    }
+  };
 
   return (
     <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>

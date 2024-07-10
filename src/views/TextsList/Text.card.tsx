@@ -1,12 +1,12 @@
 import {Badge} from '@/components/ui/badge';
 import {Card, CardContent, CardFooter, CardHeader} from '@/components/ui/card';
-import {useAuthorizationStore} from '@/store/hooks';
+import {useAuthorizationStore, useTextsStore} from '@/store/hooks';
 import {IText} from '@/store/TextsStore/types';
 import {observer} from 'mobx-react-lite';
 import {FC, ReactElement, useState} from 'react';
-import RemoveCustomTextDialog from './RemoveCustomText.dialog';
 import {Button} from '@/components/ui/button';
 import {Pencil, Trash} from 'lucide-react';
+import RemoveConfirmDialog from '@/shared/ui/appDialog/RemoveConfirm.dialog';
 
 interface Props {
   text: IText;
@@ -16,6 +16,7 @@ const TextCard: FC<Props> = observer((props): ReactElement => {
   const {text} = props;
   const {id, body, author, isCustom, charQuantity, createdDate, updatedDate} = text;
   const authorizationStore = useAuthorizationStore();
+  const textsStore = useTextsStore();
   const [dialogRemoveIsOpen, setDialogRemoveIsOpen] = useState<boolean>(false);
 
   return (
@@ -73,7 +74,17 @@ const TextCard: FC<Props> = observer((props): ReactElement => {
         <>
           {/* <UpdateCustomTextDialog /> */}
 
-          <RemoveCustomTextDialog setDialogIsOpen={setDialogRemoveIsOpen} dialogIsOpen={dialogRemoveIsOpen} text={text} />
+          <RemoveConfirmDialog
+            dialogIsOpen={dialogRemoveIsOpen}
+            setDialogIsOpen={setDialogRemoveIsOpen}
+            handleAction={async () => await textsStore.removeCustomText(text.id)}
+            dialogTitle={'Remove custom text confirmation'}
+            dialogDescription={'You are about to remove this custom text.'}
+            dialogQuestion={'Are you sure you want to remove this custom text?'}
+            btnTitle={'Remove custom text'}
+            btnBody={'Remove'}
+            successCallbackDesc="The custom text has successfully removed."
+          />
         </>
       )}
     </Card>

@@ -7,20 +7,20 @@ import TextCard from './Text.card';
 import {useTextsStore} from '@/store/hooks';
 import {IText} from '@/store/TextsStore/types';
 import CreateCustomTextDialog from './CreateCustomText.dialog';
-import RemoveAllCustomTextsDialog from './RemoveAllCustomTexts.dialog';
 import {Button} from '@/components/ui/button';
 import {Trash2} from 'lucide-react';
+import RemoveConfirmDialog from '@/shared/ui/appDialog/RemoveConfirm.dialog';
 
 const TextsList: FC = observer((): ReactElement => {
-  const textsListStore = useTextsStore();
+  const textsStore = useTextsStore();
   const [textFilter, setTextFilter] = useState<string>('');
-  const [filteredTextsList, setFilteredTextsList] = useState<IText[]>(textsListStore.textsList || []);
+  const [filteredTextsList, setFilteredTextsList] = useState<IText[]>(textsStore.textsList || []);
   const [dialogRemoveAllIsOpen, setDialogRemoveAllIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    const result = textsListStore.textsList.filter((text) => text.body.trim().toLowerCase().includes(textFilter.trim().toLowerCase()));
+    const result = textsStore.textsList.filter((text) => text.body.trim().toLowerCase().includes(textFilter.trim().toLowerCase()));
     setFilteredTextsList(result);
-  }, [textFilter, textsListStore.textsList]);
+  }, [textFilter, textsStore.textsList]);
 
   return (
     <AppWrapper>
@@ -45,7 +45,17 @@ const TextsList: FC = observer((): ReactElement => {
         </CardContent>
       </Card>
 
-      <RemoveAllCustomTextsDialog setDialogIsOpen={setDialogRemoveAllIsOpen} dialogIsOpen={dialogRemoveAllIsOpen} />
+      <RemoveConfirmDialog
+        dialogIsOpen={dialogRemoveAllIsOpen}
+        setDialogIsOpen={setDialogRemoveAllIsOpen}
+        handleAction={async () => await textsStore.removeAllCustomTexts()}
+        dialogTitle={'Remove all custom texts confirmation'}
+        dialogDescription={'You are about to remove all custom texts.'}
+        dialogQuestion={'Are you sure you want to remove all custom texts?'}
+        btnTitle={'Remove custom texts'}
+        btnBody={'Remove'}
+        successCallbackDesc="All custom texts have successfully removed."
+      />
     </AppWrapper>
   );
 });
