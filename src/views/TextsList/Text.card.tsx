@@ -7,7 +7,7 @@ import {FC, ReactElement, useState} from 'react';
 import {Button} from '@/components/ui/button';
 import {Trash} from 'lucide-react';
 import RemoveConfirmDialog from '@/shared/ui/appDialog/RemoveConfirm.dialog';
-import CreateOrUpdateCustomTextDialog from '@/views/TextsList/CreateOrUpdateCustomText.dialog';
+import CreateOrUpdateCreatedTextDialog from './CreateOrUpdateCreatedText.dialog';
 
 interface Props {
   text: IText;
@@ -15,7 +15,7 @@ interface Props {
 
 const TextCard: FC<Props> = observer((props): ReactElement => {
   const {text} = props;
-  const {id, body, author, isCustom, charQuantity, createdDate, updatedDate} = text;
+  const {id, body, author, isCreated, charQuantity, createdDate, updatedDate} = text;
   const authorizationStore = useAuthorizationStore();
   const textsStore = useTextsStore();
   const [dialogRemoveIsOpen, setDialogRemoveIsOpen] = useState<boolean>(false);
@@ -23,7 +23,7 @@ const TextCard: FC<Props> = observer((props): ReactElement => {
   return (
     <Card className="bg-background shadow-md">
       <CardHeader className="flex md:flex-row flex-col md:items-center items-start gap-4 !pb-0">
-        <Badge className="cursor-default">{isCustom ? 'Custom' : 'Default'}</Badge>
+        <Badge className="cursor-default">{isCreated ? 'Created' : 'Built-in'}</Badge>
         <p className="text-sm font-bold">{id}</p>
       </CardHeader>
 
@@ -33,7 +33,7 @@ const TextCard: FC<Props> = observer((props): ReactElement => {
 
           <div className="flex items-center justify-start gap-4 grow">
             <span className="font-bold">Author:</span>
-            <span className="italic">{!isCustom ? author : authorizationStore.userDN}</span>
+            <span className="italic">{!isCreated ? author : authorizationStore.userDN}</span>
           </div>
 
           <div className="flex items-center justify-start gap-4">
@@ -42,11 +42,11 @@ const TextCard: FC<Props> = observer((props): ReactElement => {
           </div>
         </div>
 
-        {isCustom && (
+        {isCreated && (
           <div className="flex flex-col gap-4 items-start justify-start">
-            <CreateOrUpdateCustomTextDialog customText={text} mode={'update'} />
+            <CreateOrUpdateCreatedTextDialog createdText={text} mode={'update'} />
 
-            <Button onClick={() => setDialogRemoveIsOpen(true)} variant="destructive" className="min-w-[150px] shadow-md" title="Remove custom text">
+            <Button onClick={() => setDialogRemoveIsOpen(true)} variant="destructive" className="min-w-[150px] shadow-md" title="Remove created text">
               <Trash className="mr-4 h-5 w-5" />
               <p>Remove</p>
             </Button>
@@ -54,7 +54,7 @@ const TextCard: FC<Props> = observer((props): ReactElement => {
         )}
       </CardContent>
 
-      {isCustom && (
+      {isCreated && (
         <CardFooter className="w-full grid grid-cols-1 gap-4">
           <div className="flex items-center justify-start gap-4">
             <span className="font-bold text-foreground/30">Created:</span>
@@ -68,17 +68,17 @@ const TextCard: FC<Props> = observer((props): ReactElement => {
         </CardFooter>
       )}
 
-      {isCustom && (
+      {isCreated && (
         <RemoveConfirmDialog
           dialogIsOpen={dialogRemoveIsOpen}
           setDialogIsOpen={setDialogRemoveIsOpen}
-          handleAction={async () => await textsStore.removeCustomText(text.id)}
-          dialogTitle={'Remove custom text confirmation'}
-          dialogDescription={'You are about to remove this custom text.'}
-          dialogQuestion={'Are you sure you want to remove this custom text?'}
-          btnTitle={'Remove custom text'}
+          handleAction={async () => await textsStore.removeCreatedText(text.id)}
+          dialogTitle={'Remove text confirmation'}
+          dialogDescription={'You are about to remove this text.'}
+          dialogQuestion={'Are you sure you want to remove this text?'}
+          btnTitle={'Remove text'}
           btnBody={'Remove'}
-          successCallbackDesc="The custom text has successfully removed."
+          successCallbackDesc="The text has successfully removed."
         />
       )}
     </Card>

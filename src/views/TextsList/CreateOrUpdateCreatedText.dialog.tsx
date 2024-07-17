@@ -15,12 +15,12 @@ import {observer} from 'mobx-react-lite';
 import {IText} from '@/store/TextsStore/types';
 
 interface Props {
-  customText: IText;
+  createdText: IText;
   mode: 'create' | 'update';
 }
 
-const CreateOrUpdateCustomTextDialog: FC<Props> = observer((props: Props): ReactElement => {
-  const {customText, mode} = props;
+const CreateOrUpdateCreatedTextDialog: FC<Props> = observer((props: Props): ReactElement => {
+  const {createdText, mode} = props;
   const formID = useId();
   const {toast} = useToast();
   const {isLoading, setIsLoading} = useLoading();
@@ -61,14 +61,14 @@ const CreateOrUpdateCustomTextDialog: FC<Props> = observer((props: Props): React
   const formModel = useForm<z.infer<typeof categorySchema>>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
-      textBody: mode === 'create' ? '' : customText.body,
+      textBody: mode === 'create' ? '' : createdText.body,
     },
   });
 
   const onSuccessCallback = async (): Promise<void> => {
     toast({
       title: 'Success',
-      description: 'You have successfully created a custom text.',
+      description: 'You have successfully created a created text.',
     });
 
     formModel.reset();
@@ -91,9 +91,9 @@ const CreateOrUpdateCustomTextDialog: FC<Props> = observer((props: Props): React
     setIsLoading(true);
     try {
       if (mode === 'create') {
-        await textsStore.createCustomText(values.textBody);
+        await textsStore.createCreatedText(values.textBody);
       } else if (mode === 'update') {
-        await textsStore.updateCustomText({currentText: customText, body: values.textBody});
+        await textsStore.updateCreatedText({currentText: createdText, body: values.textBody});
       }
       await onSuccessCallback();
     } catch (err) {
@@ -108,14 +108,14 @@ const CreateOrUpdateCustomTextDialog: FC<Props> = observer((props: Props): React
     if (mode === 'create') {
       return {
         icon: <Plus className="mr-4 h-5 w-5" />,
-        title: 'Create custom text',
+        title: 'Create text',
         btnTitle: 'Create',
       };
     }
 
     return {
       icon: <Pencil className="mr-4 h-5 w-5" />,
-      title: 'Edit custom text',
+      title: 'Edit text',
       btnTitle: 'Edit',
     };
   }, [mode]);
@@ -146,7 +146,7 @@ const CreateOrUpdateCustomTextDialog: FC<Props> = observer((props: Props): React
                 formModel={formModel}
                 name={'textBody'}
                 label={'Text body'}
-                placeholder={'Custom text...'}
+                placeholder={'Try to write something...'}
                 required={true}
                 disabled={isLoading}
                 isDataPending={false}
@@ -169,4 +169,4 @@ const CreateOrUpdateCustomTextDialog: FC<Props> = observer((props: Props): React
   );
 });
 
-export default CreateOrUpdateCustomTextDialog;
+export default CreateOrUpdateCreatedTextDialog;

@@ -1,7 +1,7 @@
 [
   {
     "id": "dt0",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 67,
@@ -10,7 +10,7 @@
   },
   {
     "id": "dt1",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 69,
@@ -19,7 +19,7 @@
   },
   {
     "id": "dt2",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 73,
@@ -28,7 +28,7 @@
   },
   {
     "id": "dt3",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 74,
@@ -37,7 +37,7 @@
   },
   {
     "id": "dt4",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 71,
@@ -46,7 +46,7 @@
   },
   {
     "id": "dt5",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 69,
@@ -55,7 +55,7 @@
   },
   {
     "id": "dt6",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 71,
@@ -64,7 +64,7 @@
   },
   {
     "id": "dt7",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 60,
@@ -73,7 +73,7 @@
   },
   {
     "id": "dt8",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 89,
@@ -82,7 +82,7 @@
   },
   {
     "id": "dt9",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 72,
@@ -91,7 +91,7 @@
   },
   {
     "id": "dt10",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 77,
@@ -100,7 +100,7 @@
   },
   {
     "id": "dt11",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 72,
@@ -109,7 +109,7 @@
   },
   {
     "id": "dt12",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 77,
@@ -118,7 +118,7 @@
   },
   {
     "id": "dt13",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 70,
@@ -127,7 +127,7 @@
   },
   {
     "id": "dt14",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 71,
@@ -136,7 +136,7 @@
   },
   {
     "id": "dt15",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 74,
@@ -145,7 +145,7 @@
   },
   {
     "id": "dt16",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 74,
@@ -154,7 +154,7 @@
   },
   {
     "id": "dt17",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 78,
@@ -163,7 +163,7 @@
   },
   {
     "id": "dt18",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 68,
@@ -172,7 +172,7 @@
   },
   {
     "id": "dt19",
-    "isCustom": false,
+    "isCreated": false,
     "createdDate": "2024-01-01T00:00:00.000Z",
     "updatedDate": "2024-01-01T00:00:00.000Z",
     "charQuantity": 85,

@@ -75,7 +75,7 @@ const CurrentText: FC = observer((): ReactElement => {
       {currentText ? <span className={'text-3xl'}>{currentText}</span> : <Skeleton className={'h-12 w-7/12 bg-white/50'} />}
 
       {currentText ? (
-        <span className={'text-md italic'}>By {!gameStore.text.isCustom ? gameStore.text.author : authorizationStore.userDN}</span>
+        <span className={'text-md italic'}>By {!gameStore.text.isCreated ? gameStore.text.author : authorizationStore.userDN}</span>
       ) : (
         <Skeleton className={'h-8 w-3/12 bg-white/50'} />
       )}

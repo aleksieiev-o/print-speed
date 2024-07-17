@@ -22,7 +22,7 @@ export class GameStore implements IGameStore {
       author: '',
       body: '',
       charQuantity: 0,
-      isCustom: false,
+      isCreated: false,
       createdDate: '',
       updatedDate: '',
     };

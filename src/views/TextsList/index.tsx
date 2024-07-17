@@ -6,12 +6,12 @@ import {Input} from '@/components/ui/input';
 import TextCard from './Text.card';
 import {useTextsStore} from '@/store/hooks';
 import {IText} from '@/store/TextsStore/types';
-import CreateOrUpdateCustomTextDialog from './CreateOrUpdateCustomText.dialog';
 import {Button} from '@/components/ui/button';
 import {Trash2} from 'lucide-react';
 import RemoveConfirmDialog from '@/shared/ui/appDialog/RemoveConfirm.dialog';
 import {ETextListVisibility} from './types/TextListVisibility.enum';
 import TextListVisibilityFilter from './TextListVisibilityFilter';
+import CreateOrUpdateCreatedTextDialog from './CreateOrUpdateCreatedText.dialog';
 
 const TextsList: FC = observer((): ReactElement => {
   const textsStore = useTextsStore();
@@ -33,15 +33,15 @@ const TextsList: FC = observer((): ReactElement => {
         setFilteredTextsList(filterTextList(textsStore.textsList));
         break;
       case ETextListVisibility.BUILT_IN:
-        setFilteredTextsList(filterTextList(textsStore.defaultTextsList));
+        setFilteredTextsList(filterTextList(textsStore.builtInTextsList));
         break;
       case ETextListVisibility.CREATED:
-        setFilteredTextsList(filterTextList(textsStore.customTextsList));
+        setFilteredTextsList(filterTextList(textsStore.createdTextsList));
         break;
       default:
         break;
     }
-  }, [filterTextList, textListVisibility, textsStore.customTextsList, textsStore.defaultTextsList, textsStore.textsList]);
+  }, [filterTextList, textListVisibility, textsStore.createdTextsList, textsStore.builtInTextsList, textsStore.textsList]);
 
   return (
     <AppWrapper>
@@ -50,10 +50,10 @@ const TextsList: FC = observer((): ReactElement => {
           <div className="flex w-full flex-col items-end justify-between gap-6 sm:flex-row sm:items-center">
             <Input onChange={(e) => setTextFilter(e.target.value)} value={textFilter} placeholder={'Try to search some text...'} className={'h-12 w-full shadow-md'} />
 
-            <CreateOrUpdateCustomTextDialog customText={{} as IText} mode={'create'} />
+            <CreateOrUpdateCreatedTextDialog createdText={{} as IText} mode={'create'} />
 
-            {textsStore.customTextsList.length > 0 && (
-              <Button onClick={() => setDialogRemoveAllIsOpen(true)} variant="destructive" className="min-w-[150px] shadow-md" title="Remove all custom texts">
+            {textsStore.createdTextsList.length > 0 && (
+              <Button onClick={() => setDialogRemoveAllIsOpen(true)} variant="destructive" className="min-w-[150px] shadow-md" title="Remove all created texts">
                 <Trash2 className="mr-4 h-5 w-5" />
                 <p>Remove all</p>
               </Button>
@@ -81,13 +81,13 @@ const TextsList: FC = observer((): ReactElement => {
       <RemoveConfirmDialog
         dialogIsOpen={dialogRemoveAllIsOpen}
         setDialogIsOpen={setDialogRemoveAllIsOpen}
-        handleAction={async () => await textsStore.removeAllCustomTexts()}
-        dialogTitle={'Remove all custom texts confirmation'}
-        dialogDescription={'You are about to remove all custom texts.'}
-        dialogQuestion={'Are you sure you want to remove all custom texts?'}
-        btnTitle={'Remove custom texts'}
+        handleAction={async () => await textsStore.removeAllCreatedTexts()}
+        dialogTitle={'Remove all created texts confirmation'}
+        dialogDescription={'You are about to remove all created texts.'}
+        dialogQuestion={'Are you sure you want to remove all created texts?'}
+        btnTitle={'Remove created texts'}
         btnBody={'Remove'}
-        successCallbackDesc="All custom texts have successfully removed."
+        successCallbackDesc="All created texts have successfully removed."
       />
     </AppWrapper>
   );

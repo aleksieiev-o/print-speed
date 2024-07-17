@@ -73,7 +73,7 @@ export class AuthorizationStore implements IAuthorizationStore {
   }
 
   private async initApp(): Promise<void> {
-    await this.rootStore.textsStore.fetchDefaultTextsList();
+    await this.rootStore.textsStore.fetchBuiltInTextsList();
     this.rootStore.gameStore.changeText();
   }
 
@@ -88,7 +88,7 @@ export class AuthorizationStore implements IAuthorizationStore {
     await this.rootStore.settingsStore.fetchAppSettings();
     await this.rootStore.settingsStore.fetchGameSettings();
 
-    await this.rootStore.textsStore.fetchCustomTextsList();
+    await this.rootStore.textsStore.fetchCreatedTextsList();
   }
 
   private async reloadUserData(): Promise<void> {

@@ -10,7 +10,7 @@ export interface IText {
   id: string;
   author: string;
   body: string;
-  isCustom: boolean;
+  isCreated: boolean;
   charQuantity: number;
   createdDate: string;
   updatedDate: string;
@@ -19,6 +19,6 @@ export interface IText {
 export interface ITextsStore {
   rootStore: RootStore;
   textsStoreService: TextsStoreService;
-  defaultTextsList: IText[];
-  customTextsList: IText[];
+  builtInTextsList: IText[];
+  createdTextsList: IText[];
 }

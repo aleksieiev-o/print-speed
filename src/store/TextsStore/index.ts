@@ -7,72 +7,72 @@ export class TextsStore implements ITextsStore {
   rootStore: RootStore;
   textsStoreService: TextsStoreService;
 
-  defaultTextsList: IText[];
-  customTextsList: IText[];
+  builtInTextsList: IText[];
+  createdTextsList: IText[];
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
     this.textsStoreService = new TextsStoreService(this.rootStore);
 
-    this.defaultTextsList = [];
-    this.customTextsList = [];
+    this.builtInTextsList = [];
+    this.createdTextsList = [];
 
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
   get textsList(): IText[] {
-    return [...this.defaultTextsList, ...this.customTextsList];
+    return [...this.builtInTextsList, ...this.createdTextsList];
   }
 
-  async fetchDefaultTextsList(): Promise<void> {
-    const data = await this.textsStoreService.fetchDefaultTextsList();
+  async fetchBuiltInTextsList(): Promise<void> {
+    const data = await this.textsStoreService.fetchBuiltInTextsList();
 
     runInAction(() => {
-      this.defaultTextsList = data;
+      this.builtInTextsList = data;
     });
   }
 
-  async fetchCustomTextsList(): Promise<void> {
-    const data = await this.textsStoreService.fetchCustomTextsList();
+  async fetchCreatedTextsList(): Promise<void> {
+    const data = await this.textsStoreService.fetchCreatedTextsList();
 
     runInAction(() => {
-      this.customTextsList = data;
+      this.createdTextsList = data;
     });
   }
 
-  async fetchCustomText(id: string): Promise<IText> {
-    return await this.textsStoreService.fetchCustomText(id);
+  async fetchCreatedText(id: string): Promise<IText> {
+    return await this.textsStoreService.fetchCreatedText(id);
   }
 
-  async createCustomText(payload: string): Promise<void> {
-    const customText = await this.textsStoreService.createCustomText(payload);
+  async createCreatedText(payload: string): Promise<void> {
+    const createdText = await this.textsStoreService.createCreatedText(payload);
 
     runInAction(() => {
-      this.customTextsList = [...this.customTextsList, customText];
+      this.createdTextsList = [...this.createdTextsList, createdText];
     });
   }
 
-  async updateCustomText(payload: {currentText: IText; body: string}): Promise<void> {
-    const customText = await this.textsStoreService.updateCustomText(payload);
+  async updateCreatedText(payload: {currentText: IText; body: string}): Promise<void> {
+    const createdText = await this.textsStoreService.updateCreatedText(payload);
 
     runInAction(() => {
-      this.customTextsList = this.customTextsList.map((text) => (text.id === customText.id ? customText : text));
+      this.createdTextsList = this.createdTextsList.map((text) => (text.id === createdText.id ? createdText : text));
     });
   }
 
-  async removeCustomText(id: string): Promise<void> {
-    const customTextId = await this.textsStoreService.removeCustomText(id);
+  async removeCreatedText(id: string): Promise<void> {
+    const createdTextId = await this.textsStoreService.removeCreatedText(id);
 
     runInAction(() => {
-      this.customTextsList = this.customTextsList.filter((text) => text.id !== customTextId);
+      this.createdTextsList = this.createdTextsList.filter((text) => text.id !== createdTextId);
     });
   }
 
-  async removeAllCustomTexts(): Promise<void> {
-    await this.textsStoreService.removeAllCustomTexts();
+  async removeAllCreatedTexts(): Promise<void> {
+    await this.textsStoreService.removeAllCreatedTexts();
 
     runInAction(() => {
-      this.customTextsList = [];
+      this.createdTextsList = [];
     });
   }
 }
