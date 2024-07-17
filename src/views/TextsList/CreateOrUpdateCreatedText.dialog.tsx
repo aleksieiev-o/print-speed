@@ -126,7 +126,7 @@ const CreateOrUpdateCreatedTextDialog: FC<Props> = observer((props: Props): Reac
         <Button variant={'default'} title={dialogContent.title} className="min-w-[150px] shadow-md">
           {dialogContent.icon}
 
-          <span className={'ml-2'}>{dialogContent.btnTitle}</span>
+          <span>{dialogContent.btnTitle}</span>
         </Button>
       </DialogTrigger>
 
