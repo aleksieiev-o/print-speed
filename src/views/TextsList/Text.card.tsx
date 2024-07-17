@@ -8,6 +8,7 @@ import {Button} from '@/components/ui/button';
 import {Trash} from 'lucide-react';
 import RemoveConfirmDialog from '@/shared/ui/appDialog/RemoveConfirm.dialog';
 import CreateOrUpdateCreatedTextDialog from './CreateOrUpdateCreatedText.dialog';
+import TextCardDateFormat from './TextCardDateFormat';
 
 interface Props {
   text: IText;
@@ -56,15 +57,9 @@ const TextCard: FC<Props> = observer((props): ReactElement => {
 
       {isCreated && (
         <CardFooter className="w-full grid grid-cols-1 gap-4">
-          <div className="flex items-center justify-start gap-4">
-            <span className="font-bold text-foreground/30">Created:</span>
-            <span className="text-foreground/30">{createdDate}</span>
-          </div>
+          <TextCardDateFormat title="Created:" date={createdDate} />
 
-          <div className="flex items-center justify-start gap-4">
-            <span className="font-bold text-foreground/30">Updated:</span>
-            <span className="text-foreground/30">{updatedDate}</span>
-          </div>
+          <TextCardDateFormat title="Updated:" date={updatedDate} />
         </CardFooter>
       )}
 
