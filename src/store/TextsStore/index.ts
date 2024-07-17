@@ -20,6 +20,10 @@ export class TextsStore implements ITextsStore {
     makeAutoObservable(this, {}, {autoBind: true});
   }
 
+  get textsList(): IText[] {
+    return [...this.defaultTextsList, ...this.customTextsList];
+  }
+
   async fetchDefaultTextsList(): Promise<void> {
     const data = await this.textsStoreService.fetchDefaultTextsList();
 
@@ -48,8 +52,8 @@ export class TextsStore implements ITextsStore {
     });
   }
 
-  async updateCustomText(id: string, payload: IText): Promise<void> {
-    const customText = await this.textsStoreService.updateCustomText(id, payload);
+  async updateCustomText(payload: {currentText: IText; body: string}): Promise<void> {
+    const customText = await this.textsStoreService.updateCustomText(payload);
 
     runInAction(() => {
       this.customTextsList = this.customTextsList.map((text) => (text.id === customText.id ? customText : text));
@@ -70,9 +74,5 @@ export class TextsStore implements ITextsStore {
     runInAction(() => {
       this.customTextsList = [];
     });
-  }
-
-  get textsList(): IText[] {
-    return [...this.defaultTextsList, ...this.customTextsList];
   }
 }

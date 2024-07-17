@@ -5,8 +5,9 @@ import {IText} from '@/store/TextsStore/types';
 import {observer} from 'mobx-react-lite';
 import {FC, ReactElement, useState} from 'react';
 import {Button} from '@/components/ui/button';
-import {Pencil, Trash} from 'lucide-react';
+import {Trash} from 'lucide-react';
 import RemoveConfirmDialog from '@/shared/ui/appDialog/RemoveConfirm.dialog';
+import CreateOrUpdateCustomTextDialog from '@/views/TextsList/CreateOrUpdateCustomText.dialog';
 
 interface Props {
   text: IText;
@@ -43,12 +44,9 @@ const TextCard: FC<Props> = observer((props): ReactElement => {
 
         {isCustom && (
           <div className="flex flex-col gap-4 items-start justify-start">
-            <Button onClick={() => undefined} variant="default" className="shadow-md" title="Update custom text">
-              <Pencil className="mr-4 h-5 w-5" />
-              <p>Update</p>
-            </Button>
+            <CreateOrUpdateCustomTextDialog customText={text} mode={'update'} />
 
-            <Button onClick={() => setDialogRemoveIsOpen(true)} variant="destructive" className="shadow-md" title="Remove custom text">
+            <Button onClick={() => setDialogRemoveIsOpen(true)} variant="destructive" className="min-w-[150px] shadow-md" title="Remove custom text">
               <Trash className="mr-4 h-5 w-5" />
               <p>Remove</p>
             </Button>
@@ -71,21 +69,17 @@ const TextCard: FC<Props> = observer((props): ReactElement => {
       )}
 
       {isCustom && (
-        <>
-          {/* <UpdateCustomTextDialog /> */}
-
-          <RemoveConfirmDialog
-            dialogIsOpen={dialogRemoveIsOpen}
-            setDialogIsOpen={setDialogRemoveIsOpen}
-            handleAction={async () => await textsStore.removeCustomText(text.id)}
-            dialogTitle={'Remove custom text confirmation'}
-            dialogDescription={'You are about to remove this custom text.'}
-            dialogQuestion={'Are you sure you want to remove this custom text?'}
-            btnTitle={'Remove custom text'}
-            btnBody={'Remove'}
-            successCallbackDesc="The custom text has successfully removed."
-          />
-        </>
+        <RemoveConfirmDialog
+          dialogIsOpen={dialogRemoveIsOpen}
+          setDialogIsOpen={setDialogRemoveIsOpen}
+          handleAction={async () => await textsStore.removeCustomText(text.id)}
+          dialogTitle={'Remove custom text confirmation'}
+          dialogDescription={'You are about to remove this custom text.'}
+          dialogQuestion={'Are you sure you want to remove this custom text?'}
+          btnTitle={'Remove custom text'}
+          btnBody={'Remove'}
+          successCallbackDesc="The custom text has successfully removed."
+        />
       )}
     </Card>
   );

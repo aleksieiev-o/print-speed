@@ -116,7 +116,7 @@ const ChangeDisplayNameDialog: FC<Props> = observer((props): ReactElement => {
             </Button>
           </DialogClose>
 
-          <SubmitButton formId={formID} title={'Change display name'} btnBody={'Update'} isLoading={updateProfileLoading} disabled={false} />
+          <SubmitButton formId={formID} title={'Change display name'} btnBody={'Edit'} isLoading={updateProfileLoading} disabled={false} />
         </DialogFooter>
       </DialogContent>
     </Dialog>

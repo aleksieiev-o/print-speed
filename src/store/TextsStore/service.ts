@@ -42,15 +42,15 @@ export class TextsStoreService implements ITextsStoreService {
     }
   }
 
-  async createCustomText(body: string): Promise<IText> {
+  async createCustomText(payload: string): Promise<IText> {
     try {
       const textRef = push(ref(firebaseDataBase, this.getCustomTextsListEndpoint()));
       const textKey = textRef.key!;
 
       const customText: IText = {
         author: this.rootStore.authorizationStore.userUid,
-        body,
-        charQuantity: body.length,
+        body: payload,
+        charQuantity: payload.length,
         createdDate: new Date().toISOString(),
         id: textKey,
         isCustom: true,
@@ -65,15 +65,19 @@ export class TextsStoreService implements ITextsStoreService {
     }
   }
 
-  async updateCustomText(id: string, payload: IText): Promise<IText> {
+  async updateCustomText(payload: {currentText: IText; body: string}): Promise<IText> {
+    const {currentText, body} = payload;
+
     try {
-      const customText = {
-        ...payload,
+      const updates = {};
+      updates[this.getCustomTextByIdEndpoint(currentText.id)] = {
+        ...currentText,
+        body,
         updatedDate: new Date().toISOString(),
       };
 
-      await update(child(ref(firebaseDataBase), this.getCustomTextByIdEndpoint(id)), customText);
-      return customText;
+      await update(ref(firebaseDataBase), updates);
+      return await this.fetchCustomText(currentText.id);
     } catch (err) {
       console.warn(err);
       return Promise.reject({} as IText);

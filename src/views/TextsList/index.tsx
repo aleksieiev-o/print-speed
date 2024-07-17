@@ -6,7 +6,7 @@ import {Input} from '@/components/ui/input';
 import TextCard from './Text.card';
 import {useTextsStore} from '@/store/hooks';
 import {IText} from '@/store/TextsStore/types';
-import CreateCustomTextDialog from './CreateCustomText.dialog';
+import CreateOrUpdateCustomTextDialog from './CreateOrUpdateCustomText.dialog';
 import {Button} from '@/components/ui/button';
 import {Trash2} from 'lucide-react';
 import RemoveConfirmDialog from '@/shared/ui/appDialog/RemoveConfirm.dialog';
@@ -29,11 +29,11 @@ const TextsList: FC = observer((): ReactElement => {
           <div className="flex w-full flex-col items-end justify-between gap-6 sm:flex-row sm:items-center">
             <Input onChange={(e) => setTextFilter(e.target.value)} value={textFilter} placeholder={'Try to search some text...'} className={'h-12 w-full shadow-md'} />
 
-            <CreateCustomTextDialog />
+            <CreateOrUpdateCustomTextDialog customText={{} as IText} mode={'create'} />
 
-            <Button onClick={() => setDialogRemoveAllIsOpen(true)} variant="destructive" className="shadow-md" title="Remove all custom texts">
+            <Button onClick={() => setDialogRemoveAllIsOpen(true)} variant="destructive" className="min-w-[150px] shadow-md" title="Remove all custom texts">
               <Trash2 className="mr-4 h-5 w-5" />
-              <p>Remove all custom texts</p>
+              <p>Remove all</p>
             </Button>
           </div>
 

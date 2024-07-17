@@ -1,26 +1,33 @@
 import {FC, ReactElement, useId, useMemo, useState} from 'react';
-import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose} from '@/components/ui/dialog';
+import {Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger} from '@/components/ui/dialog';
 import {Form} from '@/components/ui/form';
-import {Plus} from 'lucide-react';
+import {Pencil, Plus} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {useToast} from '@/components/ui/use-toast';
 import {useLoading} from '@/shared/hooks/useLoading';
 import AppFormInputText from '@/shared/ui/appInput/AppFormInput.text';
 import SubmitButton from '@/shared/ui/appButton/Submit.button';
-import {z} from 'zod';
+import {z, ZodIssueCode} from 'zod';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useTextsStore} from '@/store/hooks';
 import {observer} from 'mobx-react-lite';
+import {IText} from '@/store/TextsStore/types';
 
-const CreateCustomTextDialog: FC = observer((): ReactElement => {
+interface Props {
+  customText: IText;
+  mode: 'create' | 'update';
+}
+
+const CreateOrUpdateCustomTextDialog: FC<Props> = observer((props: Props): ReactElement => {
+  const {customText, mode} = props;
   const formID = useId();
   const {toast} = useToast();
   const {isLoading, setIsLoading} = useLoading();
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false);
   const textsStore = useTextsStore();
 
-  const categorySchema = useMemo(
+  const textBodyValidation = useMemo(
     () =>
       z.object({
         textBody: z
@@ -35,8 +42,27 @@ const CreateCustomTextDialog: FC = observer((): ReactElement => {
     [],
   );
 
+  const categorySchema = useMemo(() => {
+    if (mode === 'create') {
+      return textBodyValidation;
+    }
+
+    return textBodyValidation.superRefine((data, ctx) => {
+      if (data.textBody === '') {
+        ctx.addIssue({
+          code: ZodIssueCode.custom,
+          path: ['textBody'],
+          message: 'The old and new texts are the same',
+        });
+      }
+    });
+  }, [mode, textBodyValidation]);
+
   const formModel = useForm<z.infer<typeof categorySchema>>({
     resolver: zodResolver(categorySchema),
+    defaultValues: {
+      textBody: mode === 'create' ? '' : customText.body,
+    },
   });
 
   const onSuccessCallback = async (): Promise<void> => {
@@ -64,7 +90,11 @@ const CreateCustomTextDialog: FC = observer((): ReactElement => {
   const handleSubmitForm = async (values: z.infer<typeof categorySchema>) => {
     setIsLoading(true);
     try {
-      await textsStore.createCustomText(values.textBody);
+      if (mode === 'create') {
+        await textsStore.createCustomText(values.textBody);
+      } else if (mode === 'update') {
+        await textsStore.updateCustomText({currentText: customText, body: values.textBody});
+      }
       await onSuccessCallback();
     } catch (err) {
       await onErrorCallback();
@@ -74,19 +104,35 @@ const CreateCustomTextDialog: FC = observer((): ReactElement => {
     }
   };
 
+  const dialogContent = useMemo(() => {
+    if (mode === 'create') {
+      return {
+        icon: <Plus className="mr-4 h-5 w-5" />,
+        title: 'Create custom text',
+        btnTitle: 'Create',
+      };
+    }
+
+    return {
+      icon: <Pencil className="mr-4 h-5 w-5" />,
+      title: 'Edit custom text',
+      btnTitle: 'Edit',
+    };
+  }, [mode]);
+
   return (
     <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
       <DialogTrigger asChild>
-        <Button variant={'default'} title={'Create custom text'} className="w-[200px]">
-          <Plus />
+        <Button variant={'default'} title={dialogContent.title} className="min-w-[150px] shadow-md">
+          {dialogContent.icon}
 
-          <span className={'ml-2'}>Create custom text</span>
+          <span className={'ml-2'}>{dialogContent.btnTitle}</span>
         </Button>
       </DialogTrigger>
 
       <DialogContent className={'flex flex-col gap-6'}>
         <DialogHeader>
-          <DialogTitle>Create custom text</DialogTitle>
+          <DialogTitle>{dialogContent.title}</DialogTitle>
 
           <DialogDescription>Texts cannot be repeated.</DialogDescription>
         </DialogHeader>
@@ -116,11 +162,11 @@ const CreateCustomTextDialog: FC = observer((): ReactElement => {
             </Button>
           </DialogClose>
 
-          <SubmitButton formId={formID} title={'Create'} btnBody={'Create'} isLoading={isLoading} disabled={false} />
+          <SubmitButton formId={formID} title={dialogContent.title} btnBody={dialogContent.btnTitle} isLoading={isLoading} disabled={false} />
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 });
 
-export default CreateCustomTextDialog;
+export default CreateOrUpdateCustomTextDialog;
