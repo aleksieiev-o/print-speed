@@ -24,7 +24,7 @@ const TextCard: FC<Props> = observer((props): ReactElement => {
     <Card className="bg-background shadow-md">
       <CardHeader className="flex md:flex-row flex-col md:items-center items-start gap-4 !pb-0">
         <Badge className="cursor-default">{isCustom ? 'Custom' : 'Default'}</Badge>
-        <p className="font-bold">{id}</p>
+        <p className="text-sm font-bold">{id}</p>
       </CardHeader>
 
       <CardContent className="flex flex-row flex-nowrap md:gap-6 gap-4 w-full">

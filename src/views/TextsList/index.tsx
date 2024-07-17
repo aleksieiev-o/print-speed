@@ -31,10 +31,12 @@ const TextsList: FC = observer((): ReactElement => {
 
             <CreateOrUpdateCustomTextDialog customText={{} as IText} mode={'create'} />
 
-            <Button onClick={() => setDialogRemoveAllIsOpen(true)} variant="destructive" className="min-w-[150px] shadow-md" title="Remove all custom texts">
-              <Trash2 className="mr-4 h-5 w-5" />
-              <p>Remove all</p>
-            </Button>
+            {textsStore.customTextsList.length > 0 && (
+              <Button onClick={() => setDialogRemoveAllIsOpen(true)} variant="destructive" className="min-w-[150px] shadow-md" title="Remove all custom texts">
+                <Trash2 className="mr-4 h-5 w-5" />
+                <p>Remove all</p>
+              </Button>
+            )}
           </div>
 
           <div className="w-full h-full grid grid-cols-1 gap-4 md:gap-6 content-start overflow-y-auto overflow-x-hidden pb-1">
