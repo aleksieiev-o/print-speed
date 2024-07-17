@@ -72,7 +72,13 @@ const TextsList: FC = observer((): ReactElement => {
                 ))}
               </>
             ) : (
-              <p className="text-center">No results were found at this time</p>
+              <>
+                {textFilter.length > 0 && filteredTextsList.length === 0 ? (
+                  <p className="text-center">No results were found at this time</p>
+                ) : (
+                  <p className="text-center">List is empty</p>
+                )}
+              </>
             )}
           </div>
         </CardContent>
