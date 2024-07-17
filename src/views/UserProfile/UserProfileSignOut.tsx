@@ -15,12 +15,12 @@ const UserProfileSignOut: FC = observer((): ReactElement => {
         <Button onClick={() => setDialogIsOpenSignOut(true)} variant={'default'} title={'Sign out'} disabled={signOutLoading} className={'min-w-[200px] lg:min-w-[240px]'}>
           {signOutLoading ? (
             <>
-              <Loader2 className={'h-4 w-4 mr-2 animate-spin'} />
+              <Loader2 className={'mr-4 h-5 w-5 animate-spin'} />
               <span>Please wait</span>
             </>
           ) : (
             <>
-              <LogOut className={'h-4 w-4 mr-2'} />
+              <LogOut className={'mr-4 h-5 w-5'} />
               <span>Sign out</span>
             </>
           )}

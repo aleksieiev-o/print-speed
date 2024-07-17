@@ -26,31 +26,31 @@ const ChangeGameStatusButton: FC = observer((): ReactElement => {
     return {
       [EGameActiveStatus.STOPPED]: {
         title: 'Run the game',
-        icon: <Play className={'w-4 h-4 mr-2'} />,
+        icon: <Play className={'mr-4 h-5 w-5'} />,
         newStatus: EGameActiveStatus.PREPARING,
         isDisabled: false,
       },
       [EGameActiveStatus.STARTED]: {
         title: 'Pause the game',
-        icon: <Pause className={'w-4 h-4 mr-2'} />,
+        icon: <Pause className={'mr-4 h-5 w-5'} />,
         newStatus: EGameActiveStatus.PAUSED,
         isDisabled: false,
       },
       [EGameActiveStatus.PAUSED]: {
         title: 'Resume the game',
-        icon: <Play className={'w-4 h-4 mr-2'} />,
+        icon: <Play className={'mr-4 h-5 w-5'} />,
         newStatus: EGameActiveStatus.RESUMED,
         isDisabled: false,
       },
       [EGameActiveStatus.RESUMED]: {
         title: 'Pause the game',
-        icon: <Pause className={'w-4 h-4 mr-2'} />,
+        icon: <Pause className={'mr-4 h-5 w-5'} />,
         newStatus: EGameActiveStatus.PAUSED,
         isDisabled: false,
       },
       [EGameActiveStatus.PREPARING]: {
         title: 'Preparing the game',
-        icon: <Loader2 className={'h-4 w-4 mr-2 animate-spin'} />,
+        icon: <Loader2 className={'mr-4 h-5 w-5 animate-spin'} />,
         newStatus: EGameActiveStatus.PREPARING,
         isDisabled: true,
       },
@@ -60,7 +60,8 @@ const ChangeGameStatusButton: FC = observer((): ReactElement => {
   return (
     <Button onClick={() => handleChangeGameActiveStatus(buttonBody.newStatus)} ref={elementRef} variant={'default'} disabled={buttonBody.isDisabled} title={buttonBody.title}>
       {buttonBody.icon}
-      {buttonBody.title}
+
+      <span>{buttonBody.title}</span>
     </Button>
   );
 });
