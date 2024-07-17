@@ -1,6 +1,6 @@
 import {FC, ReactElement} from 'react';
 import {ERouter} from '@/shared/Router';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {LucideIcon} from 'lucide-react';
 
 interface Props {
@@ -11,14 +11,16 @@ interface Props {
 
 const AppNavigationLink: FC<Props> = (props): ReactElement => {
   const {to, title, Icon} = props;
+  const defaultNavLinkClasses = 'p-4 font-md rounded-lg hover:bg-primary hover:text-secondary duration-400 ease-in-out';
 
   return (
-    <Link to={to} title={title} className={'p-4 font-md rounded-lg hover:bg-primary hover:text-secondary duration-400 ease-in-out'}>
+    <NavLink to={to} title={title} className={({isActive}) => [isActive ? `${defaultNavLinkClasses} bg-primary text-secondary` : defaultNavLinkClasses].join(' ')}>
       <div className="flex flex-row flex-nowrap items-center justify-start">
         <Icon className="mr-4 h-5 w-5" />
-        {title}
+
+        <span>{title}</span>
       </div>
-    </Link>
+    </NavLink>
   );
 };
 
