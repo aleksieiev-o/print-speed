@@ -81,7 +81,7 @@ export const AppAuthContext = createContext<AppAuthProviderState>(initialState);
 const AppAuthProvider: FC<PropsWithChildren> = observer((props): ReactElement => {
   const {children} = props;
 
-  const [updateProfile, updateProfileLoading] = useUpdateProfile(firebaseAuth);
+  const [updateUserProfile, updateProfileLoading] = useUpdateProfile(firebaseAuth);
   const [verifyBeforeUpdateEmail, verifyBeforeUpdateEmailLoading] = useVerifyBeforeUpdateEmail(firebaseAuth);
   const [sendPasswordResetEmail, sendPasswordResetEmailLoading] = useSendPasswordResetEmail(firebaseAuth);
   const [signInWithEmailAndPassword, , baseSignInLoading, baseSignInError] = useSignInWithEmailAndPassword(firebaseAuth);
@@ -89,6 +89,17 @@ const AppAuthProvider: FC<PropsWithChildren> = observer((props): ReactElement =>
   const [signOut, signOutLoading] = useSignOut(firebaseAuth);
 
   const authorizationStore = useAuthorizationStore();
+
+  const updateProfile = async (profile: Profile): Promise<boolean> => {
+    try {
+      const result = await updateUserProfile(profile);
+      await authorizationStore.reloadUserData();
+      return result;
+    } catch (err) {
+      console.warn(err);
+      return false;
+    }
+  };
 
   const baseSignIn = async (email: string, password: string): Promise<TUserCredential> => {
     authorizationStore.setAppAuthStatus(EAppAuthStatus.SIGN_IN);
