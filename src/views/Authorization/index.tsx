@@ -149,7 +149,7 @@ const Authorization: FC = observer((): ReactElement => {
                 </div>
 
                 <div className={'flex items-center justify-start'}>
-                  <p>{isSignInPage ? `"I don't have an account."` : 'I already have an account.'}</p>
+                  <p>{isSignInPage ? `I don't have an account.` : 'I already have an account.'}</p>
 
                   <Button onClick={() => handleToggleAuthRoute()} variant={'link'} disabled={baseSignInLoading || baseSignUpLoading} title={isSignInPage ? 'Sign up' : 'Sign in'}>
                     {isSignInPage ? 'Sign up' : 'Sign in'}
