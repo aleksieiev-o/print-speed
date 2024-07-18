@@ -20,7 +20,7 @@ const AppNavigationFooter: FC = observer((): ReactElement => {
 
   return (
     <>
-      {authorizationStore.user && (
+      {authorizationStore.isAuth && (
         <CardFooter className={'w-full grid grid-cols-[56px_1fr_48px] gap-2 overflow-hidden'}>
           <AppAvatar handleClick={() => navigate(ERouter.USER_PROFILE)} userImageSrc={''} userName={authorizationStore.userDN} />
 
@@ -29,8 +29,8 @@ const AppNavigationFooter: FC = observer((): ReactElement => {
               {authorizationStore.userDN}
             </span>
 
-            <span className={'w-full whitespace-nowrap text-ellipsis overflow-hidden'} title={authorizationStore.user.email || 'User email'}>
-              {authorizationStore.user.email || 'User email'}
+            <span className={'w-full whitespace-nowrap text-ellipsis overflow-hidden'} title={authorizationStore.userEmail || 'User email'}>
+              {authorizationStore.userEmail || 'User email'}
             </span>
           </div>
 

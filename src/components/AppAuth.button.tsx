@@ -13,7 +13,7 @@ const AppAuthButton: FC = observer((): ReactElement => {
 
   return (
     <>
-      {!authorizationStore.user && (
+      {!authorizationStore.isAuth && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant={'default'} size="icon" className="shadow-md" title={'Authorization menu'}>

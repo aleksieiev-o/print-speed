@@ -22,7 +22,7 @@ const ChangePasswordDialog: FC<Props> = observer((props): ReactElement => {
 
   const handleSendRequest = async () => {
     try {
-      await sendPasswordResetEmail(authorizationStore.user ? (authorizationStore.user.email as string) : '', undefined);
+      await sendPasswordResetEmail(authorizationStore.isAuth ? (authorizationStore.userEmail as string) : '', undefined);
 
       toast({
         title: 'Re-authentication is required',

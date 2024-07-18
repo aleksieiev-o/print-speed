@@ -29,7 +29,7 @@ const ChangeEmailDialog: FC<Props> = observer((props): ReactElement => {
 
   const isUserNeedsReAuth = () => {
     const currentDate = new Date();
-    const lastSignInDate = new Date(authorizationStore.user ? (authorizationStore.user.metadata.lastSignInTime as string) : '');
+    const lastSignInDate = new Date(authorizationStore.isAuth ? (authorizationStore.userMetadata?.lastSignInTime as string) : '');
 
     const datesDiff = currentDate.getTime() - lastSignInDate.getTime();
 

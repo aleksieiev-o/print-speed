@@ -58,6 +58,6 @@ export class SettingsStoreService implements ISettingsStoreService {
   }
 
   private getSettingsEndpoint(endpoint: ESettingsEndpoints | EBaseSettingsEndpoints): string {
-    return `${endpoint}`.replace('[id]', this.rootStore.authorizationStore.userUid);
+    return `${endpoint}`.replace('[id]', this.rootStore.authorizationStore.userUID);
   }
 }

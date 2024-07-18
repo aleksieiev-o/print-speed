@@ -48,7 +48,7 @@ export class TextsStoreService implements ITextsStoreService {
       const textKey = textRef.key!;
 
       const createdText: IText = {
-        author: this.rootStore.authorizationStore.userUid,
+        author: this.rootStore.authorizationStore.userUID,
         body: payload,
         charQuantity: payload.length,
         createdDate: new Date().toISOString(),
@@ -105,10 +105,10 @@ export class TextsStoreService implements ITextsStoreService {
   }
 
   private getCreatedTextsListEndpoint(): string {
-    return `${ETextsEndpoints.TEXTS_LIST}`.replace('[id]', this.rootStore.authorizationStore.userUid);
+    return `${ETextsEndpoints.TEXTS_LIST}`.replace('[id]', this.rootStore.authorizationStore.userUID);
   }
 
   private getCreatedTextByIdEndpoint(textId: string): string {
-    return `${ETextsEndpoints.TEXT_BY_ID}`.replace('[id]', this.rootStore.authorizationStore.userUid).replace('[textId]', textId);
+    return `${ETextsEndpoints.TEXT_BY_ID}`.replace('[id]', this.rootStore.authorizationStore.userUID).replace('[textId]', textId);
   }
 }

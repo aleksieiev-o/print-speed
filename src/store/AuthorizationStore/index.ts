@@ -1,7 +1,7 @@
 import {makeAutoObservable} from 'mobx';
 import {User} from '@firebase/auth';
 import {RootStore} from '@/store';
-import {onAuthStateChanged} from 'firebase/auth';
+import {onAuthStateChanged, UserMetadata} from 'firebase/auth';
 import {firebaseAuth} from '@/lib/firebase/firebase';
 import {DEFAULT_USER_DN} from '@/shared/appConstants';
 
@@ -14,8 +14,10 @@ export enum EAppAuthStatus {
 
 interface IAuthorizationStore {
   rootStore: RootStore;
-  user: User | null;
-  userLoading: boolean;
+  userUID: string;
+  userDN: string;
+  userEmail: string;
+  userMetadata: UserMetadata;
   userError: Error | undefined;
   appAuthStatus: EAppAuthStatus;
 }
@@ -23,8 +25,11 @@ interface IAuthorizationStore {
 export class AuthorizationStore implements IAuthorizationStore {
   rootStore: RootStore;
 
-  user: User | null = null;
-  userLoading = false;
+  private user: User | null = null;
+  userUID = '';
+  userDN = DEFAULT_USER_DN;
+  userEmail = '';
+  userMetadata: UserMetadata = {};
   userError: Error | undefined = undefined;
   appAuthStatus = EAppAuthStatus.UNDEFINED;
 
@@ -34,8 +39,6 @@ export class AuthorizationStore implements IAuthorizationStore {
     makeAutoObservable(this);
 
     onAuthStateChanged(firebaseAuth, async (user: User | null) => {
-      this.setUserLoading(true);
-
       await this.initApp(); // TODO change call-place of this method
 
       if (user && user.uid) {
@@ -43,29 +46,11 @@ export class AuthorizationStore implements IAuthorizationStore {
       } else {
         this.resetUserData();
       }
-
-      this.setUserLoading(false);
     });
-  }
-
-  get userUid(): string {
-    return this.user?.uid || ''; // TODO remove "|| ''" and fix it
-  }
-
-  get userDN(): string {
-    return this.user?.displayName || DEFAULT_USER_DN;
-  }
-
-  get userEmail(): string {
-    return this.user?.email || '';
   }
 
   get isAuth(): boolean {
     return Boolean(this.user);
-  }
-
-  get isUserLoading(): boolean {
-    return this.userLoading;
   }
 
   setAppAuthStatus(status: EAppAuthStatus): void {
@@ -77,9 +62,18 @@ export class AuthorizationStore implements IAuthorizationStore {
 
     if (firebaseAuth.currentUser) {
       this.user = firebaseAuth.currentUser;
+
+      this.setUserData(this.user);
     } else {
       this.resetUserData();
     }
+  }
+
+  private setUserData(user: User | null) {
+    this.userUID = user?.uid || '';
+    this.userDN = user?.displayName || DEFAULT_USER_DN;
+    this.userEmail = user?.email || '';
+    this.userMetadata = user?.metadata || {};
   }
 
   private async initApp(): Promise<void> {
@@ -103,10 +97,6 @@ export class AuthorizationStore implements IAuthorizationStore {
 
   private resetUserData(): void {
     this.user = null;
-  }
-
-  private setUserLoading(status: boolean): void {
-    this.userLoading = status;
   }
 
   // private setUserError(err: Error | undefined): void {
