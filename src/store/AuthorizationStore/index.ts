@@ -20,6 +20,7 @@ interface IAuthorizationStore {
   userMetadata: UserMetadata;
   userError: Error | undefined;
   appAuthStatus: EAppAuthStatus;
+  userLoading: boolean;
 }
 
 export class AuthorizationStore implements IAuthorizationStore {
@@ -32,6 +33,7 @@ export class AuthorizationStore implements IAuthorizationStore {
   userMetadata: UserMetadata = {};
   userError: Error | undefined = undefined;
   appAuthStatus = EAppAuthStatus.UNDEFINED;
+  userLoading = false;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
@@ -39,6 +41,8 @@ export class AuthorizationStore implements IAuthorizationStore {
     makeAutoObservable(this);
 
     onAuthStateChanged(firebaseAuth, async (user: User | null) => {
+      this.userLoading = true;
+
       await this.initApp(); // TODO change call-place of this method
 
       if (user && user.uid) {
@@ -46,6 +50,8 @@ export class AuthorizationStore implements IAuthorizationStore {
       } else {
         this.resetUserData();
       }
+
+      this.userLoading = false;
     });
   }
 
