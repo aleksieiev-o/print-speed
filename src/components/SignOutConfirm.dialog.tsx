@@ -49,7 +49,7 @@ const SignOutConfirmDialog: FC<Props> = (props): ReactElement => {
             </Button>
           </DialogClose>
 
-          <Button onClick={handleConfirm} disabled={signOutLoading} variant={'destructive'} title={'Sign out'}>
+          <Button onClick={handleConfirm} disabled={signOutLoading} variant={'default'} title={'Sign out'}>
             Sign out
           </Button>
         </DialogFooter>
