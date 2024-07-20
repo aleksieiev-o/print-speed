@@ -1,7 +1,7 @@
 import {Computer} from 'lucide-react';
 import {FC, ReactElement} from 'react';
 
-const AppNotDesktopMessage: FC = (): ReactElement => {
+const AppNotDesktopNotification: FC = (): ReactElement => {
   return (
     <section className="w-full h-full flex flex-col items-center justify-center gap-6">
       <Computer className="h-10 w-10" />
@@ -11,4 +11,4 @@ const AppNotDesktopMessage: FC = (): ReactElement => {
   );
 };
 
-export default AppNotDesktopMessage;
+export default AppNotDesktopNotification;
