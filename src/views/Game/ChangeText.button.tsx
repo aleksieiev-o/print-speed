@@ -15,10 +15,10 @@ const ChangeTextButton: FC = observer((): ReactElement => {
   };
 
   return (
-    <Button onClick={() => handleChangeText()} ref={elementRef} variant={'default'} title={'Set another text'}>
+    <Button onClick={() => handleChangeText()} ref={elementRef} variant={'default'} title={'Set random text'}>
       <RefreshCw className={'mr-4 h-5 w-5'} />
 
-      <span>Set another text</span>
+      <span>Set random text</span>
     </Button>
   );
 });
