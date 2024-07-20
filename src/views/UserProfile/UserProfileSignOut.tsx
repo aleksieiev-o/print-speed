@@ -12,7 +12,7 @@ const UserProfileSignOut: FC = observer((): ReactElement => {
   return (
     <>
       <div className={'w-full flex items-center justify-start 2md:justify-end'}>
-        <Button onClick={() => setDialogIsOpenSignOut(true)} variant={'default'} title={'Sign out'} disabled={signOutLoading} className={'min-w-[200px] lg:min-w-[240px]'}>
+        <Button onClick={() => setDialogIsOpenSignOut(true)} variant={'default'} title={'Sign out'} disabled={signOutLoading} className={'min-w-[200px] xl:min-w-[240px]'}>
           {signOutLoading ? (
             <>
               <Loader2 className={'mr-4 h-5 w-5 animate-spin'} />

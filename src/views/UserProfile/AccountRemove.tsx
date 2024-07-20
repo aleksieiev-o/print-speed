@@ -29,7 +29,7 @@ const AccountRemove: FC = observer((): ReactElement => {
           variant={'destructive'}
           title={'Remove account'}
           disabled={signOutLoading}
-          className={'min-w-[200px] lg:min-w-[240px]'}
+          className={'min-w-[200px] xl:min-w-[240px]'}
         >
           {signOutLoading || userRemoveLoading ? (
             <>

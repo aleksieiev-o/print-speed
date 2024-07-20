@@ -15,7 +15,7 @@ const ChangeTextButton: FC = observer((): ReactElement => {
   };
 
   return (
-    <Button onClick={() => handleChangeText()} ref={elementRef} variant={'default'} title={'Set random text'}>
+    <Button onClick={() => handleChangeText()} ref={elementRef} variant={'default'} title={'Set random text'} className="min-w-[200px] xl:min-w-[240px]">
       <RefreshCw className={'mr-4 h-5 w-5'} />
 
       <span>Set random text</span>

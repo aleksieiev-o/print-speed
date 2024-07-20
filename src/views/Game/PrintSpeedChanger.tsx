@@ -41,10 +41,10 @@ const PrintSpeedChanger: FC = observer((): ReactElement => {
   };
 
   return (
-    <div>
-      <p className={'mb-2'}>
+    <div className="flex flex-col gap-2">
+      <span className={'mb-2'}>
         Current print speed: <strong>{settingsStore.gameSettings.printSpeedLevel}</strong> symbols per minute ({currentSpeedLevelTitle})
-      </p>
+      </span>
 
       <Select
         onValueChange={(value) => changeLPM(value as EPrintSpeedLevelsList)}
@@ -52,7 +52,7 @@ const PrintSpeedChanger: FC = observer((): ReactElement => {
         disabled={isLoading}
         defaultValue={settingsStore.gameSettings.printSpeedLevel}
       >
-        <SelectTrigger title={'Change print speed'}>
+        <SelectTrigger title={'Change print speed'} className="w-[200px] xl:w-[240px]">
           <SelectValue placeholder={'Print speed'} />
         </SelectTrigger>
 

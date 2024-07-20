@@ -49,12 +49,14 @@ const Game: FC = observer((): ReactElement => {
           </div>
         </CardContent>
 
-        <CardFooter className={'grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-end'}>
-          {settingsStore.gameSettings?.printSpeedLevel ? <PrintSpeedChanger /> : <Skeleton className={'h-12 w-full bg-white/50'} />}
+        <CardFooter className={'flex flex-col xl:flex-row flex-nowrap xl:items-end items-start justify-between gap-6'}>
+          {settingsStore.gameSettings?.printSpeedLevel ? <PrintSpeedChanger /> : <Skeleton className={'h-12 w-full bg-white/50 min-w-[200px] xl:min-w-[240px]'} />}
 
-          <ChangeTextButton />
+          <div className="flex flex-col xl:flex-row flex-nowrap gap-6">
+            <ChangeTextButton />
 
-          <ChangeGameStatusButton />
+            <ChangeGameStatusButton />
+          </div>
         </CardFooter>
       </Card>
 

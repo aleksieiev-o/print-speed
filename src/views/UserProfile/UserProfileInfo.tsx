@@ -20,7 +20,7 @@ const UserProfileInfo: FC<Props> = observer((props): ReactElement => {
   return (
     <div className={'w-full flex flex-col 2md:flex-row gap-6 items-start 2md:items-center justify-start overflow-hidden'}>
       <div className={'w-full flex flex-row flex-row-nowrap gap-4 items-center justify-start overflow-hidden'}>
-        <h6 className={'lg:min-w-[150px] whitespace-nowrap'}>{itemTitle}</h6>
+        <h6 className={'xl:min-w-[150px] whitespace-nowrap'}>{itemTitle}</h6>
 
         {authorizationStore.userLoading ? (
           <Skeleton className={'h-5 w-[180px] bg-white/50'} />
@@ -32,9 +32,9 @@ const UserProfileInfo: FC<Props> = observer((props): ReactElement => {
       {withActionButton && (
         <>
           {authorizationStore.userLoading ? (
-            <Skeleton className={'h-12 min-w-[200px] lg:min-w-[240px] bg-white/50'} />
+            <Skeleton className={'h-12 min-w-[200px] xl:min-w-[240px] bg-white/50'} />
           ) : (
-            <Button onClick={handleClick} variant={'default'} title={buttonTitle} className={'min-w-[200px] lg:min-w-[240px]'}>
+            <Button onClick={handleClick} variant={'default'} title={buttonTitle} className={'min-w-[200px] xl:min-w-[240px]'}>
               {buttonValue}
             </Button>
           )}
