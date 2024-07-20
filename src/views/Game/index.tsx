@@ -18,15 +18,15 @@ import {Skeleton} from '@/components/ui/skeleton';
 import {useSettingsStore} from '@/store/hooks';
 
 const Game: FC = observer((): ReactElement => {
-  const {IsNotDesktop} = useDesktopDevice();
+  const {isNotDesktop} = useDesktopDevice();
   const navigate = useNavigate();
   const settingsStore = useSettingsStore();
 
   useEffect(() => {
-    if (IsNotDesktop) {
+    if (isNotDesktop) {
       navigate(ERouter.HOME, {replace: true});
     }
-  }, [IsNotDesktop, navigate]);
+  }, [isNotDesktop, navigate]);
 
   return (
     <AppWrapper>
