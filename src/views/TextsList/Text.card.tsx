@@ -48,7 +48,7 @@ const TextCard: FC<Props> = observer((props): ReactElement => {
           <div className="flex flex-col gap-4 items-start justify-start">
             <CreateOrUpdateCreatedTextDialog createdText={text} mode={'update'} />
 
-            <Button onClick={() => setDialogRemoveIsOpen(true)} variant="destructive" className="min-w-[150px] shadow-md" title="Remove created text">
+            <Button onClick={() => setDialogRemoveIsOpen(true)} variant="destructive" className="min-w-[150px] shadow-md" title="Remove text">
               <Trash className="mr-4 h-5 w-5" />
               <p>Remove</p>
             </Button>

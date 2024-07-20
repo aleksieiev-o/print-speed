@@ -91,7 +91,7 @@ const TextsList: FC = observer((): ReactElement => {
         dialogTitle={'Remove all created texts confirmation'}
         dialogDescription={'You are about to remove all created texts.'}
         dialogQuestion={'Are you sure you want to remove all created texts?'}
-        btnTitle={'Remove created texts'}
+        btnTitle={'Remove texts'}
         btnBody={'Remove'}
         successCallbackDesc="All created texts have successfully removed."
       />

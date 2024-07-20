@@ -8,6 +8,7 @@ import ChangeEmailDialog from './ChangeEmail.dialog';
 import ChangePasswordDialog from './ChangePassword.dialog';
 import {observer} from 'mobx-react-lite';
 import {useAuthorizationStore} from '@/store/hooks';
+import AccountRemove from './AccountRemove';
 
 const UserProfile: FC = observer((): ReactElement => {
   const [dialogIsOpenChangeDisplayName, setDialogIsOpenChangeDisplayName] = useState<boolean>(false);
@@ -49,6 +50,8 @@ const UserProfile: FC = observer((): ReactElement => {
           />
 
           <UserProfileSignOut />
+
+          <AccountRemove />
         </CardContent>
       </Card>
 
