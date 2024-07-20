@@ -28,7 +28,15 @@ export enum ERouterTitle {
   NOT_FOUND = 'Page not found',
 }
 
-export const router = createBrowserRouter([
+export const baseRouter = createBrowserRouter([
+  {path: ERouter.HOME, element: <Home />},
+  {
+    path: ERouter.NOT_FOUND,
+    element: <Navigate to={ERouter.HOME} replace={true} />,
+  },
+]);
+
+export const fullRouter = createBrowserRouter([
   {path: ERouter.HOME, element: <Home />},
   {path: ERouter.GAME, element: <Game />},
   {path: ERouter.TEXTS_LIST, element: <TextsList />},
