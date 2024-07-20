@@ -53,9 +53,10 @@ const TextsList: FC = observer((): ReactElement => {
             <CreateOrUpdateCreatedTextDialog createdText={{} as IText} mode={'create'} />
 
             {textsStore.createdTextsList.length > 0 && (
-              <Button onClick={() => setDialogRemoveAllIsOpen(true)} variant="destructive" className="min-w-[150px] shadow-md" title="Remove all created texts">
-                <Trash2 className="mr-4 h-5 w-5" />
-                <p>Remove all</p>
+              <Button onClick={() => setDialogRemoveAllIsOpen(true)} variant="destructive" className="xl:min-w-[150px] gap-4 shadow-md" title="Remove all created texts">
+                <Trash2 className="h-5 w-5" />
+
+                <span className="hidden xl:inline">Remove all</span>
               </Button>
             )}
           </div>

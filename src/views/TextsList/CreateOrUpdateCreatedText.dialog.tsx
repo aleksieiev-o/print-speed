@@ -107,14 +107,14 @@ const CreateOrUpdateCreatedTextDialog: FC<Props> = observer((props: Props): Reac
   const dialogContent = useMemo(() => {
     if (mode === 'create') {
       return {
-        icon: <Plus className="mr-4 h-5 w-5" />,
+        icon: <Plus className="h-5 w-5" />,
         title: 'Create text',
         btnTitle: 'Create',
       };
     }
 
     return {
-      icon: <Pencil className="mr-4 h-5 w-5" />,
+      icon: <Pencil className="h-5 w-5" />,
       title: 'Edit text',
       btnTitle: 'Edit',
     };
@@ -123,10 +123,10 @@ const CreateOrUpdateCreatedTextDialog: FC<Props> = observer((props: Props): Reac
   return (
     <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
       <DialogTrigger asChild>
-        <Button variant={'default'} title={dialogContent.title} className="min-w-[150px] shadow-md">
+        <Button variant={'default'} title={dialogContent.title} className="xl:min-w-[150px] gap-4 shadow-md">
           {dialogContent.icon}
 
-          <span>{dialogContent.btnTitle}</span>
+          <span className="hidden xl:inline">{dialogContent.btnTitle}</span>
         </Button>
       </DialogTrigger>
 
